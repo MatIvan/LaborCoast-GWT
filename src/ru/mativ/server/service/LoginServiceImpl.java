@@ -7,7 +7,9 @@ import ru.mativ.client.service.exception.LoginFialException;
 import ru.mativ.server.ServerPasswordUtil;
 import ru.mativ.server.repository.UserRepository;
 import ru.mativ.server.session.SessionController;
+import ru.mativ.server.session.UserSession;
 import ru.mativ.shared.UserDto;
+import ru.mativ.shared.UserSessionDto;
 
 @SuppressWarnings("serial")
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
@@ -15,7 +17,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
     private UserRepository userRepository = UserRepository.getInstance();
 
     @Override
-    public String makeToken(String login, String pass) throws LoginFialException {
+    public UserSessionDto makeToken(String login, String pass) throws LoginFialException {
         String ip = getThreadLocalRequest().getRemoteAddr();
         System.out.println("LoginServiceImpl > makeToken > "
                 + " login=" + login
@@ -28,11 +30,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
         }
 
         String token = ServerPasswordUtil.generateToken();
-        SessionController.instance().put(token, ip, user);
+        UserSession session = SessionController.instance().registerUser(token, ip, user);
 
-        System.out.println("LoginServiceImpl > makeToken > " + user + ", token=" + token);
-
-        return token;
+        System.out.println("LoginServiceImpl > makeToken > " + session);
+        return new UserSessionDto(session.getToken(), session.getUserDto());
     }
 
 }

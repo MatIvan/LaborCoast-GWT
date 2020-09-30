@@ -52,7 +52,7 @@ public class UserSession implements Principal {
 
     @Override
     public String toString() {
-        return "Session [ip=" + ip + ", token=" + token + ", lastTime=" + lastTime + "]";
+        return "UserSession [ip=" + ip + ", token=" + token + ", lastTime=" + lastTime + ", userDto=" + userDto + "]";
     }
 
     @Override

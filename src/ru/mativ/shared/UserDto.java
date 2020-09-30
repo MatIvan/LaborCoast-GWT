@@ -9,8 +9,10 @@ public class UserDto implements Serializable {
     private String name;
     private String mail;
 
+    public UserDto() {
+    }
+
     public UserDto(String login, String name, String mail) {
-        super();
         this.login = login;
         this.name = name;
         this.mail = mail;

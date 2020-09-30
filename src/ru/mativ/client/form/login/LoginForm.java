@@ -16,6 +16,7 @@ import ru.mativ.client.LaborCoast;
 import ru.mativ.client.service.LoginServiceAsync;
 import ru.mativ.client.service.RequestService;
 import ru.mativ.shared.NullCommand;
+import ru.mativ.shared.UserSessionDto;
 
 public class LoginForm extends Composite {
     private static final LoginServiceAsync loginService = LaborCoast.getLoginService();
@@ -63,24 +64,21 @@ public class LoginForm extends Composite {
         };
     }
 
-    private AsyncCallback<String> getLoginCallBack() {
-        return new AsyncCallback<String>() {
+    private AsyncCallback<UserSessionDto> getLoginCallBack() {
+        return new AsyncCallback<UserSessionDto>() {
 
             @Override
             public void onFailure(Throwable caught) {
-                requestService.setToken(null);
+                requestService.setUserSession(null);
                 resultMessage.setText("Logging is Failure: " + caught.getMessage());
             }
 
             @Override
-            public void onSuccess(String result) {
-                if (result == null || result.isEmpty()) {
-                    requestService.setToken(null);
-                    resultMessage.setText("Logging is Failure: empty token.");
-                    return;
-                }
-                requestService.setToken(result);
-                resultMessage.setText("Logging is Success.");
+            public void onSuccess(UserSessionDto result) {
+                requestService.setUserSession(result);
+
+                String resultMessageText = (result == null ? "Failure: Empty session." : "Success: " + requestService.getUser());
+                resultMessage.setText("Logging is " + resultMessageText);
                 onLoginSuccess.execute();
             }
         };

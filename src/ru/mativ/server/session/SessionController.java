@@ -47,11 +47,12 @@ public class SessionController {
         userSession.setUserDto(session.getUserDto());
     }
 
-    public void put(String token, String ip, UserDto userDto) {
+    public UserSession registerUser(String token, String ip, UserDto userDto) {
         long time = System.currentTimeMillis();
         UserSession session = new UserSession(ip, token, time);
         session.setUserDto(userDto);
         sessionMap.put(token, session);
+        return session;
     }
 
 }

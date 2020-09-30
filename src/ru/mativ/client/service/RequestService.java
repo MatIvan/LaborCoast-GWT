@@ -9,11 +9,13 @@ import com.google.gwt.user.client.Command;
 
 import ru.mativ.shared.HeaderName;
 import ru.mativ.shared.NullCommand;
+import ru.mativ.shared.UserDto;
+import ru.mativ.shared.UserSessionDto;
 
 public class RequestService {
     private final static RequestService instance = new RequestService();
 
-    private String token;
+    private UserSessionDto session;
     private Command onUnauthorized = new NullCommand();
 
     private RequestService() {
@@ -27,12 +29,21 @@ public class RequestService {
         this.onUnauthorized = onUnauthorized == null ? new NullCommand() : onUnauthorized;
     }
 
-    public void setToken(String newToken) {
-        this.token = newToken;
+    public void setUserSession(UserSessionDto session) {
+        this.session = session;
+    }
+
+    public UserDto getUser() {
+        return (session == null ? null : session.getUserDto());
+    }
+
+    private String getToken() {
+        return (session == null ? null : session.getToken());
     }
 
     public void send(final RequestBuilder rb) {
 
+        String token = getToken();
         if (token != null) {
             rb.setHeader(HeaderName.TOKEN, token);
         }

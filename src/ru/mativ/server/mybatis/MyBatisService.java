@@ -1,9 +1,9 @@
 package ru.mativ.server.mybatis;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Reader;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -21,7 +21,7 @@ public class MyBatisService {
     private UserMapper userMapper;
 
     private MyBatisService() {
-        sqlSessionFactory = loadConfig(AppConfig.myBatisConfigPath());
+        sqlSessionFactory = getFactoryByConfig(AppConfig.myBatisConfigPath());
         session = sqlSessionFactory.openSession();
         userMapper = session.getMapper(UserMapper.class);
     }
@@ -30,14 +30,16 @@ public class MyBatisService {
         return instance;
     }
 
-    private SqlSessionFactory loadConfig(String path) {
-        try {
-            Reader reader = Resources.getResourceAsReader(path);
-            return new SqlSessionFactoryBuilder().build(reader);
+    private SqlSessionFactory getFactoryByConfig(String path) {
+        try (FileInputStream stream = new FileInputStream(path)) {
+            return new SqlSessionFactoryBuilder().build(stream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            System.err.println("Cannot load myBasis config file.");
             e.printStackTrace();
         }
+
+        System.err.println("Cannot load myBasis config file.");
         return null;
     }
 

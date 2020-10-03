@@ -1,10 +1,10 @@
-package ru.mativ.server;
+package ru.mativ.tools;
 
 import java.security.MessageDigest;
 import java.util.Formatter;
 import java.util.UUID;
 
-public class ServerPasswordUtil {
+public class PasswordUtil {
     public static String calcSHA1Hash(String arg) {
         String hash = null;
         try {

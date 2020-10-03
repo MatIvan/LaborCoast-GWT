@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="application.greeting.message">Hello! (../conf/laborcoast-config.xml)</entry>
+
+    <entry key="mybatis.config.path">../conf/MyBatis-config.xml</entry>
+
+</properties>

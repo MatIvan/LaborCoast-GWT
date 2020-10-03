@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import ru.mativ.server.mybatis.mappers.UserMapper;
+import ru.mativ.tools.AppConfig;
 
 public class MyBatisService {
 
@@ -20,7 +21,7 @@ public class MyBatisService {
     private UserMapper userMapper;
 
     private MyBatisService() {
-        sqlSessionFactory = loadConfig("ru/mativ/MyBatis-config.xml"); // TODO: move to parameters
+        sqlSessionFactory = loadConfig(AppConfig.myBatisConfigPath());
         session = sqlSessionFactory.openSession();
         userMapper = session.getMapper(UserMapper.class);
     }

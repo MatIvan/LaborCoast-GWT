@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import ru.mativ.client.form.MainForm;
 import ru.mativ.client.form.login.LoginForm;
+import ru.mativ.client.form.login.LoginFormView;
 import ru.mativ.client.service.GreetingService;
 import ru.mativ.client.service.GreetingServiceAsync;
 import ru.mativ.client.service.LoginService;
@@ -40,14 +41,16 @@ public class LaborCoast implements EntryPoint {
     }
 
     private void showLoginForm() {
-        RootPanel.get().clear();
-        RootPanel.get().add(new LoginForm(new Command() {
-
+        LoginForm loginForm = new LoginForm(new LoginFormView());
+        loginForm.setOnLoginSuccessCommand(new Command() {
             @Override
             public void execute() {
                 showMainForm();
             }
-        }));
+        });
+
+        RootPanel.get().clear();
+        RootPanel.get().add(loginForm.asWidget());
     }
 
     private void showMainForm() {

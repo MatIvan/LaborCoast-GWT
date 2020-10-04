@@ -61,4 +61,8 @@ public class LoginForm {
     public void setOnLoginSuccessCommand(Command onLoginSuccess) {
         this.onLoginSuccess = onLoginSuccess;
     }
+
+    public void setOnRegistrationClicked(Command onRegistrationClicked) {
+        view.setOnRegistrationClicked(onRegistrationClicked);
+    }
 }

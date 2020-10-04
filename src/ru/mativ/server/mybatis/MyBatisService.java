@@ -46,4 +46,13 @@ public class MyBatisService {
     public UserMapper getUserMapper() {
         return userMapper;
     }
+
+    public void commit() {
+        session.commit();
+    }
+
+    public void rollback() {
+        session.rollback();
+    }
+
 }

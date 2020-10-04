@@ -4,6 +4,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import ru.mativ.client.service.LoginService;
 import ru.mativ.client.service.exception.LoginFialException;
+import ru.mativ.client.service.exception.RegistrationException;
 import ru.mativ.server.repository.UserRepository;
 import ru.mativ.server.session.SessionController;
 import ru.mativ.server.session.UserSession;
@@ -37,6 +38,26 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 
         System.out.println("LoginServiceImpl > makeToken > " + session);
         return new UserSessionDto(session.getToken(), session.getUserDto());
+    }
+
+    @Override
+    public Void newUser(UserDto user, String pass) throws RegistrationException {
+        String ip = getThreadLocalRequest().getRemoteAddr();
+        System.out.println("LoginServiceImpl > newUser > "
+                + " user=" + user
+                + ", ip=" + ip);
+
+        UserDto oldUser = userRepository.getUserByLogin(user.getLogin());
+        if (oldUser != null) {
+            throw new RegistrationException("Login is in use by another user.");
+        }
+
+        String encodePass = PasswordUtil.calcSHA1Hash(pass);
+        if (!userRepository.insert(user, encodePass)) {
+            throw new RegistrationException("Cannot save user to data base.");
+        }
+
+        return null;
     }
 
 }

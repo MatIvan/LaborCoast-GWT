@@ -17,13 +17,6 @@ public class UserRepository {
     private UserRepository() {
     }
 
-    public UserDto getUserByLoginPass(String login, String pass) {
-        if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
-            return null;
-        }
-        return UserDao.makeDto(mapper().getByLoginPass(login, pass));
-    }
-
     private UserMapper mapper() {
         if (userMapper == null) {
             userMapper = MyBatisService.getInstance().getUserMapper();
@@ -31,4 +24,37 @@ public class UserRepository {
         return userMapper;
     }
 
+    private void commit() {
+        MyBatisService.getInstance().commit();
+    }
+
+    public void rollback() {
+        MyBatisService.getInstance().rollback();
+    }
+
+    public UserDto getUserByLoginPass(String login, String pass) {
+        if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
+            return null;
+        }
+        return UserDao.makeDto(mapper().getByLoginPass(login, pass));
+    }
+
+    public UserDto getUserByLogin(String login) {
+        return UserDao.makeDto(mapper().getByLogin(login));
+    }
+
+    public boolean insert(UserDto userDto, String pass) {
+        try {
+            mapper().insert(new UserDao(
+                    userDto.getLogin(),
+                    userDto.getName(),
+                    userDto.getMail(),
+                    pass));
+            commit();
+        } catch (Exception e) {
+            rollback();
+            return false;
+        }
+        return true;
+    }
 }

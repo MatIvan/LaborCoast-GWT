@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import ru.mativ.client.form.MainForm;
 import ru.mativ.client.form.login.LoginForm;
 import ru.mativ.client.form.login.LoginFormView;
+import ru.mativ.client.form.registration.RegistrationForm;
+import ru.mativ.client.form.registration.RegistrationFormView;
 import ru.mativ.client.service.GreetingService;
 import ru.mativ.client.service.GreetingServiceAsync;
 import ru.mativ.client.service.LoginService;
@@ -48,9 +50,27 @@ public class LaborCoast implements EntryPoint {
                 showMainForm();
             }
         });
-
+        loginForm.setOnRegistrationClicked(new Command() {
+            @Override
+            public void execute() {
+                showRegistrationForm();
+            }
+        });
         RootPanel.get().clear();
         RootPanel.get().add(loginForm.asWidget());
+    }
+
+    private void showRegistrationForm() {
+        RegistrationForm registrationForm = new RegistrationForm(new RegistrationFormView());
+        registrationForm.setOnRigistrationSuccessCommand(new Command() {
+            @Override
+            public void execute() {
+                showLoginForm();
+            }
+        });
+
+        RootPanel.get().clear();
+        RootPanel.get().add(registrationForm.asWidget());
     }
 
     private void showMainForm() {

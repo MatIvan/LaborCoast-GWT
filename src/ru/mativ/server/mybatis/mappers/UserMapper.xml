@@ -14,24 +14,22 @@
     </resultMap>
 
     <insert id="insert" parameterType="ru.mativ.server.repository.pojo.UserDao">
-        INSERT INTO user (LOGIN, NAME, MAIL, PASSWORD )
-        VALUES (#{login}, #{name}, #{mail}, #{password});
-        <!-- <selectKey keyProperty="id" resultType="int" order="AFTER"> select last_insert_id() as id </selectKey> -->
+        INSERT INTO user (LOGIN, NAME, MAIL, PASSWORD)
+        VALUES (#{login}, #{name},
+        #{mail}, #{password});
     </insert>
-
-    <select id="getAll" resultMap="UserDaoResult">
-        SELECT * FROM user;
-    </select>
-
-    <select id="getById" parameterType="int" resultMap="UserDaoResult">
-        SELECT * FROM user WHERE ID = #{id};
-    </select>
 
     <select id="getByLoginPass" resultMap="UserDaoResult">
         SELECT *
         FROM user
         WHERE login = #{login}
         AND password = #{pass};
+    </select>
+
+    <select id="getByLogin" resultMap="UserDaoResult">
+        SELECT *
+        FROM user
+        WHERE login = #{login};
     </select>
 
 </mapper>

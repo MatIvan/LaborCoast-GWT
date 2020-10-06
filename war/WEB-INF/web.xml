@@ -42,4 +42,8 @@
         <welcome-file>LaborCoast.html</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>ru.mativ.server.ApplicationInitializer</listener-class>
+    </listener>
+
 </web-app>

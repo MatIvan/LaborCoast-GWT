@@ -17,15 +17,16 @@ public class ApplicationConfigLoader {
 
     private static final String PROPERTIES_FILE = "configure/application.properties";
     private static final String LOGGING_CONFIG_FILE = "configure/logging.properties";
-    private static final String DB_CONFIG_FILE = "MyBatis-config.xml";
+    private static final String DB_CONFIG_FILE = "configure/MyBatis-config.xml";
 
     private Properties properties;
+    private SqlSessionFactory sqlSessionFactory;
 
     public ApplicationConfigLoader() {
-        loadLoggingConfigs(LOGGING_CONFIG_FILE);
-
         properties = new Properties();
+        loadLoggingConfigs(LOGGING_CONFIG_FILE);
         loadPropertiesFromFile(PROPERTIES_FILE);
+        loadSqlSessionFactory(DB_CONFIG_FILE);
     }
 
     private void loadPropertiesFromFile(String filename) {
@@ -46,18 +47,18 @@ public class ApplicationConfigLoader {
         }
     }
 
-    public SqlSessionFactory getSqlSessionFactory() {
-        String filename = DB_CONFIG_FILE;
+    private void loadSqlSessionFactory(String filename) {
         try {
-            ClassLoader classLoader = ApplicationConfigLoader.class.getClassLoader();
-            InputStream stream = classLoader.getResourceAsStream(filename);
-            SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(stream);
+            InputStream stream = getInputStream(filename);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(stream);
             Log.info("MyBatis configs loaded from: " + filename);
-            return factory;
         } catch (Exception e) {
             Log.log(Level.SEVERE, "Can't load MyBatis configs from file: " + filename, e);
         }
-        return null;
+    }
+
+    public SqlSessionFactory getSqlSessionFactory() {
+        return sqlSessionFactory;
     }
 
     private InputStream getInputStream(String filename) {

@@ -1,76 +1,68 @@
 package ru.mativ.tools;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
- * Load prorerties from file.<br>
- * Priority:<br>
- * 1 - get file path from system environment by parametr name = "application.config.file"<br>
- * 2 - get path from application keys "-Dapplication.config.file="<br>
- * 3 - from classpath by file name "application-config.xml"<br>
- * If properties file is not exist, then all properties will be get from default fields.<br>
- * <br>
- * You may change propertie name in constructor.<br>
+ * Load prorerties from file "application-config.xml".<br>
  */
 public class ApplicationConfigLoader {
-    private static final String DEFAULT_PROPERTY_NAME = "application.config.file";
-    private static final String DEFAULT_FILE_NAME = "application-config.xml";
+    private static final Logger Log = Logger.getLogger("ApplicationConfigLoader");
+
+    private static final String PROPERTIES_FILE = "configure/application.properties";
+    private static final String LOGGING_CONFIG_FILE = "configure/logging.properties";
+    private static final String DB_CONFIG_FILE = "MyBatis-config.xml";
 
     private Properties properties;
-    private String propertyName;
 
-    /**
-     * Search property with name "application.config.file" in OS environment, application keys and classpath.<br>
-     * And load configurations from file with path from this properties.<br>
-     * By default file name is "application-config.xml"
-     */
     public ApplicationConfigLoader() {
-        this(DEFAULT_PROPERTY_NAME);
-    }
+        loadLoggingConfigs(LOGGING_CONFIG_FILE);
 
-    /**
-     * Search property with name <b>propertyName</b> in OS environment, application keys and classpath.<br>
-     * And load configurations from file with path from this properties.<br>
-     * By default file name is "application-config.xml"
-     */
-    public ApplicationConfigLoader(String propertyName) {
-        this.propertyName = propertyName;
-        init();
-    }
-
-    private void init() {
         properties = new Properties();
-        String fullPath = getFullPath();
+        loadPropertiesFromFile(PROPERTIES_FILE);
+    }
 
-        try (FileInputStream stream = new FileInputStream(fullPath)) {
-            properties.loadFromXML(stream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void loadPropertiesFromFile(String filename) {
+        try {
+            properties.load(getInputStream(filename));
+            Log.info("Properties loaded from: " + filename);
+        } catch (Exception e) {
+            Log.log(Level.SEVERE, "Can't load properties from file: " + filename, e);
         }
     }
 
-    private String getFullPath() {
-        String path;
-
-        // form gloabal operation system environment
-        path = System.getenv(propertyName);
-        if (path != null) {
-            return path;
+    private void loadLoggingConfigs(String filename) {
+        try {
+            LogManager.getLogManager().readConfiguration(getInputStream(filename));
+            Log.info("Logging configs loaded from: " + filename);
+        } catch (Exception e) {
+            Log.log(Level.SEVERE, "Can't load logging configs from file: " + filename, e);
         }
+    }
 
-        // form start application keys
-        path = System.getProperty(propertyName);
-        if (path != null) {
-            return path;
+    public SqlSessionFactory getSqlSessionFactory() {
+        String filename = DB_CONFIG_FILE;
+        try {
+            ClassLoader classLoader = ApplicationConfigLoader.class.getClassLoader();
+            InputStream stream = classLoader.getResourceAsStream(filename);
+            SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(stream);
+            Log.info("MyBatis configs loaded from: " + filename);
+            return factory;
+        } catch (Exception e) {
+            Log.log(Level.SEVERE, "Can't load MyBatis configs from file: " + filename, e);
         }
+        return null;
+    }
 
-        // default file name
-        return this.getClass().getClassLoader().getResource(DEFAULT_FILE_NAME).getFile();
+    private InputStream getInputStream(String filename) {
+        ClassLoader classLoader = ApplicationConfigLoader.class.getClassLoader();
+        return classLoader.getResourceAsStream(filename);
     }
 
     /**

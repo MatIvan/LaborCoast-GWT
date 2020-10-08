@@ -1,17 +1,15 @@
 package ru.mativ.server.mybatis;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import ru.mativ.server.mybatis.mappers.UserMapper;
-import ru.mativ.tools.AppConfig;
+import ru.mativ.tools.AppConf;
 
 public class MyBatisService {
+    private static final Logger Log = Logger.getLogger("MyBatisService");
 
     private static MyBatisService instance = new MyBatisService();
 
@@ -21,26 +19,14 @@ public class MyBatisService {
     private UserMapper userMapper;
 
     private MyBatisService() {
-        sqlSessionFactory = getFactoryByConfig(AppConfig.myBatisConfigPath());
+        sqlSessionFactory = AppConf.getSqlSessionFactory();
         session = sqlSessionFactory.openSession();
         userMapper = session.getMapper(UserMapper.class);
+        Log.info("MyBatis load success.");
     }
 
     public static MyBatisService getInstance() {
         return instance;
-    }
-
-    private SqlSessionFactory getFactoryByConfig(String path) {
-        try (FileInputStream stream = new FileInputStream(path)) {
-            return new SqlSessionFactoryBuilder().build(stream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.err.println("Cannot load myBasis config file.");
-        return null;
     }
 
     public UserMapper getUserMapper() {

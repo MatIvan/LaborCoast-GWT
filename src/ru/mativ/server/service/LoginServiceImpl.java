@@ -1,5 +1,7 @@
 package ru.mativ.server.service;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import ru.mativ.client.service.LoginService;
@@ -14,15 +16,14 @@ import ru.mativ.tools.PasswordUtil;
 
 @SuppressWarnings("serial")
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
+    private static final Logger Log = Logger.getLogger("LoginServiceImpl");
 
     private UserRepository userRepository = UserRepository.getInstance();
 
     @Override
     public UserSessionDto makeToken(String login, String pass) throws LoginFialException {
         String ip = getThreadLocalRequest().getRemoteAddr();
-        System.out.println("LoginServiceImpl > makeToken > "
-                + " login=" + login
-                + ", ip=" + ip);
+        Log.info("makeToken > login=" + login + ", ip=" + ip);
 
         String encodePass = PasswordUtil.calcSHA1Hash(pass);
         UserDto user = userRepository.getUserByLoginPass(login, encodePass);
@@ -33,16 +34,14 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
         String token = PasswordUtil.generateToken();
         UserSession session = SessionController.instance().registerUser(token, ip, user);
 
-        System.out.println("LoginServiceImpl > makeToken > " + session);
+        Log.info("makeToken > " + session);
         return new UserSessionDto(session.getToken(), session.getUserDto());
     }
 
     @Override
     public Void newUser(UserDto user, String pass) throws RegistrationException {
         String ip = getThreadLocalRequest().getRemoteAddr();
-        System.out.println("LoginServiceImpl > newUser > "
-                + " user=" + user
-                + ", ip=" + ip);
+        Log.info("newUser > user=" + user + ", ip=" + ip);
 
         UserDto oldUser = userRepository.getUserByLogin(user.getLogin());
         if (oldUser != null) {
@@ -54,6 +53,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
             throw new RegistrationException("Cannot save user to data base.");
         }
 
+        Log.info("newUser > created");
         return null;
     }
 

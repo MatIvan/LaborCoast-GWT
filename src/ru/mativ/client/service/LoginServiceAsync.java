@@ -11,5 +11,4 @@ public interface LoginServiceAsync {
     RequestBuilder makeToken(String login, String pass, AsyncCallback<UserSessionDto> callback);
 
     RequestBuilder newUser(UserDto user, String pass, AsyncCallback<Void> callback);
-
 }

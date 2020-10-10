@@ -5,13 +5,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.LaborCoast;
-import ru.mativ.client.service.LoginServiceAsync;
-import ru.mativ.client.service.RequestService;
+import ru.mativ.client.service.proxy.LoginServiceProxy;
 import ru.mativ.shared.UserDto;
 
 public class RegistrationForm {
-    private static final LoginServiceAsync loginService = LaborCoast.getLoginService();
-    private static final RequestService requestService = LaborCoast.getRequestService();
+    private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
 
     private RegistrationFormView view;
     private Command onRigistrationSuccess;
@@ -25,10 +23,10 @@ public class RegistrationForm {
         return new RegistrationFormViewHandler() {
             @Override
             public void onRegistrBtnClicked(RegistrationFormModel model) {
-                requestService.send(loginService.newUser(
+                loginService.newUser(
                         makeUserDto(model),
                         model.getPass(),
-                        getRegistrCallBack()));
+                        getRegistrCallBack());
             }
 
         };

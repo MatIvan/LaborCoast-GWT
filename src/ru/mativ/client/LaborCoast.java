@@ -12,11 +12,9 @@ import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.form.content.ContentForm;
 import ru.mativ.client.form.footer.FooterForm;
 import ru.mativ.client.form.header.HeaderForm;
-import ru.mativ.client.service.GreetingService;
-import ru.mativ.client.service.GreetingServiceAsync;
-import ru.mativ.client.service.LoginService;
-import ru.mativ.client.service.LoginServiceAsync;
 import ru.mativ.client.service.RequestService;
+import ru.mativ.client.service.proxy.GreetingServiceProxy;
+import ru.mativ.client.service.proxy.LoginServiceProxy;
 
 public class LaborCoast implements EntryPoint {
 
@@ -24,17 +22,18 @@ public class LaborCoast implements EntryPoint {
     private static final String CONTENT = "content";
     private static final String FOOTER = "footer";
 
-    private static final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-    private static final LoginServiceAsync loginService = GWT.create(LoginService.class);
-    private static final RequestService requestService = GWT.create(RequestService.class);
     private static final EventBus globalBus = GWT.create(SimpleEventBus.class);
 
-    static public GreetingServiceAsync getGreetingService() {
-        return greetingService;
+    private static final RequestService requestService = GWT.create(RequestService.class);
+    private static final GreetingServiceProxy greetingServiceProxy = GWT.create(GreetingServiceProxy.class);
+    private static final LoginServiceProxy loginServiceProxy = GWT.create(LoginServiceProxy.class);
+
+    static public GreetingServiceProxy getGreetingServiceProxy() {
+        return greetingServiceProxy;
     }
 
-    static public LoginServiceAsync getLoginService() {
-        return loginService;
+    static public LoginServiceProxy getLoginServiceProxy() {
+        return loginServiceProxy;
     }
 
     static public RequestService getRequestService() {

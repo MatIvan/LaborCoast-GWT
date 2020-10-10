@@ -10,13 +10,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.LaborCoast;
-import ru.mativ.client.service.GreetingServiceAsync;
-import ru.mativ.client.service.RequestService;
+import ru.mativ.client.service.proxy.GreetingServiceProxy;
 
 public class HomeForm extends Composite {
 
-    private static final GreetingServiceAsync greetingService = LaborCoast.getGreetingService();
-    private static final RequestService requestService = LaborCoast.getRequestService();
+    private static final GreetingServiceProxy greetingService = LaborCoast.getGreetingServiceProxy();
 
     public HomeForm() {
         initWidget(build());
@@ -32,7 +30,7 @@ public class HomeForm extends Composite {
 
             @Override
             public void onClick(ClickEvent event) {
-                requestService.send(greetingService.greetServer("Tiribonk", new AsyncCallback<String>() {
+                greetingService.greetServer("Tiribonk", new AsyncCallback<String>() {
 
                     @Override
                     public void onSuccess(String result) {
@@ -43,7 +41,7 @@ public class HomeForm extends Composite {
                     public void onFailure(Throwable caught) {
                         lbl.setText(caught.getMessage());
                     }
-                }));
+                });
             }
         });
 

@@ -1,4 +1,4 @@
-package ru.mativ.client.form;
+package ru.mativ.client.form.home;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,12 +13,12 @@ import ru.mativ.client.LaborCoast;
 import ru.mativ.client.service.GreetingServiceAsync;
 import ru.mativ.client.service.RequestService;
 
-public class MainForm extends Composite {
+public class HomeForm extends Composite {
 
     private static final GreetingServiceAsync greetingService = LaborCoast.getGreetingService();
-    private static final RequestService requestService = RequestService.getInstance();
+    private static final RequestService requestService = LaborCoast.getRequestService();
 
-    public MainForm() {
+    public HomeForm() {
         initWidget(build());
     }
 

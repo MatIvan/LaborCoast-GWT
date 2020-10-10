@@ -13,16 +13,10 @@ import ru.mativ.shared.UserDto;
 import ru.mativ.shared.UserSessionDto;
 
 public class RequestService {
-    private final static RequestService instance = new RequestService();
-
     private UserSessionDto session;
     private Command onUnauthorized = new NullCommand();
 
     private RequestService() {
-    }
-
-    public static RequestService getInstance() {
-        return instance;
     }
 
     public void setOnUnauthorizedCommand(Command onUnauthorized) {

@@ -11,7 +11,7 @@ import ru.mativ.shared.UserSessionDto;
 
 public class LoginForm {
     private static final LoginServiceAsync loginService = LaborCoast.getLoginService();
-    private static final RequestService requestService = RequestService.getInstance();
+    private static final RequestService requestService = LaborCoast.getRequestService();
 
     private LoginFormView view;
     private Command onLoginSuccess;

@@ -9,4 +9,6 @@ public interface NavigationEventHandler extends EventHandler {
     void toLogin(NavigationEvent navigationEvent);
 
     void toRegistration(NavigationEvent navigationEvent);
+
+    void toLogoff(NavigationEvent navigationEvent);
 }

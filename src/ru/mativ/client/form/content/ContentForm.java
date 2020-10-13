@@ -1,7 +1,6 @@
 package ru.mativ.client.form.content;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -14,10 +13,11 @@ import ru.mativ.client.form.login.LoginForm;
 import ru.mativ.client.form.login.LoginFormView;
 import ru.mativ.client.form.registration.RegistrationForm;
 import ru.mativ.client.form.registration.RegistrationFormView;
+import ru.mativ.client.service.proxy.LoginServiceProxy;
 
 public class ContentForm extends Composite {
-
-    private EventBus globalBus = LaborCoast.getEventBus();
+    private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
+    private static final EventBus globalBus = LaborCoast.getEventBus();
 
     private FlowPanel panel;
 
@@ -50,42 +50,39 @@ public class ContentForm extends Composite {
                 showRegistrationForm();
             }
 
+            @Override
+            public void toLogoff(NavigationEvent navigationEvent) {
+                // TODO Auto-generated method stub
+
+            }
+
         });
 
     }
 
     private void showLoginForm() {
+        if (loginService.isRegistered()) {
+            return;
+        }
         LoginForm loginForm = new LoginForm(new LoginFormView());
-        loginForm.setOnLoginSuccessCommand(new Command() {
-            @Override
-            public void execute() {
-                globalBus.fireEvent(new NavigationEvent(NavigationTarget.HOME));
-            }
-        });
-        loginForm.setOnRegistrationClicked(new Command() {
-            @Override
-            public void execute() {
-                globalBus.fireEvent(new NavigationEvent(NavigationTarget.REGISTRATION));
-            }
-        });
         panel.clear();
         panel.add(loginForm.asWidget());
     }
 
     private void showRegistrationForm() {
+        if (loginService.isRegistered()) {
+            return;
+        }
         RegistrationForm registrationForm = new RegistrationForm(new RegistrationFormView());
-        registrationForm.setOnRigistrationSuccessCommand(new Command() {
-            @Override
-            public void execute() {
-                globalBus.fireEvent(new NavigationEvent(NavigationTarget.LOGIN));
-            }
-        });
-
         panel.clear();
         panel.add(registrationForm.asWidget());
     }
 
     private void showHomeForm() {
+        if (!loginService.isRegistered()) {
+            globalBus.fireEvent(new NavigationEvent(NavigationTarget.LOGIN));
+            return;
+        }
         panel.clear();
         panel.add(new HomeForm());
     }

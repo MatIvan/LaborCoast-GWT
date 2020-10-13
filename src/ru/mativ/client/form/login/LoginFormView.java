@@ -2,7 +2,6 @@ package ru.mativ.client.form.login;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
@@ -11,10 +10,12 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import ru.mativ.client.event.navigation.NavigationTarget;
+import ru.mativ.client.fabrica.NavigateButtonsFabrica;
+
 public class LoginFormView extends Composite {
 
     private LoginFormViewHandler handler;
-    private Command onRegistrationClicked;
 
     private TextBox login;
     private PasswordTextBox pass;
@@ -35,8 +36,7 @@ public class LoginFormView extends Composite {
         Button sendBtn = new Button("Login");
         sendBtn.addClickHandler(getSendBtnHandler());
 
-        Button registrBtn = new Button("Registration");
-        registrBtn.addClickHandler(getRegistrBtnHandler());
+        Button registrBtn = NavigateButtonsFabrica.createButton(NavigationTarget.REGISTRATION);
 
         VerticalPanel mainPanel = new VerticalPanel();
         mainPanel.add(messageLabel);
@@ -62,17 +62,6 @@ public class LoginFormView extends Composite {
         };
     }
 
-    private ClickHandler getRegistrBtnHandler() {
-        return new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                if (onRegistrationClicked != null) {
-                    onRegistrationClicked.execute();
-                }
-            }
-        };
-    }
-
     public void setHandler(LoginFormViewHandler handler) {
         this.handler = handler;
     }
@@ -81,7 +70,4 @@ public class LoginFormView extends Composite {
         messageLabel.setText(message);
     }
 
-    public void setOnRegistrationClicked(Command onRegistrationClicked) {
-        this.onRegistrationClicked = onRegistrationClicked;
-    }
 }

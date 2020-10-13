@@ -13,7 +13,6 @@ import ru.mativ.client.LaborCoast;
 import ru.mativ.client.service.proxy.GreetingServiceProxy;
 
 public class HomeForm extends Composite {
-
     private static final GreetingServiceProxy greetingService = LaborCoast.getGreetingServiceProxy();
 
     public HomeForm() {

@@ -23,6 +23,10 @@ public class LoginServiceProxy implements LoginServiceAsync {
         return requestService.getUser();
     }
 
+    public boolean isRegistered() {
+        return getUser() != null;
+    }
+
     @Override
     public RequestBuilder makeToken(String login, String pass, AsyncCallback<UserSessionDto> callback) {
         requestService.send(loginService.makeToken(login, pass, callback));

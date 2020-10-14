@@ -82,7 +82,7 @@ public class HeaderForm extends Composite {
         panel.clear();
         Label userName = new Label(loginService.getUser().getName());
         panel.add(btnHome);
-        panel.add(userName);
         panel.add(btnLogoff);
+        panel.add(userName);
     }
 }

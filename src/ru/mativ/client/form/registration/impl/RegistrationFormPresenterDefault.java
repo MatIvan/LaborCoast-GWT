@@ -1,52 +1,45 @@
-package ru.mativ.client.form.registration;
+package ru.mativ.client.form.registration.impl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.LaborCoast;
 import ru.mativ.client.event.navigation.NavigationEvent;
 import ru.mativ.client.event.navigation.NavigationTarget;
+import ru.mativ.client.form.registration.RegistrationFormModel;
+import ru.mativ.client.form.registration.RegistrationFormPresenter;
+import ru.mativ.client.form.registration.RegistrationFormView;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
 import ru.mativ.shared.UserDto;
 
-public class RegistrationForm {
+public class RegistrationFormPresenterDefault implements RegistrationFormPresenter {
     private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
     private static final EventBus globalBus = LaborCoast.getEventBus();
 
-    private RegistrationFormView view;
-
-    public RegistrationForm(RegistrationFormView view) {
-        this.view = view;
-        view.setHandler(getRegistrationFormViewHandler());
-    }
-
-    private RegistrationFormViewHandler getRegistrationFormViewHandler() {
-        return new RegistrationFormViewHandler() {
-            @Override
-            public void onRegistrBtnClicked(RegistrationFormModel model) {
-                loginService.newUser(
-                        makeUserDto(model),
-                        model.getPass(),
-                        getRegistrCallBack());
-            }
-
-        };
-    }
+    private List<RegistrationFormView> viewList = new ArrayList<>();
 
     private AsyncCallback<Void> getRegistrCallBack() {
         return new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
-                view.setMessage("Registration is Failure: " + caught.getMessage());
+                setMessageForViews("Registration is Failure: " + caught.getMessage());
             }
 
             @Override
             public void onSuccess(Void result) {
-                view.setMessage("Logging is success.");
+                setMessageForViews("Logging is success.");
                 globalBus.fireEvent(new NavigationEvent(NavigationTarget.LOGIN));
             }
         };
+    }
+
+    private void setMessageForViews(String message) {
+        for (RegistrationFormView view : viewList) {
+            view.setMessage(message);
+        }
     }
 
     private UserDto makeUserDto(RegistrationFormModel model) {
@@ -56,8 +49,17 @@ public class RegistrationForm {
                 model.getMail());
     }
 
-    public Widget asWidget() {
-        return view.asWidget();
+    @Override
+    public void onRegistrBtnClicked(RegistrationFormModel model) {
+        loginService.newUser(
+                makeUserDto(model),
+                model.getPass(),
+                getRegistrCallBack());
+    }
+
+    @Override
+    public void addView(RegistrationFormView view) {
+        viewList.add(view);
     }
 
 }

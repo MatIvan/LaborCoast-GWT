@@ -1,21 +1,8 @@
 package ru.mativ.client.form.login;
 
-public class LoginFormModel {
+public interface LoginFormModel {
 
-    private String login;
-    private String password;
+    public String getLogin();
 
-    public LoginFormModel(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
+    public String getPassword();
 }

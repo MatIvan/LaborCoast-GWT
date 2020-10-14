@@ -1,6 +1,8 @@
 package ru.mativ.client.form.login;
 
-public interface LoginFormViewHandler {
+public interface LoginFormPresenter {
+
+    void addView(LoginFormView view);
 
     void onLoginBtnClicked(LoginFormModel model);
 

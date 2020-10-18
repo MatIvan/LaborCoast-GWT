@@ -1,7 +1,5 @@
 package ru.mativ.server.repository.pojo;
 
-import ru.mativ.shared.UserDto;
-
 public class UserDao {
 
     private int id;
@@ -63,13 +61,4 @@ public class UserDao {
         return "UserDao [id=" + id + ", login=" + login + ", name=" + name + ", mail=" + mail + ", password=" + password + "]";
     }
 
-    public static UserDto makeDto(UserDao userDao) {
-        if (userDao == null) {
-            return null;
-        }
-        return new UserDto(
-                userDao.getLogin(),
-                userDao.getName(),
-                userDao.getMail());
-    }
 }

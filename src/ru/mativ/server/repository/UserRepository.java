@@ -28,19 +28,30 @@ public class UserRepository {
         MyBatisService.getInstance().commit();
     }
 
-    public void rollback() {
+    private void rollback() {
         MyBatisService.getInstance().rollback();
+    }
+
+    public static UserDto makeUserDto(UserDao userDao) {
+        if (userDao == null) {
+            return null;
+        }
+        return new UserDto(
+                userDao.getId(),
+                userDao.getLogin(),
+                userDao.getName(),
+                userDao.getMail());
     }
 
     public UserDto getUserByLoginPass(String login, String pass) {
         if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
             return null;
         }
-        return UserDao.makeDto(mapper().getByLoginPass(login, pass));
+        return makeUserDto(mapper().getByLoginPass(login, pass));
     }
 
     public UserDto getUserByLogin(String login) {
-        return UserDao.makeDto(mapper().getByLogin(login));
+        return makeUserDto(mapper().getByLogin(login));
     }
 
     public boolean insert(UserDto userDto, String pass) {

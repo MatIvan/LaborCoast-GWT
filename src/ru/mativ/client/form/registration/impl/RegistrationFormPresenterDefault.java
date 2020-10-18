@@ -43,10 +43,11 @@ public class RegistrationFormPresenterDefault implements RegistrationFormPresent
     }
 
     private UserDto makeUserDto(RegistrationFormModel model) {
-        return new UserDto(
-                model.getLogin(),
-                model.getName(),
-                model.getMail());
+        UserDto user = new UserDto();
+        user.setLogin(model.getLogin());
+        user.setName(model.getName());
+        user.setMail(model.getMail());
+        return user;
     }
 
     @Override

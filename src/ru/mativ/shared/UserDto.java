@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class UserDto implements Serializable {
     private static final long serialVersionUID = 7801510757661880639L;
 
+    private Integer id;
     private String login;
     private String name;
     private String mail;
@@ -12,10 +13,19 @@ public class UserDto implements Serializable {
     public UserDto() {
     }
 
-    public UserDto(String login, String name, String mail) {
+    public UserDto(Integer id, String login, String name, String mail) {
+        this.id = id;
         this.login = login;
         this.name = name;
         this.mail = mail;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -44,7 +54,7 @@ public class UserDto implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDTO [login=" + login + ", name=" + name + ", mail=" + mail + "]";
+        return "UserDto [id=" + id + ", login=" + login + ", name=" + name + ", mail=" + mail + "]";
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import ru.mativ.server.mybatis.mappers.NoteMapper;
 import ru.mativ.server.mybatis.mappers.UserMapper;
 import ru.mativ.tools.AppConf;
 
@@ -17,11 +18,13 @@ public class MyBatisService {
     private SqlSession session;
 
     private UserMapper userMapper;
+    private NoteMapper noteMapper;
 
     private MyBatisService() {
         sqlSessionFactory = AppConf.getSqlSessionFactory();
         session = sqlSessionFactory.openSession();
         userMapper = session.getMapper(UserMapper.class);
+        noteMapper = session.getMapper(NoteMapper.class);
         Log.info("MyBatis load success.");
     }
 
@@ -31,6 +34,10 @@ public class MyBatisService {
 
     public UserMapper getUserMapper() {
         return userMapper;
+    }
+
+    public NoteMapper getNoteMapper() {
+        return noteMapper;
     }
 
     public void commit() {

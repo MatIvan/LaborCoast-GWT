@@ -2,8 +2,6 @@ package ru.mativ.server.service;
 
 import java.util.logging.Logger;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 import ru.mativ.client.service.LoginService;
 import ru.mativ.client.service.exception.LoginFialException;
 import ru.mativ.client.service.exception.RegistrationException;
@@ -15,7 +13,7 @@ import ru.mativ.shared.UserSessionDto;
 import ru.mativ.tools.PasswordUtil;
 
 @SuppressWarnings("serial")
-public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
+public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
     private static final Logger Log = Logger.getLogger("LoginServiceImpl");
 
     private UserRepository userRepository = UserRepository.getInstance();

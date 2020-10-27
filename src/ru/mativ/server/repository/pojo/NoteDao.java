@@ -5,7 +5,7 @@ import java.util.Date;
 public class NoteDao {
 
     private int id;
-    private int owner; //userId
+    private int userId;
     private int typeId;
     private String note;
     private String comment;
@@ -20,12 +20,12 @@ public class NoteDao {
         this.id = id;
     }
 
-    public int getOwner() {
-        return owner;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setOwner(int owner) {
-        this.owner = owner;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getTypeId() {

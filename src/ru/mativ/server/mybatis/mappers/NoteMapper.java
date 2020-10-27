@@ -9,5 +9,5 @@ import ru.mativ.server.repository.pojo.NoteDao;
 
 public interface NoteMapper {
 
-    List<NoteDao> getByOwnerAndDate(@Param("ownerId") int ownerId, @Param("date") Date date);
+    List<NoteDao> getByOwnerAndDate(@Param("userId") int userId, @Param("date") Date date);
 }

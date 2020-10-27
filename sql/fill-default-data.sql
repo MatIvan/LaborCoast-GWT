@@ -10,5 +10,5 @@ VALUES  (1, "ticket"),
         (3, "vacation");
 
 -- default notes
-INSERT INTO note (owner, type_id, note, comment, `day`)
+INSERT INTO note (user_id, type_id, note, comment, `day`)
 VALUES (1, 1, "Hellow World.", "first comment", DATE '2020-12-31');

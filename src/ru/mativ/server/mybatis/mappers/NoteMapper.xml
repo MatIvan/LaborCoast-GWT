@@ -7,7 +7,7 @@
 
     <resultMap id="NoteDaoResult" type="ru.mativ.server.repository.pojo.NoteDao">
         <result property="id" column="ID" />
-        <result property="owner" column="OWNER" />
+        <result property="userId" column="USER_ID" />
         <result property="typeId" column="TYPE_ID" />
         <result property="note" column="NOTE" />
         <result property="comment" column="COMMENT" />
@@ -17,7 +17,7 @@
 
     <select id="getByOwnerAndDate" resultMap="NoteDaoResult">
         SELECT *
-        WHERE OWNER = #{ownerId}
+        WHERE OWNER = #{userId}
         AND DATE = #{date};
     </select>
 

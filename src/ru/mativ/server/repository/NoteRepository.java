@@ -50,11 +50,11 @@ public class NoteRepository {
         return result;
     }
 
-    public List<NoteDto> getByOwnerAndDate(int ownerId, Date date) {
+    public List<NoteDto> getByOwnerAndDate(int userId, Date date) {
         if (date == null) {
             return null;
         }
-        List<NoteDao> list = mapper().getByOwnerAndDate(ownerId, date);
+        List<NoteDao> list = mapper().getByOwnerAndDate(userId, date);
         List<NoteDto> result = new ArrayList<>();
         for (NoteDao noteDao : list) {
             result.add(makeNoteDto(noteDao));

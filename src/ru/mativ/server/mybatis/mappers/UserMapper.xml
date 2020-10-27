@@ -5,28 +5,26 @@
 
 <mapper namespace="ru.mativ.server.mybatis.mappers.UserMapper">
 
-    <resultMap id="UserDaoResult" type="ru.mativ.server.repository.pojo.UserDao">
+    <resultMap id="UserBeanResult" type="ru.mativ.shared.bean.UserBean">
         <result property="id" column="ID" />
         <result property="login" column="LOGIN" />
         <result property="name" column="NAME" />
         <result property="mail" column="MAIL" />
-        <result property="password" column="PASSWORD" />
     </resultMap>
 
-    <insert id="insert" parameterType="ru.mativ.server.repository.pojo.UserDao">
+    <insert id="insert" parameterType="ru.mativ.shared.bean.UserBean">
         INSERT INTO user (LOGIN, NAME, MAIL, PASSWORD)
-        VALUES (#{login}, #{name},
-        #{mail}, #{password});
+        VALUES (#{user.login}, #{user.name}, #{user.mail}, #{password});
     </insert>
 
-    <select id="getByLoginPass" resultMap="UserDaoResult">
+    <select id="getByLoginPass" resultMap="UserBeanResult">
         SELECT *
         FROM user
         WHERE login = #{login}
         AND password = #{pass};
     </select>
 
-    <select id="getByLogin" resultMap="UserDaoResult">
+    <select id="getByLogin" resultMap="UserBeanResult">
         SELECT *
         FROM user
         WHERE login = #{login};

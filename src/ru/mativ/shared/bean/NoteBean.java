@@ -1,38 +1,31 @@
-package ru.mativ.server.repository.pojo;
+package ru.mativ.shared.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class NoteDao {
+public class NoteBean implements Serializable {
+    private static final long serialVersionUID = 3670593746358236347L;
 
-    private int id;
-    private int userId;
-    private int typeId;
+    private Integer id;
+    private Integer typeId;
     private String note;
     private String comment;
     private Date date;
-    private int hours;
+    private Integer hours;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
@@ -60,11 +53,15 @@ public class NoteDao {
         this.date = date;
     }
 
-    public int getHours() {
+    public Integer getHours() {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(Integer hours) {
         this.hours = hours;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 }

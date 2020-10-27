@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import ru.mativ.server.repository.pojo.NoteDao;
+import ru.mativ.shared.bean.NoteBean;
 
 public interface NoteMapper {
 
-    List<NoteDao> getByOwnerAndDate(@Param("userId") int userId, @Param("date") Date date);
+    List<NoteBean> getByUserIdAndDate(@Param("userId") int userId, @Param("date") Date date);
 }

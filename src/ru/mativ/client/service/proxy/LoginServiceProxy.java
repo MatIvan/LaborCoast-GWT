@@ -8,18 +8,18 @@ import ru.mativ.client.LaborCoast;
 import ru.mativ.client.service.LoginService;
 import ru.mativ.client.service.LoginServiceAsync;
 import ru.mativ.client.service.RequestService;
-import ru.mativ.shared.UserDto;
-import ru.mativ.shared.UserSessionDto;
+import ru.mativ.shared.bean.UserBean;
+import ru.mativ.shared.bean.UserSessionBean;
 
 public class LoginServiceProxy implements LoginServiceAsync {
     private static final RequestService requestService = LaborCoast.getRequestService();
     private static final LoginServiceAsync loginService = GWT.create(LoginService.class);
 
-    public void setUserSession(UserSessionDto session) {
+    public void setUserSession(UserSessionBean session) {
         requestService.setUserSession(session);
     }
 
-    public UserDto getUser() {
+    public UserBean getUser() {
         return requestService.getUser();
     }
 
@@ -28,13 +28,13 @@ public class LoginServiceProxy implements LoginServiceAsync {
     }
 
     @Override
-    public RequestBuilder makeToken(String login, String pass, AsyncCallback<UserSessionDto> callback) {
+    public RequestBuilder makeToken(String login, String pass, AsyncCallback<UserSessionBean> callback) {
         requestService.send(loginService.makeToken(login, pass, callback));
         return null;
     }
 
     @Override
-    public RequestBuilder newUser(UserDto user, String pass, AsyncCallback<Void> callback) {
+    public RequestBuilder newUser(UserBean user, String pass, AsyncCallback<Void> callback) {
         requestService.send(loginService.newUser(user, pass, callback));
         return null;
     }

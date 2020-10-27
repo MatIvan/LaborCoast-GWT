@@ -22,9 +22,9 @@ public class ApplicationInitializer implements ServletContextListener {
     }
 
     public void contextDestroyed(ServletContextEvent event) {
+        Log.info("");
         Log.info("#############");
         Log.info("#   STOP    #");
         Log.info("#############");
-        Log.info("");
     }
 }

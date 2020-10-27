@@ -13,7 +13,7 @@ import ru.mativ.client.form.login.LoginFormModel;
 import ru.mativ.client.form.login.LoginFormPresenter;
 import ru.mativ.client.form.login.LoginFormView;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
-import ru.mativ.shared.UserSessionDto;
+import ru.mativ.shared.bean.UserSessionBean;
 
 public class LoginFormPresenterDefault implements LoginFormPresenter {
     private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
@@ -21,8 +21,8 @@ public class LoginFormPresenterDefault implements LoginFormPresenter {
 
     private List<LoginFormView> viewList = new ArrayList<>();
 
-    private AsyncCallback<UserSessionDto> getLoginCallBack() {
-        return new AsyncCallback<UserSessionDto>() {
+    private AsyncCallback<UserSessionBean> getLoginCallBack() {
+        return new AsyncCallback<UserSessionBean>() {
 
             @Override
             public void onFailure(Throwable caught) {
@@ -31,7 +31,7 @@ public class LoginFormPresenterDefault implements LoginFormPresenter {
             }
 
             @Override
-            public void onSuccess(UserSessionDto result) {
+            public void onSuccess(UserSessionBean result) {
                 loginService.setUserSession(result);
                 String resultMessageText = (result == null ? "Failure: Empty session." : "Success: " + loginService.getUser());//TODO: it work for other class
                 setMessageForViews("Logging is " + resultMessageText);

@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.naming.AuthenticationException;
 
-import ru.mativ.shared.UserDto;
+import ru.mativ.shared.bean.UserBean;
 
 public class SessionController {
     private final static SessionController instance = new SessionController();
@@ -44,13 +44,13 @@ public class SessionController {
             throw new AuthenticationException("Session timeout.");
         }
 
-        userSession.setUserDto(session.getUserDto());
+        userSession.setUserBean(session.getUserBean());
     }
 
-    public UserSession registerUser(String token, String ip, UserDto userDto) {
+    public UserSession registerUser(String token, String ip, UserBean userBean) {
         long time = System.currentTimeMillis();
         UserSession session = new UserSession(ip, token, time);
-        session.setUserDto(userDto);
+        session.setUserBean(userBean);
         sessionMap.put(token, session);
         return session;
     }

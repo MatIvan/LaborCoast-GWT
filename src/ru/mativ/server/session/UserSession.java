@@ -2,14 +2,14 @@ package ru.mativ.server.session;
 
 import java.security.Principal;
 
-import ru.mativ.shared.UserDto;
+import ru.mativ.shared.bean.UserBean;
 
 public class UserSession implements Principal {
 
     private String ip;
     private String token;
     private Long lastTime;
-    private UserDto userDto;
+    private UserBean userBean;
 
     public UserSession(String ip, String token, Long lastTime) {
         super();
@@ -42,17 +42,17 @@ public class UserSession implements Principal {
         this.lastTime = lastTime;
     }
 
-    public UserDto getUserDto() {
-        return userDto;
+    public UserBean getUserBean() {
+        return userBean;
     }
 
-    public void setUserDto(UserDto userDto) {
-        this.userDto = userDto;
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
     }
 
     @Override
     public String toString() {
-        return "UserSession [ip=" + ip + ", token=" + token + ", lastTime=" + lastTime + ", userDto=" + userDto + "]";
+        return "UserSession [ip=" + ip + ", token=" + token + ", lastTime=" + lastTime + ", userBean=" + userBean + "]";
     }
 
     @Override

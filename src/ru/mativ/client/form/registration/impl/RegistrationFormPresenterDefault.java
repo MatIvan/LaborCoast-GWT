@@ -13,7 +13,7 @@ import ru.mativ.client.form.registration.RegistrationFormModel;
 import ru.mativ.client.form.registration.RegistrationFormPresenter;
 import ru.mativ.client.form.registration.RegistrationFormView;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
-import ru.mativ.shared.UserDto;
+import ru.mativ.shared.bean.UserBean;
 
 public class RegistrationFormPresenterDefault implements RegistrationFormPresenter {
     private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
@@ -42,18 +42,17 @@ public class RegistrationFormPresenterDefault implements RegistrationFormPresent
         }
     }
 
-    private UserDto makeUserDto(RegistrationFormModel model) {
-        UserDto user = new UserDto();
-        user.setLogin(model.getLogin());
-        user.setName(model.getName());
-        user.setMail(model.getMail());
-        return user;
+    private UserBean makeUserBean(RegistrationFormModel model) {
+        return new UserBean(
+                model.getLogin(),
+                model.getName(),
+                model.getMail());
     }
 
     @Override
     public void onRegistrBtnClicked(RegistrationFormModel model) {
         loginService.newUser(
-                makeUserDto(model),
+                makeUserBean(model),
                 model.getPass(),
                 getRegistrCallBack());
     }

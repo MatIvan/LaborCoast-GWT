@@ -2,8 +2,7 @@ package ru.mativ.server.repository;
 
 import ru.mativ.server.mybatis.MyBatisService;
 import ru.mativ.server.mybatis.mappers.UserMapper;
-import ru.mativ.server.repository.pojo.UserDao;
-import ru.mativ.shared.UserDto;
+import ru.mativ.shared.bean.UserBean;
 
 public class UserRepository {
 
@@ -32,38 +31,24 @@ public class UserRepository {
         MyBatisService.getInstance().rollback();
     }
 
-    public static UserDto makeUserDto(UserDao userDao) {
-        if (userDao == null) {
-            return null;
-        }
-        return new UserDto(
-                userDao.getId(),
-                userDao.getLogin(),
-                userDao.getName(),
-                userDao.getMail());
-    }
-
-    public UserDto getUserByLoginPass(String login, String pass) {
+    public UserBean getUserByLoginPass(String login, String pass) {
         if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
             return null;
         }
-        return makeUserDto(mapper().getByLoginPass(login, pass));
+        return mapper().getByLoginPass(login, pass);
     }
 
-    public UserDto getUserByLogin(String login) {
-        return makeUserDto(mapper().getByLogin(login));
+    public UserBean getUserByLogin(String login) {
+        return mapper().getByLogin(login);
     }
 
-    public boolean insert(UserDto userDto, String pass) {
+    public boolean insert(UserBean userBean, String pass) {
         try {
-            mapper().insert(new UserDao(
-                    userDto.getLogin(),
-                    userDto.getName(),
-                    userDto.getMail(),
-                    pass));
+            mapper().insert(userBean, pass);
             commit();
         } catch (Exception e) {
             rollback();
+            e.printStackTrace();
             return false;
         }
         return true;

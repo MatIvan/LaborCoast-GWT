@@ -9,11 +9,11 @@ import com.google.gwt.user.client.Command;
 
 import ru.mativ.shared.HeaderName;
 import ru.mativ.shared.NullCommand;
-import ru.mativ.shared.UserDto;
-import ru.mativ.shared.UserSessionDto;
+import ru.mativ.shared.bean.UserBean;
+import ru.mativ.shared.bean.UserSessionBean;
 
 public class RequestService {
-    private UserSessionDto session;
+    private UserSessionBean session;
     private Command onUnauthorized = new NullCommand();
 
     private RequestService() {
@@ -23,12 +23,12 @@ public class RequestService {
         this.onUnauthorized = onUnauthorized == null ? new NullCommand() : onUnauthorized;
     }
 
-    public void setUserSession(UserSessionDto session) {
+    public void setUserSession(UserSessionBean session) {
         this.session = session;
     }
 
-    public UserDto getUser() {
-        return (session == null ? null : session.getUserDto());
+    public UserBean getUser() {
+        return (session == null ? null : session.getUserBean());
     }
 
     private String getToken() {

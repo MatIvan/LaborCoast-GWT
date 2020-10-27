@@ -7,10 +7,10 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import ru.mativ.client.service.exception.LoginFialException;
-import ru.mativ.shared.NoteDto;
+import ru.mativ.shared.bean.NoteBean;
 
 @RemoteServiceRelativePath("note")
 public interface NoteService extends RemoteService {
 
-    List<NoteDto> getByDate(Date date) throws LoginFialException;
+    List<NoteBean> getByDate(Date date) throws LoginFialException;
 }

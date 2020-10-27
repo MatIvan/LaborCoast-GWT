@@ -5,7 +5,7 @@
 
 <mapper namespace="ru.mativ.server.mybatis.mappers.NoteMapper">
 
-    <resultMap id="NoteDaoResult" type="ru.mativ.server.repository.pojo.NoteDao">
+    <resultMap id="NoteBeanResult" type="ru.mativ.shared.bean.NoteBean">
         <result property="id" column="ID" />
         <result property="userId" column="USER_ID" />
         <result property="typeId" column="TYPE_ID" />
@@ -15,9 +15,9 @@
         <result property="hours" column="HOURS" />
     </resultMap>
 
-    <select id="getByOwnerAndDate" resultMap="NoteDaoResult">
+    <select id="getByUserIdAndDate" resultMap="NoteBeanResult">
         SELECT *
-        WHERE OWNER = #{userId}
+        WHERE USER_ID = #{userId}
         AND DATE = #{date};
     </select>
 

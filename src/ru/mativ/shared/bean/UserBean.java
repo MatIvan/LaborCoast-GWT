@@ -1,8 +1,8 @@
-package ru.mativ.shared;
+package ru.mativ.shared.bean;
 
 import java.io.Serializable;
 
-public class UserDto implements Serializable {
+public class UserBean implements Serializable {
     private static final long serialVersionUID = 7801510757661880639L;
 
     private Integer id;
@@ -10,10 +10,14 @@ public class UserDto implements Serializable {
     private String name;
     private String mail;
 
-    public UserDto() {
+    public UserBean() {
     }
 
-    public UserDto(Integer id, String login, String name, String mail) {
+    public UserBean(String login, String name, String mail) {
+        this(null, login, name, mail);
+    }
+
+    public UserBean(Integer id, String login, String name, String mail) {
         this.id = id;
         this.login = login;
         this.name = name;
@@ -54,7 +58,7 @@ public class UserDto implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDto [id=" + id + ", login=" + login + ", name=" + name + ", mail=" + mail + "]";
+        return "UserBean [id=" + id + ", login=" + login + ", name=" + name + ", mail=" + mail + "]";
     }
 
 }

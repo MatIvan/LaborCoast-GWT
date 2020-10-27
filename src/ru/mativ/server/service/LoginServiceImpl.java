@@ -8,8 +8,8 @@ import ru.mativ.client.service.exception.RegistrationException;
 import ru.mativ.server.repository.UserRepository;
 import ru.mativ.server.session.SessionController;
 import ru.mativ.server.session.UserSession;
-import ru.mativ.shared.UserDto;
-import ru.mativ.shared.UserSessionDto;
+import ru.mativ.shared.bean.UserBean;
+import ru.mativ.shared.bean.UserSessionBean;
 import ru.mativ.tools.PasswordUtil;
 
 @SuppressWarnings("serial")
@@ -19,12 +19,12 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
     private UserRepository userRepository = UserRepository.getInstance();
 
     @Override
-    public UserSessionDto makeToken(String login, String pass) throws LoginFialException {
+    public UserSessionBean makeToken(String login, String pass) throws LoginFialException {
         String ip = getThreadLocalRequest().getRemoteAddr();
         Log.info("makeToken > login=" + login + ", ip=" + ip);
 
         String encodePass = PasswordUtil.calcSHA1Hash(pass);
-        UserDto user = userRepository.getUserByLoginPass(login, encodePass);
+        UserBean user = userRepository.getUserByLoginPass(login, encodePass);
         if (user == null) {
             throw new LoginFialException("Login or Password fail.");
         }
@@ -33,15 +33,15 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
         UserSession session = SessionController.instance().registerUser(token, ip, user);
 
         Log.info("makeToken > " + session);
-        return new UserSessionDto(session.getToken(), session.getUserDto());
+        return new UserSessionBean(session.getToken(), session.getUserBean());
     }
 
     @Override
-    public Void newUser(UserDto user, String pass) throws RegistrationException {
+    public Void newUser(UserBean user, String pass) throws RegistrationException {
         String ip = getThreadLocalRequest().getRemoteAddr();
         Log.info("newUser > user=" + user + ", ip=" + ip);
 
-        UserDto oldUser = userRepository.getUserByLogin(user.getLogin());
+        UserBean oldUser = userRepository.getUserByLogin(user.getLogin());
         if (oldUser != null) {
             throw new RegistrationException("Login is in use by another user.");
         }

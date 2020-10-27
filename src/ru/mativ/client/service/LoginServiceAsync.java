@@ -3,12 +3,12 @@ package ru.mativ.client.service;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import ru.mativ.shared.UserDto;
-import ru.mativ.shared.UserSessionDto;
+import ru.mativ.shared.bean.UserBean;
+import ru.mativ.shared.bean.UserSessionBean;
 
 public interface LoginServiceAsync {
 
-    RequestBuilder makeToken(String login, String pass, AsyncCallback<UserSessionDto> callback);
+    RequestBuilder makeToken(String login, String pass, AsyncCallback<UserSessionBean> callback);
 
-    RequestBuilder newUser(UserDto user, String pass, AsyncCallback<Void> callback);
+    RequestBuilder newUser(UserBean user, String pass, AsyncCallback<Void> callback);
 }

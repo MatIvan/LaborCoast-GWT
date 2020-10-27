@@ -14,7 +14,7 @@ import ru.mativ.tools.PasswordUtil;
 
 @SuppressWarnings("serial")
 public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
-    private static final Logger Log = Logger.getLogger("LoginServiceImpl");
+    private static final Logger Log = Logger.getLogger(LoginServiceImpl.class.getName());
 
     private UserRepository userRepository = UserRepository.getInstance();
 

@@ -1,4 +1,4 @@
-package ru.mativ.tools;
+package ru.mativ.tools.log;
 
 import java.util.logging.ConsoleHandler;
 

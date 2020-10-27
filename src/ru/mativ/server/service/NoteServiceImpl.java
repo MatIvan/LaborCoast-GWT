@@ -12,7 +12,7 @@ import ru.mativ.shared.bean.UserBean;
 
 @SuppressWarnings("serial")
 public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
-    private static final Logger Log = Logger.getLogger("LoginServiceImpl");
+    private static final Logger Log = Logger.getLogger(NoteServiceImpl.class.getName());
 
     private NoteRepository noteRepository = NoteRepository.getInstance();
 

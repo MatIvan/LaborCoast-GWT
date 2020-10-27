@@ -13,7 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  * Load prorerties from file "application-config.xml".<br>
  */
 public class ApplicationConfigLoader {
-    private static final Logger Log = Logger.getLogger("ApplicationConfigLoader");
+    private static final Logger Log = Logger.getLogger(ApplicationConfigLoader.class.getName());
 
     private static final String PROPERTIES_FILE = "configure/application.properties";
     private static final String LOGGING_CONFIG_FILE = "configure/logging.properties";

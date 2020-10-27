@@ -10,7 +10,7 @@ import ru.mativ.server.mybatis.mappers.UserMapper;
 import ru.mativ.tools.AppConf;
 
 public class MyBatisService {
-    private static final Logger Log = Logger.getLogger("MyBatisService");
+    private static final Logger Log = Logger.getLogger(MyBatisService.class.getName());
 
     private static MyBatisService instance = new MyBatisService();
 

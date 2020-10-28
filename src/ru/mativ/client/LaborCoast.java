@@ -63,5 +63,4 @@ public class LaborCoast implements EntryPoint {
         RootPanel.get(CONTENT).add(new ContentForm());
         RootPanel.get(FOOTER).add(new FooterForm());
     }
-
 }

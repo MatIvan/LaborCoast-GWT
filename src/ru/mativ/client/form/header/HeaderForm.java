@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.LaborCoast;
 import ru.mativ.client.event.navigation.NavigationEvent;
@@ -17,26 +18,37 @@ public class HeaderForm extends Composite {
     private EventBus globalBus = LaborCoast.getEventBus();
     private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
 
-    private HorizontalPanel panel;
+    private VerticalPanel mainPanel;
+    private HorizontalPanel firstPanel;
+    private HorizontalPanel secondPanel;
 
     private Button btnHome;
     private Button btnLogin;
     private Button btnRegistration;
     private Button btnLogoff;
 
+    private Button btnNoteDay;
+
     public HeaderForm() {
         initGui();
         initHandlers();
         updateView();
-        initWidget(panel);
+        initWidget(mainPanel);
     }
 
     private void initGui() {
-        panel = new HorizontalPanel();
+        firstPanel = new HorizontalPanel();
         btnHome = NavigateButtonsFabrica.createButton(NavigationTarget.HOME);
         btnLogin = NavigateButtonsFabrica.createButton(NavigationTarget.LOGIN);
         btnRegistration = NavigateButtonsFabrica.createButton(NavigationTarget.REGISTRATION);
         btnLogoff = NavigateButtonsFabrica.createButton(NavigationTarget.LOGOFF);
+
+        secondPanel = new HorizontalPanel();
+        btnNoteDay = NavigateButtonsFabrica.createButton(NavigationTarget.NOTE_DAY);
+
+        mainPanel = new VerticalPanel();
+        mainPanel.add(firstPanel);
+        mainPanel.add(secondPanel);
     }
 
     private void initHandlers() {
@@ -60,6 +72,11 @@ public class HeaderForm extends Composite {
             public void toLogoff(NavigationEvent navigationEvent) {
                 updateView();
             }
+
+            @Override
+            public void toNoteDay(NavigationEvent navigationEvent) {
+                updateView();
+            }
         });
     }
 
@@ -72,17 +89,22 @@ public class HeaderForm extends Composite {
     }
 
     private void showUnregisteredView() {
-        panel.clear();
-        panel.add(btnHome);
-        panel.add(btnLogin);
-        panel.add(btnRegistration);
+        firstPanel.clear();
+        firstPanel.add(btnHome);
+        firstPanel.add(btnLogin);
+        firstPanel.add(btnRegistration);
+
+        secondPanel.clear();
     }
 
     private void showLoggedView() {
-        panel.clear();
+        firstPanel.clear();
         Label userName = new Label(loginService.getUser().getName());
-        panel.add(btnHome);
-        panel.add(btnLogoff);
-        panel.add(userName);
+        firstPanel.add(btnHome);
+        firstPanel.add(btnLogoff);
+        firstPanel.add(userName);
+
+        secondPanel.clear();
+        secondPanel.add(btnNoteDay);
     }
 }

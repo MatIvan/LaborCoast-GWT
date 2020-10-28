@@ -33,7 +33,7 @@ public class LoginFormPresenterDefault implements LoginFormPresenter {
             @Override
             public void onSuccess(UserSessionBean result) {
                 loginService.setUserSession(result);
-                String resultMessageText = (result == null ? "Failure: Empty session." : "Success: " + loginService.getUser());//TODO: it work for other class
+                String resultMessageText = (result == null ? "Failure: Empty session." : "Success: " + loginService.getUser());
                 setMessageForViews("Logging is " + resultMessageText);
                 globalBus.fireEvent(new NavigationEvent(NavigationTarget.HOME));
             }

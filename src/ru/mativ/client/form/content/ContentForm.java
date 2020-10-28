@@ -10,6 +10,7 @@ import ru.mativ.client.event.navigation.NavigationEventHandler;
 import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.form.home.HomeForm;
 import ru.mativ.client.form.login.impl.LoginFormViewDefault;
+import ru.mativ.client.form.notes.day.impl.NoteDayFormViewDefault;
 import ru.mativ.client.form.registration.impl.RegistrationFormViewDefault;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
 
@@ -51,11 +52,13 @@ public class ContentForm extends Composite {
             @Override
             public void toLogoff(NavigationEvent navigationEvent) {
                 // TODO Auto-generated method stub
-
             }
 
+            @Override
+            public void toNoteDay(NavigationEvent navigationEvent) {
+                showNoteDayForm();
+            }
         });
-
     }
 
     private void showLoginForm() {
@@ -81,5 +84,14 @@ public class ContentForm extends Composite {
         }
         panel.clear();
         panel.add(new HomeForm());
+    }
+
+    private void showNoteDayForm() {
+        if (!loginService.isRegistered()) {
+            globalBus.fireEvent(new NavigationEvent(NavigationTarget.LOGIN));
+            return;
+        }
+        panel.clear();
+        panel.add(new NoteDayFormViewDefault());
     }
 }

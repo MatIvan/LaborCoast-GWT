@@ -5,7 +5,8 @@ public enum NavigationTarget {
     HOME("Home"),
     LOGIN("Login"),
     REGISTRATION("Registration"),
-    LOGOFF("Exit");
+    LOGOFF("Exit"),
+    NOTE_DAY("Day notes");
 
     private String name;
 

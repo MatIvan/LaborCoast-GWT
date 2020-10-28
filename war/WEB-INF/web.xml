@@ -37,6 +37,16 @@
         <url-pattern>/laborcoast/login</url-pattern>
     </servlet-mapping>
 
+    <!-- remote logging -->
+    <servlet>
+        <servlet-name>remoteLogging</servlet-name>
+        <servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>remoteLogging</servlet-name>
+        <url-pattern>/laborcoast/remote_logging</url-pattern>
+    </servlet-mapping>
+
     <!-- Default page to serve -->
     <welcome-file-list>
         <welcome-file>LaborCoast.html</welcome-file>
@@ -45,5 +55,4 @@
     <listener>
         <listener-class>ru.mativ.server.ApplicationInitializer</listener-class>
     </listener>
-
 </web-app>

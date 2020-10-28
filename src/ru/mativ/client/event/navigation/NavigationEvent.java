@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.GwtEvent;
 
+import ru.mativ.client.LaborCoast;
+
 public class NavigationEvent extends GwtEvent<NavigationEventHandler> {
     private static final Logger Log = Logger.getLogger(NavigationEvent.class.getName());
     public static Type<NavigationEventHandler> TYPE = new Type<NavigationEventHandler>();
@@ -21,6 +23,8 @@ public class NavigationEvent extends GwtEvent<NavigationEventHandler> {
 
     @Override
     protected void dispatch(NavigationEventHandler handler) {
+        LaborCoast.getEventBus().fireEvent(new BeforeNavigationEvent(target));
+
         Log.fine("Dispatch NavigationEvent: target=" + target.toString());
         switch (target) {
             case HOME:
@@ -36,6 +40,7 @@ public class NavigationEvent extends GwtEvent<NavigationEventHandler> {
                 handler.toNoteDay(this);
                 break;
             case LOGOFF:
+                handler.toLogoff(this);
                 break;
             case NULL:
                 break;

@@ -8,8 +8,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.LaborCoast;
-import ru.mativ.client.event.navigation.NavigationEvent;
-import ru.mativ.client.event.navigation.NavigationEventHandler;
+import ru.mativ.client.event.navigation.BeforeNavigationEvent;
+import ru.mativ.client.event.navigation.BeforeNavigationEventHandler;
 import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.fabrica.NavigateButtonsFabrica;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
@@ -52,29 +52,9 @@ public class HeaderForm extends Composite {
     }
 
     private void initHandlers() {
-        globalBus.addHandler(NavigationEvent.TYPE, new NavigationEventHandler() {
+        globalBus.addHandler(BeforeNavigationEvent.TYPE, new BeforeNavigationEventHandler() {
             @Override
-            public void toHome(NavigationEvent navigationEvent) {
-                updateView();
-            }
-
-            @Override
-            public void toLogin(NavigationEvent navigationEvent) {
-                updateView();
-            }
-
-            @Override
-            public void toRegistration(NavigationEvent navigationEvent) {
-                updateView();
-            }
-
-            @Override
-            public void toLogoff(NavigationEvent navigationEvent) {
-                updateView();
-            }
-
-            @Override
-            public void toNoteDay(NavigationEvent navigationEvent) {
+            public void beforeNavigation(NavigationTarget target) {
                 updateView();
             }
         });

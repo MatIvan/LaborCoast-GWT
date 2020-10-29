@@ -7,7 +7,7 @@ import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
 public class MativFormatter extends Formatter {
-    private static final int SOURCE_NAME_SIZE = 40;
+    private static final int SOURCE_NAME_SIZE = 50;
     private static final String POSTFIX_FORMAT = "%5$s %n";
     private static final String FORMAT = "[%1$tF %1$tT] [%2$-7s] [%3$-" + SOURCE_NAME_SIZE + "." + SOURCE_NAME_SIZE + "s] %4$s %n";
 

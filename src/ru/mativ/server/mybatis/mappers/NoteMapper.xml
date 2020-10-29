@@ -11,14 +11,21 @@
         <result property="typeId" column="TYPE_ID" />
         <result property="note" column="NOTE" />
         <result property="comment" column="COMMENT" />
-        <result property="date" column="DATE" />
+        <result property="date" column="DAY" />
         <result property="hours" column="HOURS" />
     </resultMap>
 
     <select id="getByUserIdAndDate" resultMap="NoteBeanResult">
-        SELECT *
-        WHERE USER_ID = #{userId}
-        AND DATE = #{date};
+        SELECT  id,
+                user_id,
+                type_id,
+                note,
+                comment,
+                day,
+                hours
+        FROM note
+        WHERE user_id = #{userId}
+        AND day = cast((timestamp #{date}) as date);
     </select>
 
 </mapper>

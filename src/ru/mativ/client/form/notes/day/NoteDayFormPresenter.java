@@ -1,5 +1,10 @@
 package ru.mativ.client.form.notes.day;
 
+import java.util.Date;
+
 public interface NoteDayFormPresenter {
-    void addView(NoteDayFormView view);
+
+    void setView(NoteDayFormView view);
+
+    void update(final Date date);
 }

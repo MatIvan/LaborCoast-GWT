@@ -7,6 +7,7 @@ public class NoteBean implements Serializable {
     private static final long serialVersionUID = 3670593746358236347L;
 
     private Integer id;
+    private Integer userId;
     private Integer typeId;
     private String note;
     private String comment;
@@ -61,7 +62,11 @@ public class NoteBean implements Serializable {
         this.hours = hours;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

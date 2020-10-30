@@ -71,10 +71,8 @@ public class NoteDayFormPresenterDefault implements NoteDayFormPresenter {
 
     private List<NotesListRowData> makeNotesListRowData(List<NoteBean> dayNotes) {
         List<NotesListRowData> result = new ArrayList<>();
-        int row = 1;
         for (NoteBean bean : dayNotes) {
             NotesListRowData newBean = new NotesListRowData(
-                    row++,
                     typeMap.get(bean.getTypeId()),
                     bean.getNote(),
                     bean.getComment(),

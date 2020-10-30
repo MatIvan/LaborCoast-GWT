@@ -42,6 +42,10 @@ public class LoginFormViewDefault extends Composite implements LoginFormView {
         Label loginLabel = new Label("Login:");
         Label passLabel = new Label("Password:");
 
+        //Develop only
+        login.setValue("test");
+        pass.setValue("123");
+
         Button sendBtn = new Button("Login");
         sendBtn.addClickHandler(getSendBtnHandler());
 

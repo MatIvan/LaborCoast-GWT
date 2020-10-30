@@ -1,19 +1,27 @@
 package ru.mativ.client.form.notes.widgets.noteslist;
 
+import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.NumberCell;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 
-public enum NotesTableColumn {
+public enum NotesTableColumnType {
 
     ROW("#", "30px") {
         @Override
         public Column<NotesListRowData, ?> createColumn() {
-            NumberCell numberCell = new NumberCell();
-            return new Column<NotesListRowData, Number>(numberCell) {
+            Cell<Number> cell = new AbstractCell<Number>() {
+                @Override
+                public void render(Context context, Number value, SafeHtmlBuilder sb) {
+                    sb.append(context.getIndex() + 1);
+                }
+            };
+            return new Column<NotesListRowData, Number>(cell) {
                 @Override
                 public Integer getValue(NotesListRowData object) {
-                    return object.getRowNumber();
+                    return null;
                 }
             };
         }
@@ -73,7 +81,7 @@ public enum NotesTableColumn {
         return null;
     }
 
-    NotesTableColumn(String caption, String width) {
+    NotesTableColumnType(String caption, String width) {
         this.caption = caption;
         this.width = width;
     }

@@ -23,10 +23,10 @@ public class NotesTable extends Composite {
         table.setSelectionModel(makeSelectionModel());
         table.setWidth(TABLE_WIDTH);
 
-        addColumn(NotesTableColumn.ROW);
-        addColumn(NotesTableColumn.NOTE);
-        addColumn(NotesTableColumn.COMMENT);
-        addColumn(NotesTableColumn.HOURS);
+        addColumn(NotesTableColumnType.ROW);
+        addColumn(NotesTableColumnType.NOTE);
+        addColumn(NotesTableColumnType.COMMENT);
+        addColumn(NotesTableColumnType.HOURS);
 
         initWidget(table);
     }
@@ -35,7 +35,7 @@ public class NotesTable extends Composite {
         table.setRowData(rows);
     }
 
-    private void addColumn(NotesTableColumn column) {
+    private void addColumn(NotesTableColumnType column) {
         Column<NotesListRowData, ?> tableColumn = column.createColumn();
         table.addColumn(tableColumn, column.getCaption());
         table.setColumnWidth(tableColumn, column.getWidth());

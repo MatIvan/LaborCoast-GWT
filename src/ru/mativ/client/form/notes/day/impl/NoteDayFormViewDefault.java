@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -12,7 +13,9 @@ import com.google.gwt.user.client.ui.Widget;
 import ru.mativ.client.form.notes.day.NoteDayFormModel;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
 import ru.mativ.client.form.notes.day.NoteDayFormView;
+import ru.mativ.client.form.notes.widgets.noteslist.NotesListRowData;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTable;
+import ru.mativ.client.form.notes.widgets.noteslist.NotesTableHandler;
 
 public class NoteDayFormViewDefault extends Composite implements NoteDayFormView {
 
@@ -35,7 +38,7 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
 
     private Widget buildGui() {
         dateLabel = new Label();
-        table = new NotesTable();
+        table = new NotesTable(getNotesTableHandler());
 
         VerticalPanel mainPanel = new VerticalPanel();
         mainPanel.add(dateLabel);
@@ -56,5 +59,22 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
             dateString = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(date);
         }
         dateLabel.setText(dateString);
+    }
+
+    private NotesTableHandler getNotesTableHandler() {
+        return new NotesTableHandler() {
+
+            @Override
+            public void onEditClick(NotesListRowData notesListRowData) {
+                // TODO Auto-generated method stub
+                Window.alert("edit " + notesListRowData.getNoteId());
+            }
+
+            @Override
+            public void onDeleteClick(NotesListRowData notesListRowData) {
+                // TODO Auto-generated method stub
+                Window.alert("delete " + notesListRowData.getNoteId());
+            }
+        };
     }
 }

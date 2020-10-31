@@ -2,7 +2,6 @@ package ru.mativ.server.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import ru.mativ.client.service.NoteService;
 import ru.mativ.client.service.exception.LoginFialException;
@@ -12,13 +11,12 @@ import ru.mativ.shared.bean.UserBean;
 
 @SuppressWarnings("serial")
 public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
-    private static final Logger Log = Logger.getLogger(NoteServiceImpl.class.getName());
-
     private NoteRepository noteRepository = NoteRepository.getInstance();
 
     @Override
     public List<NoteBean> getByDate(Date date) throws LoginFialException {
         UserBean currentUser = getCurrentUser();
-        return noteRepository.getByUserIdAndDate(currentUser.getId(), date);
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        return noteRepository.getByUserIdAndDate(currentUser.getId(), sqlDate);
     }
 }

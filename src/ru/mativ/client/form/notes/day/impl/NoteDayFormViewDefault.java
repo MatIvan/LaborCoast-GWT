@@ -1,27 +1,28 @@
 package ru.mativ.client.form.notes.day.impl;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.form.notes.day.NoteDayFormModel;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
 import ru.mativ.client.form.notes.day.NoteDayFormView;
+import ru.mativ.client.form.notes.widgets.AdvancedDatePicker;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesListRowData;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTable;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTableHandler;
 
 public class NoteDayFormViewDefault extends Composite implements NoteDayFormView {
-
+    private static final Logger Log = Logger.getLogger(NoteDayFormViewDefault.class.getName());
     private NoteDayFormPresenter presenter;
 
-    private Label dateLabel;
+    VerticalPanel mainPanel;
+    private AdvancedDatePicker advancedDatePicker;
     private NotesTable table;
 
     public NoteDayFormViewDefault() {
@@ -31,34 +32,41 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
     public NoteDayFormViewDefault(NoteDayFormPresenter presenter) {
         this.presenter = presenter;
         presenter.setView(this);
+
+        initGui();
         initWidget(buildGui());
 
         presenter.update(new Date());
     }
 
-    private Widget buildGui() {
-        dateLabel = new Label();
+    private void initGui() {
+        mainPanel = new VerticalPanel();
         table = new NotesTable(getNotesTableHandler());
+        initDatePicker();
+    };
 
-        VerticalPanel mainPanel = new VerticalPanel();
-        mainPanel.add(dateLabel);
+    private Widget buildGui() {
+
+        mainPanel.add(advancedDatePicker);
         mainPanel.add(table);
 
         return mainPanel;
     }
 
-    @Override
-    public void setData(NoteDayFormModel model) {
-        setDateLabel(model.getDate());
-        table.setData(model.getNotesList());
+    private void initDatePicker() {
+        advancedDatePicker = new AdvancedDatePicker();
+        advancedDatePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Date> event) {
+                presenter.update(event.getValue());
+            }
+        });
     }
 
-    private void setDateLabel(Date date) {
-        String dateString = "--";
-        if (date != null) {
-            dateString = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(date);
-        }
-        dateLabel.setText(dateString);
+    @Override
+    public void setData(NoteDayFormModel model) {
+        advancedDatePicker.setValue(model.getDate());
+        table.setData(model.getNotesList());
     }
 
     private NotesTableHandler getNotesTableHandler() {
@@ -67,13 +75,13 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
             @Override
             public void onEditClick(NotesListRowData notesListRowData) {
                 // TODO Auto-generated method stub
-                Window.alert("edit " + notesListRowData.getNoteId());
+                Log.info("edit " + notesListRowData.getNoteId());
             }
 
             @Override
             public void onDeleteClick(NotesListRowData notesListRowData) {
                 // TODO Auto-generated method stub
-                Window.alert("delete " + notesListRowData.getNoteId());
+                Log.info("delete " + notesListRowData.getNoteId());
             }
         };
     }

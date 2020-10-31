@@ -1,7 +1,6 @@
 package ru.mativ.shared.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class NoteBean implements Serializable {
     private static final long serialVersionUID = 3670593746358236347L;
@@ -11,7 +10,7 @@ public class NoteBean implements Serializable {
     private Integer typeId;
     private String note;
     private String comment;
-    private Date date;
+    private java.sql.Date date;
     private Integer hours;
 
     public Integer getId() {
@@ -46,11 +45,11 @@ public class NoteBean implements Serializable {
         this.comment = comment;
     }
 
-    public Date getDate() {
+    public java.sql.Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(java.sql.Date date) {
         this.date = date;
     }
 
@@ -68,5 +67,11 @@ public class NoteBean implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "NoteBean [id=" + id + ", userId=" + userId + ", typeId=" + typeId + ", note=" + note + ", comment=" + comment + ", date=" + date + ", hours="
+                + hours + "]";
     }
 }

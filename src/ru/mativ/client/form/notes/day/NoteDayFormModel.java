@@ -9,7 +9,5 @@ public interface NoteDayFormModel {
 
     Date getDate();
 
-    List<String> getTypeList();
-
     List<NotesListRowData> getNotesList();
 }

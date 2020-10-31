@@ -1,27 +1,17 @@
 package ru.mativ.client.form.notes.widgets.noteslist;
 
 public class NotesListRowData {
-    private String type;
     private String note;
     private String comment;
     private int hours;
     private int noteId;
 
-    public NotesListRowData(String type, String note, String comment, int hours, int noteId) {
+    public NotesListRowData(String note, String comment, int hours, int noteId) {
         super();
-        this.type = type;
         this.note = note;
         this.comment = comment;
         this.hours = hours;
         this.noteId = noteId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getNote() {

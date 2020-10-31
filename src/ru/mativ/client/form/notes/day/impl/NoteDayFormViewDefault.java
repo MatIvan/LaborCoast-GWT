@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,6 +25,7 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
     VerticalPanel mainPanel;
     private AdvancedDatePicker advancedDatePicker;
     private NotesTable table;
+    private Button addNoteButton;
 
     public NoteDayFormViewDefault() {
         this(new NoteDayFormPresenterDefault());
@@ -43,6 +45,7 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
         mainPanel = new VerticalPanel();
         table = new NotesTable(getNotesTableHandler());
         initDatePicker();
+        addNoteButton = new Button("Add note");
     };
 
     private Widget buildGui() {
@@ -74,14 +77,12 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
 
             @Override
             public void onEditClick(NotesListRowData notesListRowData) {
-                // TODO Auto-generated method stub
-                Log.info("edit " + notesListRowData.getNoteId());
+                presenter.editNote(notesListRowData.getNoteId());
             }
 
             @Override
             public void onDeleteClick(NotesListRowData notesListRowData) {
-                // TODO Auto-generated method stub
-                Log.info("delete " + notesListRowData.getNoteId());
+                presenter.deleteNote(notesListRowData.getNoteId());
             }
         };
     }

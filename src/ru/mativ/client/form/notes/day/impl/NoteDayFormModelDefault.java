@@ -9,13 +9,11 @@ import ru.mativ.client.form.notes.widgets.noteslist.NotesListRowData;
 public class NoteDayFormModelDefault implements NoteDayFormModel {
 
     private Date date;
-    private List<String> typeList;
     private List<NotesListRowData> noteList;
 
-    public NoteDayFormModelDefault(Date date, List<String> typeList, List<NotesListRowData> noteList) {
+    public NoteDayFormModelDefault(Date date, List<NotesListRowData> noteList) {
         super();
         this.date = date;
-        this.typeList = typeList;
         this.noteList = noteList;
     }
 
@@ -25,13 +23,7 @@ public class NoteDayFormModelDefault implements NoteDayFormModel {
     }
 
     @Override
-    public List<String> getTypeList() {
-        return typeList;
-    }
-
-    @Override
     public List<NotesListRowData> getNotesList() {
         return noteList;
     }
-
 }

@@ -39,4 +39,8 @@ public class NoteRepository {
         return result;
     }
 
+    public NoteBean getByUserAndId(int userId, int noteId) {
+        NoteBean result = mapper().getByUserIdAndNoteId(userId, noteId);
+        return result;
+    }
 }

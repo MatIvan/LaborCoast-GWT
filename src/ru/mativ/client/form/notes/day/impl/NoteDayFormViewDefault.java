@@ -13,6 +13,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import ru.mativ.client.form.notes.day.NoteDayFormModel;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
 import ru.mativ.client.form.notes.day.NoteDayFormView;
+import ru.mativ.client.form.notes.single.NoteSingleFormHandler;
+import ru.mativ.client.form.notes.single.NoteSingleFormModel;
+import ru.mativ.client.form.notes.single.impl.NoteSinglePopupForm;
 import ru.mativ.client.form.notes.widgets.AdvancedDatePicker;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesListRowData;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTable;
@@ -21,10 +24,12 @@ import ru.mativ.client.form.notes.widgets.noteslist.NotesTableHandler;
 public class NoteDayFormViewDefault extends Composite implements NoteDayFormView {
     private NoteDayFormPresenter presenter;
 
-    VerticalPanel mainPanel;
+    private VerticalPanel mainPanel;
     private AdvancedDatePicker advancedDatePicker;
     private NotesTable table;
     private Button addNoteButton;
+
+    private NoteSinglePopupForm noteSinglePopupForm;
 
     public NoteDayFormViewDefault() {
         this(new NoteDayFormPresenterDefault());
@@ -46,6 +51,7 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
         table = new NotesTable(getNotesTableHandler());
         initDatePicker();
         initAddNoteButton();
+        initNoteSinglePopupForm();
     };
 
     private void buildGui() {
@@ -54,12 +60,30 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
         mainPanel.add(addNoteButton);
     }
 
+    private void initNoteSinglePopupForm() {
+        noteSinglePopupForm = new NoteSinglePopupForm();
+        noteSinglePopupForm.setHandler(new NoteSingleFormHandler() {
+
+            @Override
+            public void onSaved(NoteSingleFormModel model) {
+                noteSinglePopupForm.hide();
+                presenter.update(model.getDate());
+            }
+
+            @Override
+            public void onClose() {
+                noteSinglePopupForm.hide();
+            }
+        });
+    }
+
     private void initAddNoteButton() {
         addNoteButton = new Button("Add note");
         addNoteButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                presenter.addNote(advancedDatePicker.getValue());
+                noteSinglePopupForm.show();
+                noteSinglePopupForm.newNote(advancedDatePicker.getValue());
             }
         });
     }
@@ -85,12 +109,13 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
 
             @Override
             public void onEditClick(NotesListRowData notesListRowData) {
-                presenter.editNote(notesListRowData.getNoteId());
+                noteSinglePopupForm.show();
+                noteSinglePopupForm.loadNote(notesListRowData.getNoteId());
             }
 
             @Override
             public void onDeleteClick(NotesListRowData notesListRowData) {
-                presenter.deleteNote(notesListRowData.getNoteId());
+                //presenter.deleteNote(notesListRowData.getNoteId());
             }
         };
     }

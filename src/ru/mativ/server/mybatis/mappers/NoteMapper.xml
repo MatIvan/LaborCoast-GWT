@@ -28,4 +28,16 @@
         AND day = #{date};
     </select>
 
+    <select id="getByUserIdAndNoteId" resultMap="NoteBeanResult">
+        SELECT  id,
+                user_id,
+                type_id,
+                note,
+                comment,
+                day,
+                hours
+        FROM note
+        WHERE user_id = #{userId}
+        AND id = #{noteId};
+    </select>
 </mapper>

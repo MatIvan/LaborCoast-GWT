@@ -13,4 +13,6 @@ import ru.mativ.shared.bean.NoteBean;
 public interface NoteService extends RemoteService {
 
     List<NoteBean> getByDate(Date date) throws LoginFialException;
+
+    NoteBean getById(int noteId) throws LoginFialException;
 }

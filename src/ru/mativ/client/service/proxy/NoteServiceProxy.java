@@ -22,4 +22,10 @@ public class NoteServiceProxy implements NoteServiceAsync {
         requestService.send(noteService.getByDate(date, callback));
         return null;
     }
+
+    @Override
+    public RequestBuilder getById(int noteId, AsyncCallback<NoteBean> callback) {
+        requestService.send(noteService.getById(noteId, callback));
+        return null;
+    }
 }

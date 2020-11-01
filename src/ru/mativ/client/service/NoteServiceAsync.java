@@ -11,4 +11,6 @@ import ru.mativ.shared.bean.NoteBean;
 public interface NoteServiceAsync {
 
     RequestBuilder getByDate(Date date, AsyncCallback<List<NoteBean>> callback);
+
+    RequestBuilder getById(int noteId, AsyncCallback<NoteBean> callback);
 }

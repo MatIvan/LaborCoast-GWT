@@ -48,23 +48,4 @@ public class NoteDayFormPresenterDefault implements NoteDayFormPresenter {
         NoteDayFormModelDefault model = new NoteDayFormModelDefault(date, dayNotes);
         view.setData(model);
     }
-
-    @Override
-    public void editNote(int noteId) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deleteNote(int noteId) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void addNote(Date date) {
-        // TODO Auto-generated method stub
-
-    }
-
 }

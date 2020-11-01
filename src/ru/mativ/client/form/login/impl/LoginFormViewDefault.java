@@ -13,15 +13,15 @@ import ru.mativ.client.fabrica.NavigateButtonsFabrica;
 import ru.mativ.client.form.login.LoginFormModel;
 import ru.mativ.client.form.login.LoginFormPresenter;
 import ru.mativ.client.form.login.LoginFormView;
-import ru.mativ.client.form.notes.widgets.input.LabeledInputBox;
-import ru.mativ.client.form.notes.widgets.input.LabeledInputBoxType;
+import ru.mativ.client.form.notes.widgets.input.VerticalLabeledPassBox;
+import ru.mativ.client.form.notes.widgets.input.VerticalLabeledTextBox;
 
 public class LoginFormViewDefault extends Composite implements LoginFormView {
 
     private LoginFormPresenter presenter;
 
-    private LabeledInputBox login;
-    private LabeledInputBox pass;
+    private VerticalLabeledTextBox login;
+    private VerticalLabeledPassBox pass;
     private Label messageLabel;
 
     public LoginFormViewDefault() {
@@ -35,8 +35,8 @@ public class LoginFormViewDefault extends Composite implements LoginFormView {
     }
 
     private Widget buildGui() {
-        login = new LabeledInputBox("Login:", LabeledInputBoxType.VERTICAL_TEXT);
-        pass = new LabeledInputBox("Password:", LabeledInputBoxType.VERTICAL_PASS);
+        login = new VerticalLabeledTextBox("Login:");
+        pass = new VerticalLabeledPassBox("Password:");
         messageLabel = new Label();
 
         //Develop only

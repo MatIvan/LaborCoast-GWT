@@ -6,26 +6,28 @@ import com.google.gwt.user.client.ui.CellPanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.ValueBoxBase;
 
-public class LabeledInputBox extends Composite implements HasValue<String> {
+public abstract class LabeledInputBox<T> extends Composite implements HasValue<T> {
 
-    private LabeledInputBoxType type;
     private CellPanel panel;
     private Label label;
-    private TextBox input;
+    private ValueBoxBase<T> input;
 
-    public LabeledInputBox(String caption, LabeledInputBoxType type) {
-        this.type = type;
+    public LabeledInputBox(String caption) {
         initGui(caption);
         buildGui();
         initWidget(panel);
     }
 
+    protected abstract CellPanel createPanel();
+
+    protected abstract ValueBoxBase<T> createInputWidget();
+
     private void initGui(String caption) {
-        panel = type.getPanel();
+        panel = createPanel();
         label = new Label(caption);
-        input = type.getInput();
+        input = createInputWidget();
     }
 
     private void buildGui() {
@@ -34,22 +36,22 @@ public class LabeledInputBox extends Composite implements HasValue<String> {
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<T> handler) {
         return input.addValueChangeHandler(handler);
     }
 
     @Override
-    public String getValue() {
+    public T getValue() {
         return input.getValue();
     }
 
     @Override
-    public void setValue(String value) {
+    public void setValue(T value) {
         setValue(value, false);
     }
 
     @Override
-    public void setValue(String value, boolean fireEvents) {
+    public void setValue(T value, boolean fireEvents) {
         input.setValue(value, fireEvents);
     }
 }

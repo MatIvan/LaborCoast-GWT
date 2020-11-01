@@ -1,6 +1,5 @@
 package ru.mativ.client.form.notes.day.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,7 +10,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import ru.mativ.client.LaborCoast;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
 import ru.mativ.client.form.notes.day.NoteDayFormView;
-import ru.mativ.client.form.notes.widgets.noteslist.NotesListRowData;
 import ru.mativ.client.service.proxy.NoteServiceProxy;
 import ru.mativ.shared.bean.NoteBean;
 
@@ -22,6 +20,7 @@ public class NoteDayFormPresenterDefault implements NoteDayFormPresenter {
     private NoteDayFormView view;
 
     public NoteDayFormPresenterDefault() {
+        super();
     }
 
     @Override
@@ -46,22 +45,8 @@ public class NoteDayFormPresenterDefault implements NoteDayFormPresenter {
     }
 
     private void setData(Date date, List<NoteBean> dayNotes) {
-        List<NotesListRowData> noteList = makeNotesListRowData(dayNotes);
-        NoteDayFormModelDefault model = new NoteDayFormModelDefault(date, noteList);
+        NoteDayFormModelDefault model = new NoteDayFormModelDefault(date, dayNotes);
         view.setData(model);
-    }
-
-    private List<NotesListRowData> makeNotesListRowData(List<NoteBean> dayNotes) {
-        List<NotesListRowData> result = new ArrayList<>();
-        for (NoteBean bean : dayNotes) {
-            NotesListRowData newBean = new NotesListRowData(
-                    bean.getNote(),
-                    bean.getComment(),
-                    bean.getHours(),
-                    bean.getId());
-            result.add(newBean);
-        }
-        return result;
     }
 
     @Override

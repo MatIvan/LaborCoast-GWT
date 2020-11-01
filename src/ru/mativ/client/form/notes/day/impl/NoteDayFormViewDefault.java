@@ -1,14 +1,14 @@
 package ru.mativ.client.form.notes.day.impl;
 
 import java.util.Date;
-import java.util.logging.Logger;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.form.notes.day.NoteDayFormModel;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
@@ -19,7 +19,6 @@ import ru.mativ.client.form.notes.widgets.noteslist.NotesTable;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTableHandler;
 
 public class NoteDayFormViewDefault extends Composite implements NoteDayFormView {
-    private static final Logger Log = Logger.getLogger(NoteDayFormViewDefault.class.getName());
     private NoteDayFormPresenter presenter;
 
     VerticalPanel mainPanel;
@@ -36,7 +35,8 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
         presenter.setView(this);
 
         initGui();
-        initWidget(buildGui());
+        buildGui();
+        initWidget(mainPanel);
 
         presenter.update(new Date());
     }
@@ -45,15 +45,23 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
         mainPanel = new VerticalPanel();
         table = new NotesTable(getNotesTableHandler());
         initDatePicker();
-        addNoteButton = new Button("Add note");
+        initAddNoteButton();
     };
 
-    private Widget buildGui() {
-
+    private void buildGui() {
         mainPanel.add(advancedDatePicker);
         mainPanel.add(table);
+        mainPanel.add(addNoteButton);
+    }
 
-        return mainPanel;
+    private void initAddNoteButton() {
+        addNoteButton = new Button("Add note");
+        addNoteButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                presenter.addNote(advancedDatePicker.getValue());
+            }
+        });
     }
 
     private void initDatePicker() {

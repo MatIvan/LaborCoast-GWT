@@ -5,8 +5,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -15,13 +13,15 @@ import ru.mativ.client.fabrica.NavigateButtonsFabrica;
 import ru.mativ.client.form.login.LoginFormModel;
 import ru.mativ.client.form.login.LoginFormPresenter;
 import ru.mativ.client.form.login.LoginFormView;
+import ru.mativ.client.form.notes.widgets.input.LabeledInputBox;
+import ru.mativ.client.form.notes.widgets.input.LabeledInputBoxType;
 
 public class LoginFormViewDefault extends Composite implements LoginFormView {
 
     private LoginFormPresenter presenter;
 
-    private TextBox login;
-    private PasswordTextBox pass;
+    private LabeledInputBox login;
+    private LabeledInputBox pass;
     private Label messageLabel;
 
     public LoginFormViewDefault() {
@@ -35,27 +35,22 @@ public class LoginFormViewDefault extends Composite implements LoginFormView {
     }
 
     private Widget buildGui() {
-        login = new TextBox();
-        pass = new PasswordTextBox();
+        login = new LabeledInputBox("Login:", LabeledInputBoxType.VERTICAL_TEXT);
+        pass = new LabeledInputBox("Password:", LabeledInputBoxType.VERTICAL_PASS);
         messageLabel = new Label();
-
-        Label loginLabel = new Label("Login:");
-        Label passLabel = new Label("Password:");
 
         //Develop only
         login.setValue("test");
         pass.setValue("123");
 
-        Button sendBtn = new Button("Login");
+        Button sendBtn = new Button("Sing in");
         sendBtn.addClickHandler(getSendBtnHandler());
 
         Button registrBtn = NavigateButtonsFabrica.createButton(NavigationTarget.REGISTRATION);
 
         VerticalPanel mainPanel = new VerticalPanel();
         mainPanel.add(messageLabel);
-        mainPanel.add(loginLabel);
         mainPanel.add(login);
-        mainPanel.add(passLabel);
         mainPanel.add(pass);
         mainPanel.add(sendBtn);
         mainPanel.add(registrBtn);

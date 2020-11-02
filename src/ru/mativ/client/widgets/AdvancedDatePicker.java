@@ -1,4 +1,4 @@
-package ru.mativ.client.form.notes.widgets;
+package ru.mativ.client.widgets;
 
 import java.util.Date;
 

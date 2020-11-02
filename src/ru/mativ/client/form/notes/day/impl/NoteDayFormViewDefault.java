@@ -16,10 +16,10 @@ import ru.mativ.client.form.notes.day.NoteDayFormView;
 import ru.mativ.client.form.notes.single.NoteSingleFormHandler;
 import ru.mativ.client.form.notes.single.NoteSingleFormModel;
 import ru.mativ.client.form.notes.single.impl.NoteSinglePopupForm;
-import ru.mativ.client.form.notes.widgets.AdvancedDatePicker;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesListRowData;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTable;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTableHandler;
+import ru.mativ.client.widgets.AdvancedDatePicker;
 
 public class NoteDayFormViewDefault extends Composite implements NoteDayFormView {
     private NoteDayFormPresenter presenter;
@@ -115,7 +115,7 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
 
             @Override
             public void onDeleteClick(NotesListRowData notesListRowData) {
-                //presenter.deleteNote(notesListRowData.getNoteId());
+                //TODO delete note
             }
         };
     }

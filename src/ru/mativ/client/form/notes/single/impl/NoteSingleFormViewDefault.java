@@ -16,10 +16,10 @@ import ru.mativ.client.form.notes.single.NoteSingleFormHandler;
 import ru.mativ.client.form.notes.single.NoteSingleFormModel;
 import ru.mativ.client.form.notes.single.NoteSingleFormPresenter;
 import ru.mativ.client.form.notes.single.NoteSingleFormView;
-import ru.mativ.client.form.notes.widgets.AdvancedDatePicker;
-import ru.mativ.client.form.notes.widgets.HLabeledPanel;
-import ru.mativ.client.form.notes.widgets.NumberInputBox;
-import ru.mativ.client.form.notes.widgets.VLabeledPanel;
+import ru.mativ.client.widgets.AdvancedDatePicker;
+import ru.mativ.client.widgets.HLabeledPanel;
+import ru.mativ.client.widgets.NumberInputBox;
+import ru.mativ.client.widgets.VLabeledPanel;
 
 public class NoteSingleFormViewDefault extends Composite implements NoteSingleForm, NoteSingleFormView {
 

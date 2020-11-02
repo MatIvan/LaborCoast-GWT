@@ -15,7 +15,7 @@ import ru.mativ.client.fabrica.NavigateButtonsFabrica;
 import ru.mativ.client.form.login.LoginFormModel;
 import ru.mativ.client.form.login.LoginFormPresenter;
 import ru.mativ.client.form.login.LoginFormView;
-import ru.mativ.client.form.notes.widgets.HLabeledPanel;
+import ru.mativ.client.widgets.HLabeledPanel;
 
 public class LoginFormViewDefault extends Composite implements LoginFormView {
 

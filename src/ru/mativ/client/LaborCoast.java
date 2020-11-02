@@ -16,6 +16,7 @@ import ru.mativ.client.service.RequestService;
 import ru.mativ.client.service.proxy.GreetingServiceProxy;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
 import ru.mativ.client.service.proxy.NoteServiceProxy;
+import ru.mativ.client.service.proxy.NoteTypeServiceProxy;
 
 public class LaborCoast implements EntryPoint {
 
@@ -29,6 +30,7 @@ public class LaborCoast implements EntryPoint {
     private static final GreetingServiceProxy greetingServiceProxy = GWT.create(GreetingServiceProxy.class);
     private static final LoginServiceProxy loginServiceProxy = GWT.create(LoginServiceProxy.class);
     private static final NoteServiceProxy noteServiceProxy = GWT.create(NoteServiceProxy.class);
+    private static final NoteTypeServiceProxy noteTypeServiceProxy = GWT.create(NoteTypeServiceProxy.class);
 
     static public GreetingServiceProxy getGreetingServiceProxy() {
         return greetingServiceProxy;
@@ -40,6 +42,10 @@ public class LaborCoast implements EntryPoint {
 
     static public NoteServiceProxy getNoteServiceProxy() {
         return noteServiceProxy;
+    }
+
+    static public NoteTypeServiceProxy getNoteTypeServiceProxy() {
+        return noteTypeServiceProxy;
     }
 
     static public RequestService getRequestService() {

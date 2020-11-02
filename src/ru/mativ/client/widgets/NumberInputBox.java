@@ -1,4 +1,4 @@
-package ru.mativ.client.form.notes.widgets;
+package ru.mativ.client.widgets;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -36,6 +36,7 @@ public class NumberInputBox extends Composite implements HasValue<Integer>, Hand
 
     private void initValueBox() {
         valueBox = new IntegerBox();
+        valueBox.setValue(0);
         valueBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
             public void onKeyUp(KeyUpEvent event) {

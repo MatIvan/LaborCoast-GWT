@@ -18,6 +18,7 @@ public class NoteRepository implements NoteMapper {
     }
 
     private NoteRepository() {
+        super();
     }
 
     private NoteMapper mapper() {

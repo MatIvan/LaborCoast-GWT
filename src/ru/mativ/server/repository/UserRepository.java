@@ -17,6 +17,7 @@ public class UserRepository implements UserMapper {
     }
 
     private UserRepository() {
+        super();
     }
 
     private UserMapper mapper() {

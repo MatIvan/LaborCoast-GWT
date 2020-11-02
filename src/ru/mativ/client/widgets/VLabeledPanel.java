@@ -1,4 +1,4 @@
-package ru.mativ.client.form.notes.widgets;
+package ru.mativ.client.widgets;
 
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;

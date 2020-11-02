@@ -30,4 +30,15 @@ public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
         }
         return result;
     }
+
+    @Override
+    public NoteBean save(NoteBean noteBean) throws LoginFialException {
+        if (noteBean == null) {
+            return null;
+        }
+        UserBean currentUser = getCurrentUser();
+        noteBean.setUserId(currentUser.getId());
+
+        return noteRepository.save(noteBean);
+    }
 }

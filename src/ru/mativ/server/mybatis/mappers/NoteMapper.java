@@ -11,4 +11,6 @@ public interface NoteMapper {
     List<NoteBean> getByUserIdAndDate(@Param("userId") int userId, @Param("date") String date);
 
     NoteBean getByUserIdAndNoteId(@Param("userId") int userId, @Param("noteId") int noteId);
+
+    void insert(NoteBean noteBean);
 }

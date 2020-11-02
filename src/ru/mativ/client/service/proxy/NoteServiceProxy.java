@@ -28,4 +28,10 @@ public class NoteServiceProxy implements NoteServiceAsync {
         requestService.send(noteService.getById(noteId, callback));
         return null;
     }
+
+    @Override
+    public RequestBuilder save(NoteBean noteBean, AsyncCallback<NoteBean> callback) {
+        requestService.send(noteService.save(noteBean, callback));
+        return null;
+    }
 }

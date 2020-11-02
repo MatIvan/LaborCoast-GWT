@@ -125,7 +125,7 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
     }
 
     @Override
-    public void dataSaved(NoteSingleFormModel model) {
+    public void dataSaved() {
         handler.onSaved(model);
     }
 

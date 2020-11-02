@@ -15,4 +15,6 @@ public interface NoteService extends RemoteService {
     List<NoteBean> getByDate(Date date) throws LoginFialException;
 
     NoteBean getById(int noteId) throws LoginFialException;
+
+    NoteBean save(NoteBean noteBean) throws LoginFialException;
 }

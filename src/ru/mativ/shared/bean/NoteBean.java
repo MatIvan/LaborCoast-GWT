@@ -1,7 +1,7 @@
 package ru.mativ.shared.bean;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class NoteBean implements Serializable {
     private static final long serialVersionUID = 3670593746358236347L;
@@ -52,6 +52,10 @@ public class NoteBean implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public void setDate(java.util.Date date) {
+        this.date = new java.sql.Date(date.getTime());
     }
 
     public Integer getHours() {

@@ -6,5 +6,5 @@ public interface NoteSingleFormView {
 
     void setData(NoteSingleFormModel model);
 
-    void dataSaved(NoteSingleFormModel model);
+    void dataSaved();
 }

@@ -43,4 +43,25 @@ public class NoteRepository {
         NoteBean result = mapper().getByUserIdAndNoteId(userId, noteId);
         return result;
     }
+
+    public NoteBean save(NoteBean noteBean) {
+        Log.info("Try to save " + noteBean);
+
+        try {
+            if (noteBean.getId() == -1) {
+                mapper().insert(noteBean);
+            } else {
+                //mapper().update(noteBean);
+            }
+            commit();
+            Log.info("Saved: " + noteBean);
+        } catch (Exception e) {
+            rollback();
+            e.printStackTrace();
+            Log.info("Save error: " + noteBean);
+            return null;
+        }
+
+        return noteBean;
+    }
 }

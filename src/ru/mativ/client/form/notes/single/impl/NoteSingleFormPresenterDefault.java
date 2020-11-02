@@ -38,10 +38,30 @@ public class NoteSingleFormPresenterDefault implements NoteSingleFormPresenter {
 
     @Override
     public void save(NoteSingleFormModel model) {
-        // TODO Auto-generated method stub
+        fillFromModel(model);
 
-        //setData();
-        //view.dataSaved(NoteSingleFormModel model);
+        noteService.save(noteBean, new AsyncCallback<NoteBean>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                Log.log(Level.SEVERE, "Can not save note.", caught);
+                view.showError(caught.getMessage());
+            }
+
+            @Override
+            public void onSuccess(NoteBean result) {
+                setData(result);
+                view.dataSaved();
+            }
+        });
+    }
+
+    private void fillFromModel(NoteSingleFormModel model) {
+        noteBean.setTypeId(model.getTypeId());
+        noteBean.setDate(model.getDate());
+        noteBean.setNote(model.getNote());
+        noteBean.setComment(model.getComment());
+        noteBean.setHours(model.getHours());
     }
 
     @Override

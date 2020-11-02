@@ -5,17 +5,17 @@
 
 <mapper namespace="ru.mativ.server.mybatis.mappers.NoteMapper">
 
-    <resultMap id="NoteBeanResult" type="ru.mativ.shared.bean.NoteBean">
-        <result property="id" column="ID" />
-        <result property="userId" column="USER_ID" />
-        <result property="typeId" column="TYPE_ID" />
-        <result property="note" column="NOTE" />
-        <result property="comment" column="COMMENT" />
-        <result property="date" column="DAY" />
-        <result property="hours" column="HOURS" />
+    <resultMap id="NoteDaoResult" type="ru.mativ.server.mybatis.dao.NoteDao">
+        <result property="id"       column="id" />
+        <result property="userId"   column="user_id" />
+        <result property="typeId"   column="type_id" />
+        <result property="note"     column="note" />
+        <result property="comment"  column="comment" />
+        <result property="date"     column="day" />
+        <result property="hours"    column="hours" />
     </resultMap>
 
-    <select id="getByUserIdAndDate" resultMap="NoteBeanResult">
+    <select id="getByUserIdAndDate" resultMap="NoteDaoResult">
         SELECT  id,
                 user_id,
                 type_id,
@@ -28,7 +28,7 @@
         AND day = #{date};
     </select>
 
-    <select id="getByUserIdAndNoteId" resultMap="NoteBeanResult">
+    <select id="getByUserIdAndNoteId" resultMap="NoteDaoResult">
         SELECT  id,
                 user_id,
                 type_id,
@@ -41,23 +41,34 @@
         AND id = #{noteId};
     </select>
 
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ru.mativ.shared.bean.NoteBean">
-        INSERT INTO note (user_id, type_id, note, comment, day, hours)
-        VALUES (#{userId}, #{typeId}, #{note}, #{comment}, #{date}, #{hours});
-        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ru.mativ.server.mybatis.dao.NoteDao">
+        INSERT INTO note (
+            user_id,
+            type_id,
+            note,
+            comment,
+            day,
+            hours)
+        VALUES (
+            #{userId},
+            #{typeId},
+            #{note},
+            #{comment},
+            #{date},
+            #{hours});
+        <selectKey resultType="int" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() as id
         </selectKey>
     </insert>
 
-    <update id="update" parameterType="ru.mativ.shared.bean.NoteBean">
+    <update id="update" parameterType="ru.mativ.server.mybatis.dao.NoteDao">
         UPDATE note
-        SET user_id = #{userId},
-            type_id = #{typeId},
-            note = #{note},
-            comment = #{comment},
-            day = #{date},
-            hours = #{hours}
-        WHERE id = #{id}
+        SET user_id =   #{userId},
+            type_id =   #{typeId},
+            note =      #{note},
+            comment =   #{comment},
+            day =       #{date},
+            hours =     #{hours}
+        WHERE id = #{id};
     </update>
-
 </mapper>

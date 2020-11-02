@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import ru.mativ.server.mybatis.MyBatisService;
+import ru.mativ.server.mybatis.dao.NoteDao;
 import ru.mativ.server.mybatis.mappers.NoteMapper;
-import ru.mativ.shared.bean.NoteBean;
 import ru.mativ.shared.exception.DataSaveException;
 
-public class NoteRepository {
+public class NoteRepository implements NoteMapper {
     private static final Logger Log = Logger.getLogger(NoteRepository.class.getName());
     private final static NoteRepository instance = new NoteRepository();
     private NoteMapper noteMapper;
@@ -35,33 +35,64 @@ public class NoteRepository {
         MyBatisService.getInstance().rollback();
     }
 
-    public List<NoteBean> getByUserIdAndDate(int userId, java.sql.Date date) {
-        List<NoteBean> result = mapper().getByUserIdAndDate(userId, date.toString());
-        return result;
+    @Override
+    public List<NoteDao> getByUserIdAndDate(int userId, String date) {
+        return mapper().getByUserIdAndDate(userId, date);
     }
 
-    public NoteBean getByUserAndId(int userId, int noteId) {
-        NoteBean result = mapper().getByUserIdAndNoteId(userId, noteId);
-        return result;
+    @Override
+    public NoteDao getByUserIdAndNoteId(int userId, int noteId) {
+        return mapper().getByUserIdAndNoteId(userId, noteId);
     }
 
-    public NoteBean save(NoteBean noteBean) throws DataSaveException {
-        Log.fine("Try to save " + noteBean);
+    @Override
+    public int insert(NoteDao noteDao) throws DataSaveException {
+        Log.fine("Try to insert: " + noteDao);
         try {
-            if (noteBean.getId().intValue() == -1) {
-                mapper().insert(noteBean);
+            int rowUpdated = mapper().insert(noteDao);
+            commit();
+            return rowUpdated;
+
+        } catch (Exception e) {
+            rollback();
+            Log.severe("Insert error: " + noteDao);
+            e.printStackTrace();
+            throw new DataSaveException("Can not insert note: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public int update(NoteDao noteDao) throws DataSaveException {
+        Log.fine("Try to update: " + noteDao);
+        try {
+            int rowUpdated = mapper().update(noteDao);
+            commit();
+            return rowUpdated;
+
+        } catch (Exception e) {
+            rollback();
+            Log.severe("Update error: " + noteDao);
+            e.printStackTrace();
+            throw new DataSaveException("Can not update note: " + e.getMessage());
+        }
+    }
+
+    public NoteDao save(NoteDao noteDao) throws DataSaveException {
+        Log.fine("Try to save " + noteDao);
+        try {
+            if (noteDao.getId() == -1) {
+                insert(noteDao);
             } else {
-                mapper().update(noteBean);
+                update(noteDao);
             }
             commit();
-            Log.fine("Saved: " + noteBean);
+            return noteDao;
 
         } catch (Exception e) {
             rollback();
             e.printStackTrace();
-            Log.severe("Save error: " + noteBean);
-            throw new DataSaveException("Can not save Note: " + e.getMessage());
+            Log.severe("Save error: " + noteDao);
+            throw new DataSaveException("Can not save note: " + e.getMessage());
         }
-        return noteBean;
     }
 }

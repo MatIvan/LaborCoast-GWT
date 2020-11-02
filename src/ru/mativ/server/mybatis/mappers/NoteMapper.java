@@ -4,15 +4,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import ru.mativ.shared.bean.NoteBean;
+import ru.mativ.server.mybatis.dao.NoteDao;
+import ru.mativ.shared.exception.DataSaveException;
 
 public interface NoteMapper {
 
-    List<NoteBean> getByUserIdAndDate(@Param("userId") int userId, @Param("date") String date);
+    List<NoteDao> getByUserIdAndDate(@Param("userId") int userId, @Param("date") String date);
 
-    NoteBean getByUserIdAndNoteId(@Param("userId") int userId, @Param("noteId") int noteId);
+    NoteDao getByUserIdAndNoteId(@Param("userId") int userId, @Param("noteId") int noteId);
 
-    int insert(NoteBean noteBean);
+    int insert(NoteDao noteDao) throws DataSaveException;
 
-    int update(NoteBean noteBean);
+    int update(NoteDao noteDao) throws DataSaveException;
 }

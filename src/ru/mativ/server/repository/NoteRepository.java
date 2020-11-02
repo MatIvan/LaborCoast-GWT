@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import ru.mativ.server.mybatis.MyBatisService;
 import ru.mativ.server.mybatis.mappers.NoteMapper;
 import ru.mativ.shared.bean.NoteBean;
+import ru.mativ.shared.exception.DataSaveException;
 
 public class NoteRepository {
     private static final Logger Log = Logger.getLogger(NoteRepository.class.getName());
@@ -44,24 +45,23 @@ public class NoteRepository {
         return result;
     }
 
-    public NoteBean save(NoteBean noteBean) {
-        Log.info("Try to save " + noteBean);
-
+    public NoteBean save(NoteBean noteBean) throws DataSaveException {
+        Log.fine("Try to save " + noteBean);
         try {
-            if (noteBean.getId() == -1) {
+            if (noteBean.getId().intValue() == -1) {
                 mapper().insert(noteBean);
             } else {
-                //mapper().update(noteBean);
+                mapper().update(noteBean);
             }
             commit();
-            Log.info("Saved: " + noteBean);
+            Log.fine("Saved: " + noteBean);
+
         } catch (Exception e) {
             rollback();
             e.printStackTrace();
-            Log.info("Save error: " + noteBean);
-            return null;
+            Log.severe("Save error: " + noteBean);
+            throw new DataSaveException("Can not save Note: " + e.getMessage());
         }
-
         return noteBean;
     }
 }

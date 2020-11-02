@@ -12,5 +12,7 @@ public interface NoteMapper {
 
     NoteBean getByUserIdAndNoteId(@Param("userId") int userId, @Param("noteId") int noteId);
 
-    void insert(NoteBean noteBean);
+    int insert(NoteBean noteBean);
+
+    int update(NoteBean noteBean);
 }

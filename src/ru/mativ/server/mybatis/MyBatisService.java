@@ -47,5 +47,4 @@ public class MyBatisService {
     public void rollback() {
         session.rollback();
     }
-
 }

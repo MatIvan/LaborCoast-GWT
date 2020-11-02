@@ -11,5 +11,4 @@ public interface UserMapper {
     UserBean getByLoginPass(@Param("login") String login, @Param("pass") String pass);
 
     UserBean getByLogin(@Param("login") String login);
-
 }

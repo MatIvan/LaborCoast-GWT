@@ -3,13 +3,13 @@ package ru.mativ.server.service;
 import java.util.logging.Logger;
 
 import ru.mativ.client.service.LoginService;
-import ru.mativ.client.service.exception.LoginFialException;
-import ru.mativ.client.service.exception.RegistrationException;
 import ru.mativ.server.repository.UserRepository;
 import ru.mativ.server.session.SessionController;
 import ru.mativ.server.session.UserSession;
 import ru.mativ.shared.bean.UserBean;
 import ru.mativ.shared.bean.UserSessionBean;
+import ru.mativ.shared.exception.LoginFialException;
+import ru.mativ.shared.exception.RegistrationException;
 import ru.mativ.tools.PasswordUtil;
 
 @SuppressWarnings("serial")

@@ -4,10 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import ru.mativ.client.service.NoteService;
-import ru.mativ.client.service.exception.LoginFialException;
 import ru.mativ.server.repository.NoteRepository;
 import ru.mativ.shared.bean.NoteBean;
 import ru.mativ.shared.bean.UserBean;
+import ru.mativ.shared.exception.DataSaveException;
+import ru.mativ.shared.exception.LoginFialException;
 
 @SuppressWarnings("serial")
 public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
@@ -32,7 +33,7 @@ public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
     }
 
     @Override
-    public NoteBean save(NoteBean noteBean) throws LoginFialException {
+    public NoteBean save(NoteBean noteBean) throws LoginFialException, DataSaveException {
         if (noteBean == null) {
             return null;
         }

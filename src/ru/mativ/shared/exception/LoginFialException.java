@@ -1,4 +1,4 @@
-package ru.mativ.client.service.exception;
+package ru.mativ.shared.exception;
 
 import java.io.Serializable;
 

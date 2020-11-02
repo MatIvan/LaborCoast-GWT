@@ -2,9 +2,9 @@ package ru.mativ.server.service;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import ru.mativ.client.service.exception.LoginFialException;
 import ru.mativ.server.session.UserSession;
 import ru.mativ.shared.bean.UserBean;
+import ru.mativ.shared.exception.LoginFialException;
 
 @SuppressWarnings("serial")
 public class BaseServiceImpl extends RemoteServiceServlet {

@@ -3,7 +3,7 @@ package ru.mativ.client.service;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import ru.mativ.client.service.exception.LoginFialException;
+import ru.mativ.shared.exception.LoginFialException;
 
 @RemoteServiceRelativePath("greet")
 public interface GreetingService extends RemoteService {

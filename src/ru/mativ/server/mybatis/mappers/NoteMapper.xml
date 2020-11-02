@@ -48,4 +48,16 @@
             SELECT LAST_INSERT_ID() as id
         </selectKey>
     </insert>
+
+    <update id="update" parameterType="ru.mativ.shared.bean.NoteBean">
+        UPDATE note
+        SET user_id = #{userId},
+            type_id = #{typeId},
+            note = #{note},
+            comment = #{comment},
+            day = #{date},
+            hours = #{hours}
+        WHERE id = #{id}
+    </update>
+
 </mapper>

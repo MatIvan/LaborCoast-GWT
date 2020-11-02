@@ -38,15 +38,18 @@ public class HeaderForm extends Composite {
 
     private void initGui() {
         firstPanel = new HorizontalPanel();
+        firstPanel.setSpacing(4);
         btnHome = NavigateButtonsFabrica.createButton(NavigationTarget.HOME);
         btnLogin = NavigateButtonsFabrica.createButton(NavigationTarget.LOGIN);
         btnRegistration = NavigateButtonsFabrica.createButton(NavigationTarget.REGISTRATION);
         btnLogoff = NavigateButtonsFabrica.createButton(NavigationTarget.LOGOFF);
 
         secondPanel = new HorizontalPanel();
+        secondPanel.setSpacing(4);
         btnNoteDay = NavigateButtonsFabrica.createButton(NavigationTarget.NOTE_DAY);
 
         mainPanel = new VerticalPanel();
+        mainPanel.setSpacing(2);
         mainPanel.add(firstPanel);
         mainPanel.add(secondPanel);
     }

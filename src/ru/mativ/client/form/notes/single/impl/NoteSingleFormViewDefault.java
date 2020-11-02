@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.form.notes.single.NoteSingleForm;
@@ -16,8 +17,9 @@ import ru.mativ.client.form.notes.single.NoteSingleFormModel;
 import ru.mativ.client.form.notes.single.NoteSingleFormPresenter;
 import ru.mativ.client.form.notes.single.NoteSingleFormView;
 import ru.mativ.client.form.notes.widgets.AdvancedDatePicker;
-import ru.mativ.client.form.notes.widgets.input.HorizontalLabeledNumberBox;
-import ru.mativ.client.form.notes.widgets.input.VerticalLabeledTextBox;
+import ru.mativ.client.form.notes.widgets.HLabeledPanel;
+import ru.mativ.client.form.notes.widgets.NumberInputBox;
+import ru.mativ.client.form.notes.widgets.VLabeledPanel;
 
 public class NoteSingleFormViewDefault extends Composite implements NoteSingleForm, NoteSingleFormView {
 
@@ -27,10 +29,10 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
 
     private VerticalPanel mainPanel;
     private AdvancedDatePicker dateBox;
-    private VerticalLabeledTextBox noteBox;
-    private VerticalLabeledTextBox commentBox;
-    private HorizontalLabeledNumberBox hoursBox;
-    private HorizontalLabeledNumberBox typeBox; //TODO change to type (not number)
+    private TextArea noteBox;
+    private TextArea commentBox;
+    private NumberInputBox hoursBox;
+    private NumberInputBox typeBox; //TODO change to type (not number)
 
     private Button closeBtn;
     private Button saveBtn;
@@ -53,10 +55,10 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
         mainPanel.setSpacing(10);
 
         dateBox = new AdvancedDatePicker();
-        noteBox = new VerticalLabeledTextBox("Note:");
-        commentBox = new VerticalLabeledTextBox("Comment:");
-        hoursBox = new HorizontalLabeledNumberBox("Hours");
-        typeBox = new HorizontalLabeledNumberBox("Type");
+        noteBox = new TextArea();
+        commentBox = new TextArea();
+        hoursBox = new NumberInputBox();
+        typeBox = new NumberInputBox();
 
         initButtons();
     };
@@ -81,10 +83,10 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
 
     private void buildGui() {
         mainPanel.add(dateBox);
-        mainPanel.add(noteBox);
-        mainPanel.add(commentBox);
-        mainPanel.add(hoursBox);
-        mainPanel.add(typeBox);
+        mainPanel.add(new VLabeledPanel("Note:", noteBox));
+        mainPanel.add(new VLabeledPanel("Comment:", commentBox));
+        mainPanel.add(new HLabeledPanel("Hours:", hoursBox));
+        mainPanel.add(new HLabeledPanel("Type:", typeBox));
 
         HorizontalPanel buttonsPanel = new HorizontalPanel();
         buttonsPanel.add(closeBtn);

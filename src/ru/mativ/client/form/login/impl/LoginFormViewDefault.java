@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -13,15 +15,14 @@ import ru.mativ.client.fabrica.NavigateButtonsFabrica;
 import ru.mativ.client.form.login.LoginFormModel;
 import ru.mativ.client.form.login.LoginFormPresenter;
 import ru.mativ.client.form.login.LoginFormView;
-import ru.mativ.client.form.notes.widgets.input.VerticalLabeledPassBox;
-import ru.mativ.client.form.notes.widgets.input.VerticalLabeledTextBox;
+import ru.mativ.client.form.notes.widgets.HLabeledPanel;
 
 public class LoginFormViewDefault extends Composite implements LoginFormView {
 
     private LoginFormPresenter presenter;
 
-    private VerticalLabeledTextBox login;
-    private VerticalLabeledPassBox pass;
+    private TextBox login;
+    private PasswordTextBox pass;
     private Label messageLabel;
 
     public LoginFormViewDefault() {
@@ -35,8 +36,8 @@ public class LoginFormViewDefault extends Composite implements LoginFormView {
     }
 
     private Widget buildGui() {
-        login = new VerticalLabeledTextBox("Login:");
-        pass = new VerticalLabeledPassBox("Password:");
+        login = new TextBox();
+        pass = new PasswordTextBox();
         messageLabel = new Label();
 
         //Develop only
@@ -50,8 +51,8 @@ public class LoginFormViewDefault extends Composite implements LoginFormView {
 
         VerticalPanel mainPanel = new VerticalPanel();
         mainPanel.add(messageLabel);
-        mainPanel.add(login);
-        mainPanel.add(pass);
+        mainPanel.add(new HLabeledPanel("Login:", login));
+        mainPanel.add(new HLabeledPanel("Pass:", pass));
         mainPanel.add(sendBtn);
         mainPanel.add(registrBtn);
 

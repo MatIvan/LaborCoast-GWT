@@ -24,7 +24,7 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
         Log.info("makeToken > login=" + login + ", ip=" + ip);
 
         String encodePass = PasswordUtil.calcSHA1Hash(pass);
-        UserBean user = userRepository.getUserByLoginPass(login, encodePass);
+        UserBean user = userRepository.getByLoginPass(login, encodePass);
         if (user == null) {
             throw new LoginFialException("Login or Password fail.");
         }
@@ -41,18 +41,19 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
         String ip = getThreadLocalRequest().getRemoteAddr();
         Log.info("newUser > user=" + user + ", ip=" + ip);
 
-        UserBean oldUser = userRepository.getUserByLogin(user.getLogin());
+        UserBean oldUser = userRepository.getByLogin(user.getLogin());
         if (oldUser != null) {
             throw new RegistrationException("Login is in use by another user.");
         }
 
-        String encodePass = PasswordUtil.calcSHA1Hash(pass);
-        if (!userRepository.insert(user, encodePass)) {
+        try {
+            String encodePass = PasswordUtil.calcSHA1Hash(pass);
+            userRepository.insert(user, encodePass);
+        } catch (Exception e) {
             throw new RegistrationException("Cannot save user to data base.");
         }
 
         Log.info("newUser > created");
         return null;
     }
-
 }

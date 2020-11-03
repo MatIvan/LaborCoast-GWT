@@ -3,7 +3,6 @@ package ru.mativ.client.form.login.impl;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -12,64 +11,75 @@ import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.fabrica.NavigateButtonsFabrica;
-import ru.mativ.client.form.login.LoginFormModel;
-import ru.mativ.client.form.login.LoginFormPresenter;
-import ru.mativ.client.form.login.LoginFormView;
+import ru.mativ.client.form.login.LoginForm;
 import ru.mativ.client.widgets.HLabeledPanel;
+import ru.mativ.client.widgets.mvp.AbstractView;
 
-public class LoginFormViewDefault extends Composite implements LoginFormView {
+public class LoginFormMain extends AbstractView<LoginFormModel> implements LoginForm {
 
-    private LoginFormPresenter presenter;
-
+    private VerticalPanel mainPanel;
     private TextBox login;
     private PasswordTextBox pass;
     private Label messageLabel;
+    private Button sendBtn;
+    private Button registrBtn;
 
-    public LoginFormViewDefault() {
-        this(new LoginFormPresenterDefault());
+    public LoginFormMain() {
+        super(new LoginFormPresenterMain());
     }
 
-    public LoginFormViewDefault(LoginFormPresenter presenter) {
-        this.presenter = presenter;
-        presenter.addView(this);
-        initWidget(buildGui());
+    @Override
+    protected Widget getMainPanel() {
+        return mainPanel;
     }
 
-    private Widget buildGui() {
+    @Override
+    protected void init() {
+        mainPanel = new VerticalPanel();
+        mainPanel.setSpacing(10);
+
         login = new TextBox();
         pass = new PasswordTextBox();
         messageLabel = new Label();
 
-        //Develop only
-        login.setValue("test");
-        pass.setValue("123");
-
-        Button sendBtn = new Button("Sing in");
+        sendBtn = new Button("Sing in");
         sendBtn.addClickHandler(getSendBtnHandler());
 
-        Button registrBtn = NavigateButtonsFabrica.createButton(NavigationTarget.REGISTRATION);
+        registrBtn = NavigateButtonsFabrica.createButton(NavigationTarget.REGISTRATION);
+    }
 
-        VerticalPanel mainPanel = new VerticalPanel();
+    @Override
+    protected void build() {
         mainPanel.add(messageLabel);
         mainPanel.add(new HLabeledPanel("Login:", login));
         mainPanel.add(new HLabeledPanel("Pass:", pass));
         mainPanel.add(sendBtn);
         mainPanel.add(registrBtn);
-
-        return mainPanel;
     }
 
     private ClickHandler getSendBtnHandler() {
         return new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                LoginFormModel model = new LoginFormModelDefault(login.getValue(), pass.getValue());
-                presenter.onLoginBtnClicked(model);
+                notifyAboutModelChanged();
             }
         };
     }
 
-    public void setMessage(String message) {
-        messageLabel.setText(message);
+    @Override
+    protected LoginFormModel makeModel() {
+        return new LoginFormModel(login.getValue(), pass.getValue());
     }
+
+    @Override
+    public void fill(LoginFormModel model) {
+        login.setValue(model.getLogin());
+        pass.setValue(model.getPassword());
+    }
+
+    @Override
+    public void showError(String errorText) {
+        messageLabel.setText(errorText);
+    }
+
 }

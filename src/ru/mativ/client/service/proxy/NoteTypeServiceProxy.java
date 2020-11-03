@@ -1,6 +1,6 @@
 package ru.mativ.client.service.proxy;
 
-import java.util.Map;
+import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.RequestBuilder;
@@ -17,8 +17,8 @@ public class NoteTypeServiceProxy implements NoteTypeServiceAsync {
     private static final NoteTypeServiceAsync noteTypeService = GWT.create(NoteTypeService.class);
 
     @Override
-    public RequestBuilder getMap(AsyncCallback<Map<Integer, NoteTypeBean>> callback) {
-        requestService.send(noteTypeService.getMap(callback));
+    public RequestBuilder getAll(AsyncCallback<List<NoteTypeBean>> callback) {
+        requestService.send(noteTypeService.getAll(callback));
         return null;
     }
 }

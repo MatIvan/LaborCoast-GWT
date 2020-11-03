@@ -1,10 +1,10 @@
 package ru.mativ.server.mybatis.mappers;
 
-import java.util.Map;
+import java.util.List;
 
 import ru.mativ.shared.bean.NoteTypeBean;
 
 public interface NoteTypeMapper {
 
-    Map<Integer, NoteTypeBean> getMap();
+    List<NoteTypeBean> getAll();
 }

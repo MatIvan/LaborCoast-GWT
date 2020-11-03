@@ -1,6 +1,6 @@
 package ru.mativ.server.service;
 
-import java.util.Map;
+import java.util.List;
 
 import ru.mativ.client.service.NoteTypeService;
 import ru.mativ.server.repository.NoteTypeRepository;
@@ -11,7 +11,7 @@ public class NoteTypeServiceImpl extends BaseServiceImpl implements NoteTypeServ
     private NoteTypeRepository noteTypeRepository = NoteTypeRepository.getInstance();
 
     @Override
-    public Map<Integer, NoteTypeBean> getMap() {
-        return noteTypeRepository.getMap();
+    public List<NoteTypeBean> getAll() {
+        return noteTypeRepository.getAll();
     }
 }

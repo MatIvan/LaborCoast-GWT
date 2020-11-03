@@ -13,6 +13,7 @@
         <filter-name>AuthFilter</filter-name>
         <servlet-name>greetServlet</servlet-name>
         <servlet-name>noteServlet</servlet-name>
+        <servlet-name>noteTypeServlet</servlet-name>
     </filter-mapping>
 
 
@@ -47,6 +48,17 @@
     <servlet-mapping>
         <servlet-name>noteServlet</servlet-name>
         <url-pattern>/laborcoast/note</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet NOTE TYPE -->
+    <servlet>
+        <servlet-name>noteTypeServlet</servlet-name>
+        <servlet-class>ru.mativ.server.service.NoteTypeServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>noteTypeServlet</servlet-name>
+        <url-pattern>/laborcoast/notetype</url-pattern>
     </servlet-mapping>
 
     <!-- remote logging -->

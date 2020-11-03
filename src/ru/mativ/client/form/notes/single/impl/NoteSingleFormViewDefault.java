@@ -16,6 +16,7 @@ import ru.mativ.client.form.notes.single.NoteSingleFormHandler;
 import ru.mativ.client.form.notes.single.NoteSingleFormModel;
 import ru.mativ.client.form.notes.single.NoteSingleFormPresenter;
 import ru.mativ.client.form.notes.single.NoteSingleFormView;
+import ru.mativ.client.form.notes.widgets.notetype.NoteTypeWidget;
 import ru.mativ.client.widgets.AdvancedDatePicker;
 import ru.mativ.client.widgets.HLabeledPanel;
 import ru.mativ.client.widgets.NumberInputBox;
@@ -32,7 +33,7 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
     private TextArea noteBox;
     private TextArea commentBox;
     private NumberInputBox hoursBox;
-    private NumberInputBox typeBox; //TODO change to type (not number)
+    private NoteTypeWidget typeBox;
 
     private Button closeBtn;
     private Button saveBtn;
@@ -58,7 +59,7 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
         noteBox = new TextArea();
         commentBox = new TextArea();
         hoursBox = new NumberInputBox();
-        typeBox = new NumberInputBox();
+        typeBox = new NoteTypeWidget();
 
         initButtons();
     };
@@ -114,6 +115,7 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
     @Override
     public void setData(NoteSingleFormModel model) {
         this.model = model;
+        typeBox.loadData();
         fill();
     }
 

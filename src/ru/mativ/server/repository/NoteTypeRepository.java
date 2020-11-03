@@ -1,6 +1,6 @@
 package ru.mativ.server.repository;
 
-import java.util.Map;
+import java.util.List;
 import java.util.logging.Logger;
 
 import ru.mativ.server.mybatis.MyBatisService;
@@ -36,7 +36,7 @@ public class NoteTypeRepository implements NoteTypeMapper {
     }
 
     @Override
-    public Map<Integer, NoteTypeBean> getMap() {
-        return mapper().getMap();
+    public List<NoteTypeBean> getAll() {
+        return mapper().getAll();
     }
 }

@@ -4,18 +4,16 @@ import java.util.Date;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.gwt.user.datepicker.client.DateBox;
 
-public class AdvancedDatePicker extends Composite implements HasValue<Date> {
+public class AdvancedDatePicker extends HasValueComposite<Date> {
     private static final DateTimeFormat DATE_FORMAT = DateTimeFormat.getFormat("dd MMMM yyyy");
 
     private HorizontalPanel mainPanel;
@@ -24,21 +22,26 @@ public class AdvancedDatePicker extends Composite implements HasValue<Date> {
     private Button nextDayButton;
 
     public AdvancedDatePicker() {
-        initGui();
-        initWidget(buildGui());
+        super();
     }
 
-    private void initGui() {
+    @Override
+    protected void init() {
         mainPanel = new HorizontalPanel();
         initPrevDayButton();
         initDateBox();
         initNextDayButton();
     }
 
-    private Widget buildGui() {
+    @Override
+    protected void build() {
         mainPanel.add(prevDayButton);
         mainPanel.add(dateBox);
         mainPanel.add(nextDayButton);
+    }
+
+    @Override
+    protected Widget getMainPanel() {
         return mainPanel;
     }
 
@@ -47,9 +50,7 @@ public class AdvancedDatePicker extends Composite implements HasValue<Date> {
         prevDayButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                Date date = dateBox.getValue();
-                CalendarUtil.addDaysToDate(date, -1);
-                setValue(date);
+                addToValue(-1);
             }
         });
     }
@@ -59,22 +60,27 @@ public class AdvancedDatePicker extends Composite implements HasValue<Date> {
         nextDayButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                Date date = dateBox.getValue();
-                CalendarUtil.addDaysToDate(date, 1);
-                setValue(date);
+                addToValue(1);
             }
         });
+    }
+
+    private void addToValue(int number) {
+        Date date = dateBox.getValue();
+        CalendarUtil.addDaysToDate(date, number);
+        setValue(date, true);
     }
 
     private void initDateBox() {
         dateBox = new DateBox();
         dateBox.getDatePicker().setYearArrowsVisible(true);
         dateBox.setFormat(new DateBox.DefaultFormat(DATE_FORMAT));
-    }
-
-    @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Date> handler) {
-        return dateBox.addValueChangeHandler(handler);
+        dateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Date> event) {
+                notifyAboutValueChanged(event);
+            }
+        });
     }
 
     @Override
@@ -83,13 +89,7 @@ public class AdvancedDatePicker extends Composite implements HasValue<Date> {
     }
 
     @Override
-    public void setValue(Date value) {
-        setValue(value, true);
-    }
-
-    @Override
     public void setValue(Date value, boolean fireEvents) {
         dateBox.setValue(value, fireEvents);
     }
-
 }

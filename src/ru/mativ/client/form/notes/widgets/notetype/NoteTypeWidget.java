@@ -14,8 +14,8 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.LaborCoast;
-import ru.mativ.client.form.notes.widgets.HasValueComposite;
 import ru.mativ.client.service.proxy.NoteTypeServiceProxy;
+import ru.mativ.client.widgets.HasValueComposite;
 import ru.mativ.shared.bean.NoteTypeBean;
 
 public class NoteTypeWidget extends HasValueComposite<Integer> {
@@ -67,6 +67,7 @@ public class NoteTypeWidget extends HasValueComposite<Integer> {
     @Override
     protected void init() {
         mainPanel = new HorizontalPanel();
+        mainPanel.setSpacing(10);
     }
 
     @Override
@@ -101,5 +102,15 @@ public class NoteTypeWidget extends HasValueComposite<Integer> {
     @Override
     protected Widget getMainPanel() {
         return mainPanel;
+    }
+
+    public NoteTypeBean getNoteTypeBean() {
+        Integer id = getValue();
+        for (NoteTypeBean bean : list) {
+            if (id.equals(bean.getId())) {
+                return bean;
+            }
+        }
+        return null;
     }
 }

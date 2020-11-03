@@ -1,4 +1,4 @@
-package ru.mativ.client.form.notes.widgets;
+package ru.mativ.client.widgets;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;

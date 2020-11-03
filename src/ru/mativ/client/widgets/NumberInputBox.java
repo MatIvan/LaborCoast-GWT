@@ -6,32 +6,20 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IntegerBox;
+import com.google.gwt.user.client.ui.Widget;
 
-public class NumberInputBox extends Composite implements HasValue<Integer>, HandlerRegistration {
+public class NumberInputBox extends HasValueComposite<Integer> {
 
     private HorizontalPanel mainPanel;
     private IntegerBox valueBox;
     private Button decBtn;
     private Button incBtn;
 
-    private ValueChangeHandler<Integer> handler;
-
     public NumberInputBox() {
-        initGui();
-        buildGui();
-        initWidget(mainPanel);
-    }
-
-    private void initGui() {
-        mainPanel = new HorizontalPanel();
-        initValueBox();
-        initButtons();
+        super();
     }
 
     private void initValueBox() {
@@ -48,9 +36,7 @@ public class NumberInputBox extends Composite implements HasValue<Integer>, Hand
             @Override
             public void onValueChange(ValueChangeEvent<Integer> event) {
                 correctValue();
-                if (handler != null) {
-                    handler.onValueChange(event);
-                }
+                notifyAboutValueChanged(event);
             }
         });
     }
@@ -69,7 +55,7 @@ public class NumberInputBox extends Composite implements HasValue<Integer>, Hand
         decBtn.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                setValue(getValue() - 1);
+                setValue(getValue() - 1, true);
             }
         });
 
@@ -77,19 +63,9 @@ public class NumberInputBox extends Composite implements HasValue<Integer>, Hand
         incBtn.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                setValue(getValue() + 1);
+                setValue(getValue() + 1, true);
             }
         });
-    }
-
-    private void buildGui() {
-        mainPanel.add(decBtn);
-        mainPanel.add(valueBox);
-        mainPanel.add(incBtn);
-    }
-
-    public void setValueChangeHandler(ValueChangeHandler<Integer> handler) {
-        this.handler = handler;
     }
 
     @Override
@@ -99,23 +75,26 @@ public class NumberInputBox extends Composite implements HasValue<Integer>, Hand
     }
 
     @Override
-    public void setValue(Integer value) {
-        setValue(value, false);
-    }
-
-    @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Integer> handler) {
-        this.handler = handler;
-        return this;
-    }
-
-    @Override
     public void setValue(Integer value, boolean fireEvents) {
         valueBox.setValue(value, fireEvents);
     }
 
     @Override
-    public void removeHandler() {
-        this.handler = null;
+    protected void init() {
+        mainPanel = new HorizontalPanel();
+        initValueBox();
+        initButtons();
+    }
+
+    @Override
+    protected void build() {
+        mainPanel.add(decBtn);
+        mainPanel.add(valueBox);
+        mainPanel.add(incBtn);
+    }
+
+    @Override
+    protected Widget getMainPanel() {
+        return mainPanel;
     }
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -60,6 +62,13 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
         commentBox = new TextArea();
         hoursBox = new NumberInputBox();
         typeBox = new NoteTypeWidget();
+        typeBox.addValueChangeHandler(new ValueChangeHandler<Integer>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Integer> event) {
+                String name = typeBox.getNoteTypeBean().getName();
+                noteBox.setValue(name);
+            }
+        });
 
         initButtons();
     };

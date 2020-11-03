@@ -13,7 +13,7 @@ import ru.mativ.client.form.login.LoginForm;
 import ru.mativ.client.form.login.impl.LoginFormMain;
 import ru.mativ.client.form.login.impl.LoginFormModel;
 import ru.mativ.client.form.notes.day.impl.NoteDayFormViewDefault;
-import ru.mativ.client.form.registration.impl.RegistrationFormViewDefault;
+import ru.mativ.client.form.registration.impl.RegistrationFormMain;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
 
 public class ContentForm extends Composite {
@@ -78,7 +78,7 @@ public class ContentForm extends Composite {
             return;
         }
         panel.clear();
-        panel.add(new RegistrationFormViewDefault());
+        panel.add(new RegistrationFormMain());
     }
 
     private void showHomeForm() {

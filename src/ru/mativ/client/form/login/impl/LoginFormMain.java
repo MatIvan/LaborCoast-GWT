@@ -25,7 +25,7 @@ public class LoginFormMain extends AbstractView<LoginFormModel> implements Login
     private Button registrBtn;
 
     public LoginFormMain() {
-        super(new LoginFormPresenterMain());
+        super(new LoginFormPresenter());
     }
 
     @Override

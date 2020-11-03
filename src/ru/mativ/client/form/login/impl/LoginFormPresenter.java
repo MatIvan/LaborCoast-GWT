@@ -10,14 +10,14 @@ import ru.mativ.client.service.proxy.LoginServiceProxy;
 import ru.mativ.client.widgets.mvp.AbstractPresenter;
 import ru.mativ.shared.bean.UserSessionBean;
 
-public class LoginFormPresenterMain extends AbstractPresenter<LoginFormModel> {
+public class LoginFormPresenter extends AbstractPresenter<LoginFormModel> {
     private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
     private static final EventBus globalBus = LaborCoast.getEventBus();
 
     private String login = "";
     private String pass = "";
 
-    public LoginFormPresenterMain() {
+    public LoginFormPresenter() {
         super();
     }
 

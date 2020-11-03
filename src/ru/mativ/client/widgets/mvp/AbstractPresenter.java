@@ -1,4 +1,4 @@
-package ru.mativ.tools.mvp;
+package ru.mativ.client.widgets.mvp;
 
 import java.util.ArrayList;
 import java.util.List;

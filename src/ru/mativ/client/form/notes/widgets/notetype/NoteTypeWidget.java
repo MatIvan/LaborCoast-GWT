@@ -59,7 +59,7 @@ public class NoteTypeWidget extends HasValueComposite<Integer> {
     public void setValue(Integer value, boolean fireEvents) {
         noteTypeId = value;
         if (fireEvents) {
-            notifyAboutValueChanged();
+            fireValueChangeEvent();
         }
         build();
     }

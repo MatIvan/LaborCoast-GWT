@@ -78,7 +78,7 @@ public class AdvancedDatePicker extends HasValueComposite<Date> {
         dateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
             @Override
             public void onValueChange(ValueChangeEvent<Date> event) {
-                notifyAboutValueChanged(event);
+                fireValueChangeEvent();
             }
         });
     }

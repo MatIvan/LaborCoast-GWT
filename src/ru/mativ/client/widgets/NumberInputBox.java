@@ -36,7 +36,7 @@ public class NumberInputBox extends HasValueComposite<Integer> {
             @Override
             public void onValueChange(ValueChangeEvent<Integer> event) {
                 correctValue();
-                notifyAboutValueChanged(event);
+                fireValueChangeEvent();
             }
         });
     }

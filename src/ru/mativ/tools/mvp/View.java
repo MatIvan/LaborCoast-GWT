@@ -1,4 +1,4 @@
-package ru.mativ.client.widgets.mvp;
+package ru.mativ.tools.mvp;
 
 import com.google.gwt.user.client.ui.IsWidget;
 

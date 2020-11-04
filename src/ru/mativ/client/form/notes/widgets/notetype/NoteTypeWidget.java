@@ -22,13 +22,11 @@ public class NoteTypeWidget extends HasValueComposite<Integer> {
     private static final Logger Log = Logger.getLogger(NoteTypeWidget.class.getName());
     private static final NoteTypeServiceProxy noteTypeService = LaborCoast.getNoteTypeServiceProxy();
 
-    private HorizontalPanel mainPanel;
-
     private List<NoteTypeBean> list = new ArrayList<>();
     private Integer noteTypeId;
 
     public NoteTypeWidget() {
-        super();
+        super(new HorizontalPanel());
     }
 
     public void loadData() {
@@ -66,20 +64,19 @@ public class NoteTypeWidget extends HasValueComposite<Integer> {
 
     @Override
     protected void init() {
-        mainPanel = new HorizontalPanel();
-        mainPanel.setSpacing(10);
+        ((HorizontalPanel) getMainPanel()).setSpacing(10);
     }
 
     @Override
     protected void build() {
-        mainPanel.clear();
+        getMainPanel().clear();
         if (list == null || list.isEmpty()) {
-            mainPanel.add(new Label("Can not load note types."));
+            getMainPanel().add(new Label("Can not load note types."));
             return;
         }
 
         for (NoteTypeBean bean : list) {
-            mainPanel.add(createElement(bean));
+            getMainPanel().add(createElement(bean));
         }
 
     }
@@ -97,11 +94,6 @@ public class NoteTypeWidget extends HasValueComposite<Integer> {
             }
         });
         return btn;
-    }
-
-    @Override
-    protected Widget getMainPanel() {
-        return mainPanel;
     }
 
     public NoteTypeBean getNoteTypeBean() {

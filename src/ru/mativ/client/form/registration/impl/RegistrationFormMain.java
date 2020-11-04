@@ -15,9 +15,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.form.registration.RegistrationForm;
 import ru.mativ.client.widgets.VLabeledPanel;
-import ru.mativ.client.widgets.mvp.AbstractView;
+import ru.mativ.client.widgets.mvp.AbstractViewOld;
 
-public class RegistrationFormMain extends AbstractView<RegistrationFormModel> implements RegistrationForm {
+public class RegistrationFormMain extends AbstractViewOld<RegistrationFormModel> implements RegistrationForm {
 
     private VerticalPanel mainPanel;
     private TextBox login;

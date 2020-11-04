@@ -10,8 +10,9 @@ import ru.mativ.client.event.navigation.NavigationEventHandler;
 import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.form.home.HomeForm;
 import ru.mativ.client.form.login.LoginForm;
-import ru.mativ.client.form.login.impl.LoginFormMain;
-import ru.mativ.client.form.login.impl.LoginFormModel;
+import ru.mativ.client.form.login.LoginPresenter;
+import ru.mativ.client.form.login.impl.LoginFormImpl;
+import ru.mativ.client.form.login.impl.LoginPresenterImpl;
 import ru.mativ.client.form.notes.day.impl.NoteDayFormViewDefault;
 import ru.mativ.client.form.registration.impl.RegistrationFormMain;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
@@ -67,8 +68,10 @@ public class ContentForm extends Composite {
         if (loginService.isRegistered()) {
             return;
         }
-        LoginForm loginForm = new LoginFormMain();
-        loginForm.loadData(new LoginFormModel("test", "123")); //Develop only
+        LoginForm loginForm = new LoginFormImpl();
+        LoginPresenter loginPresenter = new LoginPresenterImpl(loginForm);
+        loginPresenter.setDefaultData("test", "123"); //Develop only
+
         panel.clear();
         panel.add(loginForm);
     }

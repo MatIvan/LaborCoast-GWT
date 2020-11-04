@@ -3,11 +3,11 @@ package ru.mativ.client.widgets.mvp;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractPresenter<M> {
+public abstract class AbstractPresenterOld<M> {
 
-    private List<AbstractView<M>> viewList = new ArrayList<>();
+    private List<AbstractViewOld<M>> viewList = new ArrayList<>();
 
-    public AbstractPresenter() {
+    public AbstractPresenterOld() {
         super();
     }
 
@@ -17,19 +17,19 @@ public abstract class AbstractPresenter<M> {
 
     protected abstract M makeModel();
 
-    public void addView(AbstractView<M> view) {
+    public void addView(AbstractViewOld<M> view) {
         viewList.add(view);
     }
 
     protected void fillAllView() {
         M model = makeModel();
-        for (AbstractView<M> view : viewList) {
+        for (AbstractViewOld<M> view : viewList) {
             view.fill(model);
         }
     }
 
     protected void showErrorAllView(String errorText) {
-        for (AbstractView<M> view : viewList) {
+        for (AbstractViewOld<M> view : viewList) {
             view.showError(errorText);
         }
     }

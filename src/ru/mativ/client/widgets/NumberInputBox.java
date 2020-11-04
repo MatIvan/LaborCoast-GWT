@@ -9,17 +9,15 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IntegerBox;
-import com.google.gwt.user.client.ui.Widget;
 
 public class NumberInputBox extends HasValueComposite<Integer> {
 
-    private HorizontalPanel mainPanel;
     private IntegerBox valueBox;
     private Button decBtn;
     private Button incBtn;
 
     public NumberInputBox() {
-        super();
+        super(new HorizontalPanel());
     }
 
     private void initValueBox() {
@@ -81,20 +79,14 @@ public class NumberInputBox extends HasValueComposite<Integer> {
 
     @Override
     protected void init() {
-        mainPanel = new HorizontalPanel();
         initValueBox();
         initButtons();
     }
 
     @Override
     protected void build() {
-        mainPanel.add(decBtn);
-        mainPanel.add(valueBox);
-        mainPanel.add(incBtn);
-    }
-
-    @Override
-    protected Widget getMainPanel() {
-        return mainPanel;
+        getMainPanel().add(decBtn);
+        getMainPanel().add(valueBox);
+        getMainPanel().add(incBtn);
     }
 }

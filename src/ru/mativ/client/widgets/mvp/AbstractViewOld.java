@@ -3,11 +3,11 @@ package ru.mativ.client.widgets.mvp;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-public abstract class AbstractView<M> extends Composite implements View {
+public abstract class AbstractViewOld<M> extends Composite implements ViewOld {
 
-    private AbstractPresenter<M> presenter;
+    private AbstractPresenterOld<M> presenter;
 
-    public AbstractView(AbstractPresenter<M> presenter) {
+    public AbstractViewOld(AbstractPresenterOld<M> presenter) {
         super();
         this.presenter = presenter;
         presenter.addView(this);

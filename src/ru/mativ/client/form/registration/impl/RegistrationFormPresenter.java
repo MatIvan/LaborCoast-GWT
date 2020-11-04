@@ -7,10 +7,10 @@ import ru.mativ.client.LaborCoast;
 import ru.mativ.client.event.navigation.NavigationEvent;
 import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
-import ru.mativ.client.widgets.mvp.AbstractPresenter;
+import ru.mativ.client.widgets.mvp.AbstractPresenterOld;
 import ru.mativ.shared.bean.UserBean;
 
-public class RegistrationFormPresenter extends AbstractPresenter<RegistrationFormModel> {
+public class RegistrationFormPresenter extends AbstractPresenterOld<RegistrationFormModel> {
     private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
     private static final EventBus globalBus = LaborCoast.getEventBus();
 

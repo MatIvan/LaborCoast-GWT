@@ -2,25 +2,27 @@ package ru.mativ.client.form.notes.single.impl;
 
 import java.util.Date;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.HasWidgets;
 
-import ru.mativ.client.form.notes.single.NoteSingleForm;
-import ru.mativ.client.form.notes.single.NoteSingleFormHandler;
+import ru.mativ.client.event.aftersave.AfterSaveHandler;
+import ru.mativ.client.form.notes.single.NoteSingleFormPresenter;
+import ru.mativ.shared.bean.NoteBean;
 
-public class NoteSinglePopupForm implements NoteSingleForm, IsWidget {
+public class NoteSinglePopupForm extends NoteSingleFormImpl implements NoteSingleFormPresenter {
 
     private DialogBox box;
-    private NoteSingleFormViewDefault form;
+    private NoteSingleFormPresenter presenter;
 
     public NoteSinglePopupForm() {
-        form = new NoteSingleFormViewDefault();
+        presenter = new NoteSingleFormPresenterImpl(this);
+
         box = new DialogBox();
         box.setText("NoteSingleForm");
         box.setGlassEnabled(true);
         box.setAnimationEnabled(true);
-        box.setWidget(form);
+        box.setWidget(this);
     }
 
     public void show() {
@@ -33,22 +35,22 @@ public class NoteSinglePopupForm implements NoteSingleForm, IsWidget {
     }
 
     @Override
-    public void loadNote(int noteId) {
-        form.loadNote(noteId);
+    public void go(HasWidgets container) {
+        // do nothing
     }
 
     @Override
-    public void newNote(Date date) {
-        form.newNote(date);
+    public HandlerRegistration addAfterSaveHandler(AfterSaveHandler<NoteBean> handler) {
+        return presenter.addAfterSaveHandler(handler);
     }
 
     @Override
-    public void setHandler(NoteSingleFormHandler noteSingleFormHandler) {
-        form.setHandler(noteSingleFormHandler);
+    public void load(int noteId) {
+        presenter.load(noteId);
     }
 
     @Override
-    public Widget asWidget() {
-        return form;
+    public void addNew(Date date) {
+        presenter.addNew(date);
     }
 }

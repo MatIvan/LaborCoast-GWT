@@ -2,10 +2,9 @@ package ru.mativ.client.form.notes.single.impl;
 
 import java.util.Date;
 
-import ru.mativ.client.form.notes.single.NoteSingleFormModel;
 import ru.mativ.shared.bean.NoteBean;
 
-public class NoteSingleFormModelDefault implements NoteSingleFormModel {
+public class NoteSingleViewModel {
 
     private Integer typeId;
     private String note;
@@ -13,7 +12,7 @@ public class NoteSingleFormModelDefault implements NoteSingleFormModel {
     private Date date;
     private Integer hours;
 
-    public NoteSingleFormModelDefault(Integer typeId, String note, String comment, Date date, Integer hours) {
+    public NoteSingleViewModel(Integer typeId, String note, String comment, Date date, Integer hours) {
         super();
         this.typeId = typeId;
         this.note = note;
@@ -22,33 +21,28 @@ public class NoteSingleFormModelDefault implements NoteSingleFormModel {
         this.hours = hours;
     }
 
-    @Override
     public Integer getTypeId() {
         return typeId;
     }
 
-    @Override
     public String getNote() {
         return note;
     }
 
-    @Override
     public String getComment() {
         return comment;
     }
 
-    @Override
     public Date getDate() {
         return date;
     }
 
-    @Override
     public Integer getHours() {
         return hours;
     }
 
-    public static NoteSingleFormModelDefault makeFromNoteBean(NoteBean noteBean) {
-        return new NoteSingleFormModelDefault(
+    public static NoteSingleViewModel makeModel(NoteBean noteBean) {
+        return new NoteSingleViewModel(
                 noteBean.getTypeId(),
                 noteBean.getNote(),
                 noteBean.getComment(),

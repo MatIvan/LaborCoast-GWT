@@ -10,16 +10,17 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import ru.mativ.client.event.aftersave.AfterSaveEvent;
+import ru.mativ.client.event.aftersave.AfterSaveHandler;
 import ru.mativ.client.form.notes.day.NoteDayFormModel;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
 import ru.mativ.client.form.notes.day.NoteDayFormView;
-import ru.mativ.client.form.notes.single.NoteSingleFormHandler;
-import ru.mativ.client.form.notes.single.NoteSingleFormModel;
 import ru.mativ.client.form.notes.single.impl.NoteSinglePopupForm;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesListRowData;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTable;
 import ru.mativ.client.form.notes.widgets.noteslist.NotesTableHandler;
 import ru.mativ.client.widgets.AdvancedDatePicker;
+import ru.mativ.shared.bean.NoteBean;
 
 public class NoteDayFormViewDefault extends Composite implements NoteDayFormView {
     private NoteDayFormPresenter presenter;
@@ -62,16 +63,16 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
 
     private void initNoteSinglePopupForm() {
         noteSinglePopupForm = new NoteSinglePopupForm();
-        noteSinglePopupForm.setHandler(new NoteSingleFormHandler() {
-
+        noteSinglePopupForm.addAfterSaveHandler(new AfterSaveHandler<NoteBean>() {
             @Override
-            public void onSaved(NoteSingleFormModel model) {
+            public void onAfterSave(AfterSaveEvent<NoteBean> event) {
                 noteSinglePopupForm.hide();
-                presenter.update(model.getDate());
+                presenter.update(event.getValue().getDate());
             }
-
+        });
+        noteSinglePopupForm.addCloseBtnClickHandler(new ClickHandler() {
             @Override
-            public void onClose() {
+            public void onClick(ClickEvent event) {
                 noteSinglePopupForm.hide();
             }
         });
@@ -83,7 +84,7 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
             @Override
             public void onClick(ClickEvent event) {
                 noteSinglePopupForm.show();
-                noteSinglePopupForm.newNote(advancedDatePicker.getValue());
+                noteSinglePopupForm.addNew(advancedDatePicker.getValue());
             }
         });
     }
@@ -110,7 +111,7 @@ public class NoteDayFormViewDefault extends Composite implements NoteDayFormView
             @Override
             public void onEditClick(NotesListRowData notesListRowData) {
                 noteSinglePopupForm.show();
-                noteSinglePopupForm.loadNote(notesListRowData.getNoteId());
+                noteSinglePopupForm.load(notesListRowData.getNoteId());
             }
 
             @Override

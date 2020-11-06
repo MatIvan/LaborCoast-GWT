@@ -1,14 +1,15 @@
 package ru.mativ.client.form.notes.single;
 
-import java.util.Date;
+import com.google.gwt.event.dom.client.ClickHandler;
 
-import com.google.gwt.user.client.ui.IsWidget;
+import ru.mativ.client.form.notes.single.impl.NoteSingleViewModel;
+import ru.mativ.client.widgets.mvp.view.ViewInterface;
 
-public interface NoteSingleForm extends IsWidget {
+public interface NoteSingleForm extends ViewInterface<NoteSingleViewModel> {
 
-    void loadNote(int noteId);
+    void setErrorMessage(String message);
 
-    void newNote(Date date);
+    void addSaveBtnClickHandler(ClickHandler clickHandler);
 
-    void setHandler(NoteSingleFormHandler noteSingleFormHandler);
+    void addCloseBtnClickHandler(ClickHandler clickHandler);
 }

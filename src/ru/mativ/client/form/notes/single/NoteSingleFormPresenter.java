@@ -2,13 +2,13 @@ package ru.mativ.client.form.notes.single;
 
 import java.util.Date;
 
-public interface NoteSingleFormPresenter {
+import ru.mativ.client.event.aftersave.HasAfterSaveHandlers;
+import ru.mativ.client.widgets.mvp.presenter.PresenterInterface;
+import ru.mativ.shared.bean.NoteBean;
 
-    void setView(NoteSingleFormView view);
+public interface NoteSingleFormPresenter extends PresenterInterface, HasAfterSaveHandlers<NoteBean> {
 
     void load(int noteId);
 
-    void add(Date date);
-
-    void save(NoteSingleFormModel model);
+    void addNew(Date date);
 }

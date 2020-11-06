@@ -11,24 +11,23 @@ import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.form.login.LoginForm;
 import ru.mativ.client.form.login.LoginPresenter;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
+import ru.mativ.client.widgets.mvp.presenter.AbstractPresenter;
 import ru.mativ.shared.bean.UserSessionBean;
 
-public class LoginPresenterImpl implements LoginPresenter {
+public class LoginPresenterImpl extends AbstractPresenter<LoginForm> implements LoginPresenter {
     private static final LoginServiceProxy loginService = LaborCoast.getLoginServiceProxy();
     private static final EventBus globalBus = LaborCoast.getEventBus();
 
-    private LoginForm loginForm;
-
     public LoginPresenterImpl(LoginForm loginForm) {
-        this.loginForm = loginForm;
-        bind();
+        super(loginForm);
     }
 
-    private void bind() {
-        loginForm.addSendBtnClickHandler(new ClickHandler() {
+    @Override
+    protected void bind() {
+        form.addSendBtnClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                LoginViewModel loginViewModel = loginForm.getValue();
+                LoginViewModel loginViewModel = form.getValue();
                 loginService.makeToken(
                         loginViewModel.getLogin(),
                         loginViewModel.getPass(),
@@ -36,7 +35,7 @@ public class LoginPresenterImpl implements LoginPresenter {
             }
         });
 
-        loginForm.addRegistrationBtnClickHandler(new ClickHandler() {
+        form.addRegistrationBtnClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
                 globalBus.fireEvent(new NavigationEvent(NavigationTarget.REGISTRATION));
@@ -46,8 +45,8 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void setDefaultData(String login, String pass) {
-        loginForm.setMessage("Enter your login and password.");
-        loginForm.setValue(new LoginViewModel(login, pass));
+        form.setMessage("Enter your login and password.");
+        form.setValue(new LoginViewModel(login, pass));
     }
 
     private AsyncCallback<UserSessionBean> getLoginCallBack() {
@@ -56,14 +55,14 @@ public class LoginPresenterImpl implements LoginPresenter {
             @Override
             public void onFailure(Throwable caught) {
                 loginService.setUserSession(null);
-                loginForm.setMessage(caught.getMessage());
+                form.setMessage(caught.getMessage());
             }
 
             @Override
             public void onSuccess(UserSessionBean result) {
                 loginService.setUserSession(result);
                 String resultMessageText = (result == null ? "Failure: Empty session." : "Success: " + loginService.getUser());
-                loginForm.setMessage("Logging is " + resultMessageText);
+                form.setMessage("Logging is " + resultMessageText);
                 globalBus.fireEvent(new NavigationEvent(NavigationTarget.HOME));
             }
         };

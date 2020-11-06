@@ -26,7 +26,7 @@ public class LoginFormImpl extends VerticalView<LoginViewModel> implements Login
 
     @Override
     public void setValue(LoginViewModel value, boolean fireEvents) {
-        loginView.setValue(value);
+        loginView.setValue(value, fireEvents);
     }
 
     @Override

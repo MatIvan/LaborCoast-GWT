@@ -65,7 +65,7 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
         typeBox.addValueChangeHandler(new ValueChangeHandler<Integer>() {
             @Override
             public void onValueChange(ValueChangeEvent<Integer> event) {
-                String name = typeBox.getNoteTypeBean().getName();
+                String name = typeBox.getValueName();
                 noteBox.setValue(name);
             }
         });
@@ -124,7 +124,6 @@ public class NoteSingleFormViewDefault extends Composite implements NoteSingleFo
     @Override
     public void setData(NoteSingleFormModel model) {
         this.model = model;
-        typeBox.loadData();
         fill();
     }
 

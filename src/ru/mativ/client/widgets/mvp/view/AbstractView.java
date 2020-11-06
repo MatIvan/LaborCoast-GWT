@@ -13,7 +13,7 @@ public abstract class AbstractView<T> extends HasValueComposite<T> {
 
     protected abstract void addField(String label, Widget widget);
 
-    protected void add(Widget widget) {
+    void add(Widget widget) {
         getMainPanel().add(widget);
     }
 

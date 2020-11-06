@@ -43,7 +43,7 @@ public class RegistrationFormImpl extends VerticalView<RegistrationViewModel> im
         addField(null, messageLabel);
 
         HorizontalPanel btnPanel = new HorizontalPanel();
-        //btnPanel.setSpacing(10);
+        btnPanel.setSpacing(10);
         btnPanel.add(sendBtn);
 
         addField(null, btnPanel);

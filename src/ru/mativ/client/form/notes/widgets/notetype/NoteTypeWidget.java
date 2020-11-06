@@ -41,6 +41,7 @@ public class NoteTypeWidget extends HorizontalView<Integer> {
             this.clear();
             loadData();
         }
+        build();
         if (fireEvents) {
             fireValueChangeEvent();
         }

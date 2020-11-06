@@ -19,7 +19,6 @@ public class NoteSinglePopupForm extends NoteSingleFormImpl implements NoteSingl
         presenter = new NoteSingleFormPresenterImpl(this);
 
         box = new DialogBox();
-        box.setText("NoteSingleForm");
         box.setGlassEnabled(true);
         box.setAnimationEnabled(true);
         box.setWidget(this);

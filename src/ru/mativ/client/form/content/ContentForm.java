@@ -1,5 +1,7 @@
 package ru.mativ.client.form.content;
 
+import java.util.Date;
+
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -13,7 +15,10 @@ import ru.mativ.client.form.login.LoginForm;
 import ru.mativ.client.form.login.LoginPresenter;
 import ru.mativ.client.form.login.impl.LoginFormImpl;
 import ru.mativ.client.form.login.impl.LoginPresenterImpl;
-import ru.mativ.client.form.notes.day.impl.NoteDayFormViewDefault;
+import ru.mativ.client.form.notes.day.NoteDayForm;
+import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
+import ru.mativ.client.form.notes.day.impl.NoteDayFormImpl;
+import ru.mativ.client.form.notes.day.impl.NoteDayFormPresenterImpl;
 import ru.mativ.client.form.registration.RegistrationForm;
 import ru.mativ.client.form.registration.impl.RegistrationFormImpl;
 import ru.mativ.client.form.registration.impl.RegistrationFormPresenterImpl;
@@ -102,6 +107,9 @@ public class ContentForm extends Composite {
             return;
         }
         panel.clear();
-        panel.add(new NoteDayFormViewDefault());
+        NoteDayForm noteDayForm = new NoteDayFormImpl();
+        NoteDayFormPresenter noteDayFormPresenter = new NoteDayFormPresenterImpl(noteDayForm);
+        noteDayFormPresenter.update(new Date());
+        noteDayFormPresenter.go(panel);
     }
 }

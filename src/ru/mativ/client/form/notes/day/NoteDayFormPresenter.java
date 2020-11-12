@@ -2,9 +2,8 @@ package ru.mativ.client.form.notes.day;
 
 import java.util.Date;
 
-public interface NoteDayFormPresenter {
+import ru.mativ.client.widgets.mvp.presenter.PresenterInterface;
 
-    void setView(NoteDayFormView view);
-
+public interface NoteDayFormPresenter extends PresenterInterface {
     void update(Date date);
 }

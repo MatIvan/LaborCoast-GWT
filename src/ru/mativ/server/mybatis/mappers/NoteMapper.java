@@ -16,4 +16,6 @@ public interface NoteMapper {
     int insert(NoteDao noteDao) throws DataSaveException;
 
     int update(NoteDao noteDao) throws DataSaveException;
+
+    List<NoteDao> getByUserIdAndPeriod(@Param("userId") int userId, @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo);
 }

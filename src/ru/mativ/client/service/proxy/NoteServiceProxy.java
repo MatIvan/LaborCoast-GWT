@@ -34,4 +34,10 @@ public class NoteServiceProxy implements NoteServiceAsync {
         requestService.send(noteService.save(noteBean, callback));
         return null;
     }
+
+    @Override
+    public RequestBuilder getByMonth(Date date, AsyncCallback<List<NoteBean>> callback) {
+        requestService.send(noteService.getByMonth(date, callback));
+        return null;
+    }
 }

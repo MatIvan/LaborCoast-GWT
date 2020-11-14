@@ -71,4 +71,17 @@
             hours =     #{hours}
         WHERE id = #{id};
     </update>
+
+    <select id="getByUserIdAndPeriod" resultMap="NoteDaoResult">
+        SELECT id,
+            user_id,
+            type_id,
+            note,
+            comment,
+            day,
+            hours
+        FROM note
+        WHERE user_id = #{userId}
+        AND day BETWEEN #{dateFrom} AND #{dateTo};
+    </select>
 </mapper>

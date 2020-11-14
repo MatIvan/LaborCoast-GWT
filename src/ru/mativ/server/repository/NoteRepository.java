@@ -96,4 +96,9 @@ public class NoteRepository implements NoteMapper {
             throw new DataSaveException("Can not save note: " + e.getMessage());
         }
     }
+
+    @Override
+    public List<NoteDao> getByUserIdAndPeriod(int userId, String dateFrom, String dateTo) {
+        return mapper().getByUserIdAndPeriod(userId, dateFrom, dateTo);
+    }
 }

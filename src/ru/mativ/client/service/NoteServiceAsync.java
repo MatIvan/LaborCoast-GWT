@@ -15,4 +15,6 @@ public interface NoteServiceAsync {
     RequestBuilder getById(int noteId, AsyncCallback<NoteBean> callback);
 
     RequestBuilder save(NoteBean noteBean, AsyncCallback<NoteBean> callback);
+
+    RequestBuilder getByMonth(Date date, AsyncCallback<List<NoteBean>> callback);
 }

@@ -15,6 +15,7 @@ import ru.mativ.client.form.login.LoginForm;
 import ru.mativ.client.form.login.LoginPresenter;
 import ru.mativ.client.form.login.impl.LoginFormImpl;
 import ru.mativ.client.form.login.impl.LoginPresenterImpl;
+import ru.mativ.client.form.notes.calendar.NoteMonthCalendar;
 import ru.mativ.client.form.notes.day.NoteDayForm;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
 import ru.mativ.client.form.notes.day.impl.NoteDayFormImpl;
@@ -113,6 +114,8 @@ public class ContentForm extends Composite {
     }
 
     private void showNoteMonthForm() {
-        //TODO NoteMonthForm
+        NoteMonthCalendar noteMonthCalendar = new NoteMonthCalendar();
+        panel.add(noteMonthCalendar);
+        noteMonthCalendar.loadMonth(new Date());
     }
 }

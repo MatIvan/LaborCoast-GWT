@@ -16,7 +16,7 @@ import ru.mativ.shared.bean.NoteCalendarDay;
 import ru.mativ.shared.exception.DataSaveException;
 import ru.mativ.shared.exception.LoginFialException;
 import ru.mativ.shared.exception.NotFoundException;
-import ru.mativ.shared.utils.StringDateUtil;
+import ru.mativ.tools.StringDateUtil;
 
 @SuppressWarnings("serial")
 public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
@@ -98,9 +98,14 @@ public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
         Date date = noteBean.getDate();
         NoteCalendarDay result = new NoteCalendarDay();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+        Calendar calendar = StringDateUtil.getCalendar(date);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+
+        // Normalize becouse USA Sunday it is number 1.
+        if (dayOfWeek == 0) {
+            dayOfWeek = 7;
+        }
+
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
         int weekOfMonth = calendar.get(Calendar.WEEK_OF_MONTH);
 

@@ -26,4 +26,10 @@ public class StringDateUtil {
         calendar.setTime(date);
         return FORMAT.format(calendar.getTime());
     }
+
+    public static int getDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
 }

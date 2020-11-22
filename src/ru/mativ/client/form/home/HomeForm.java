@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 import ru.mativ.client.LaborCoast;
 import ru.mativ.client.service.proxy.GreetingServiceProxy;
 import ru.mativ.client.service.proxy.NoteServiceProxy;
-import ru.mativ.shared.bean.NoteBean;
+import ru.mativ.shared.bean.NoteCalendarDay;
 
 public class HomeForm extends Composite {
     private static final Logger Log = Logger.getLogger(HomeForm.class.getName());
@@ -59,17 +59,17 @@ public class HomeForm extends Composite {
     }
 
     private Widget buildNoteServiceTest() {
-        Button btn = new Button("getByMonth");
+        Button btn = new Button("getCalendarDaysByMonth");
         btn.addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent event) {
                 Date date = new Date();
-                noteService.getByMonth(date, new AsyncCallback<List<NoteBean>>() {
+                noteService.getCalendarDaysByMonth(date, new AsyncCallback<List<NoteCalendarDay>>() {
 
                     @Override
-                    public void onSuccess(List<NoteBean> result) {
-                        for(NoteBean bean : result) {
+                    public void onSuccess(List<NoteCalendarDay> result) {
+                        for(NoteCalendarDay bean : result) {
                             Log.info(bean.toString());
                         }
                     }

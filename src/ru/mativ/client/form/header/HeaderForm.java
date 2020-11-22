@@ -8,8 +8,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.LaborCoast;
-import ru.mativ.client.event.navigation.BeforeNavigationEvent;
-import ru.mativ.client.event.navigation.BeforeNavigationEventHandler;
+import ru.mativ.client.event.navigation.NavigationEvent;
+import ru.mativ.client.event.navigation.NavigationEventHandler;
 import ru.mativ.client.event.navigation.NavigationTarget;
 import ru.mativ.client.fabrica.NavigateButtonsFabrica;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
@@ -28,6 +28,7 @@ public class HeaderForm extends Composite {
     private Button btnLogoff;
 
     private Button btnNoteDay;
+    private Button btnNoteMonth;
 
     public HeaderForm() {
         initGui();
@@ -47,6 +48,7 @@ public class HeaderForm extends Composite {
         secondPanel = new HorizontalPanel();
         secondPanel.setSpacing(4);
         btnNoteDay = NavigateButtonsFabrica.createButton(NavigationTarget.NOTE_DAY);
+        btnNoteMonth = NavigateButtonsFabrica.createButton(NavigationTarget.NOTE_MONTH);
 
         mainPanel = new VerticalPanel();
         mainPanel.setSpacing(2);
@@ -55,9 +57,9 @@ public class HeaderForm extends Composite {
     }
 
     private void initHandlers() {
-        globalBus.addHandler(BeforeNavigationEvent.TYPE, new BeforeNavigationEventHandler() {
+        globalBus.addHandler(NavigationEvent.TYPE, new NavigationEventHandler() {
             @Override
-            public void beforeNavigation(NavigationTarget target) {
+            public void navigate(NavigationEvent navigationEvent) {
                 updateView();
             }
         });
@@ -89,5 +91,6 @@ public class HeaderForm extends Composite {
 
         secondPanel.clear();
         secondPanel.add(btnNoteDay);
+        secondPanel.add(btnNoteMonth);
     }
 }

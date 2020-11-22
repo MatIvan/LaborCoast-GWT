@@ -43,39 +43,52 @@ public class ContentForm extends Composite {
 
     private void initHandlers() {
         globalBus.addHandler(NavigationEvent.TYPE, new NavigationEventHandler() {
-
             @Override
-            public void toHome(NavigationEvent navigationEvent) {
-                showHomeForm();
-            }
-
-            @Override
-            public void toLogin(NavigationEvent navigationEvent) {
-                showLoginForm();
-            }
-
-            @Override
-            public void toRegistration(NavigationEvent navigationEvent) {
-                showRegistrationForm();
-            }
-
-            @Override
-            public void toLogoff(NavigationEvent navigationEvent) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void toNoteDay(NavigationEvent navigationEvent) {
-                showNoteDayForm();
+            public void navigate(NavigationEvent navigationEvent) {
+                showContentForTarget(navigationEvent.getTarget());
             }
         });
     }
 
-    private void showLoginForm() {
+    private void showContentForTarget(NavigationTarget target) {
         if (loginService.isRegistered()) {
-            return;
+            if (NavigationTarget.LOGIN.equals(target) || NavigationTarget.REGISTRATION.equals(target)) {
+                return;
+            }
+        } else {
+            if (!target.isAllowToUnonim()) {
+                globalBus.fireEvent(new NavigationEvent(NavigationTarget.LOGIN));
+                return;
+            }
         }
         panel.clear();
+        switch (target) {
+            case HOME:
+                showHomeForm();
+                break;
+            case LOGIN:
+                showLoginForm();
+                break;
+            case LOGOFF:
+                // TODO Auto-generated method stub
+                break;
+            case NOTE_DAY:
+                showNoteDayForm();
+                break;
+            case NOTE_MONTH:
+                showNoteMonthForm();
+                break;
+            case NULL:
+                break;
+            case REGISTRATION:
+                showRegistrationForm();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void showLoginForm() {
         LoginForm loginForm = new LoginFormImpl();
         LoginPresenter loginPresenter = new LoginPresenterImpl(loginForm);
         loginPresenter.setDefaultData("test", "123"); //Develop only
@@ -83,33 +96,23 @@ public class ContentForm extends Composite {
     }
 
     private void showRegistrationForm() {
-        if (loginService.isRegistered()) {
-            return;
-        }
-        panel.clear();
         RegistrationForm registrationForm = new RegistrationFormImpl();
         RegistrationFormPresenterImpl registrationFormPresenter = new RegistrationFormPresenterImpl(registrationForm);
         registrationFormPresenter.go(panel);
     }
 
     private void showHomeForm() {
-        if (!loginService.isRegistered()) {
-            globalBus.fireEvent(new NavigationEvent(NavigationTarget.LOGIN));
-            return;
-        }
-        panel.clear();
         panel.add(new HomeForm());
     }
 
     private void showNoteDayForm() {
-        if (!loginService.isRegistered()) {
-            globalBus.fireEvent(new NavigationEvent(NavigationTarget.LOGIN));
-            return;
-        }
-        panel.clear();
         NoteDayForm noteDayForm = new NoteDayFormImpl();
         NoteDayFormPresenter noteDayFormPresenter = new NoteDayFormPresenterImpl(noteDayForm);
         noteDayFormPresenter.update(new Date());
         noteDayFormPresenter.go(panel);
+    }
+
+    private void showNoteMonthForm() {
+        //TODO NoteMonthForm
     }
 }

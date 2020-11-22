@@ -1,20 +1,27 @@
 package ru.mativ.client.event.navigation;
 
 public enum NavigationTarget {
-    NULL(""),
-    HOME("Home"),
-    LOGIN("Login"),
-    REGISTRATION("Registration"),
-    LOGOFF("Exit"),
-    NOTE_DAY("Day notes");
+    NULL("", false),
+    HOME("Home", false),
+    LOGIN("Login", true),
+    REGISTRATION("Registration", true),
+    LOGOFF("Exit", false),
+    NOTE_DAY("Day notes", false),
+    NOTE_MONTH("Month", false);
 
     private String name;
+    private boolean isAllowToUnonim;
 
-    NavigationTarget(String name) {
+    NavigationTarget(String name, boolean isAllowToUnonim) {
         this.name = name;
+        this.isAllowToUnonim = isAllowToUnonim;
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isAllowToUnonim() {
+        return isAllowToUnonim;
     }
 }

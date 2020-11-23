@@ -40,14 +40,14 @@ public class LoginFormImpl extends VerticalView<LoginViewModel> implements Login
     @Override
     protected void build() {
         addField("Login form:", loginView);
-        addField(null, messageLabel);
+        addField(messageLabel);
 
         HorizontalPanel btnPanel = new HorizontalPanel();
         btnPanel.setSpacing(10);
         btnPanel.add(sendBtn);
         btnPanel.add(registrBtn);
 
-        addField(null, btnPanel);
+        addField(btnPanel);
     }
 
     @Override

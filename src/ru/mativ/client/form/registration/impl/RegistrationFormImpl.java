@@ -40,13 +40,13 @@ public class RegistrationFormImpl extends VerticalView<RegistrationViewModel> im
     @Override
     protected void build() {
         addField("Registration form:", registrationView);
-        addField(null, messageLabel);
+        addField(messageLabel);
 
         HorizontalPanel btnPanel = new HorizontalPanel();
         btnPanel.setSpacing(10);
         btnPanel.add(sendBtn);
 
-        addField(null, btnPanel);
+        addField(btnPanel);
     }
 
     @Override

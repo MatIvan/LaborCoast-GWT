@@ -116,7 +116,7 @@ public class NoteDayFormImpl extends VerticalView<NoteDayFormModel> implements N
 
         HorizontalPanel buttonsPanel = new HorizontalPanel();
         buttonsPanel.add(addNoteButton);
-        addField(null, buttonsPanel);
+        addField(buttonsPanel);
     }
 
     @Override

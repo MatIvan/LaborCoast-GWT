@@ -11,6 +11,8 @@ public abstract class AbstractView<T> extends HasValueComposite<T> {
         super(panel);
     }
 
+    protected abstract void addField(Widget widget);
+
     protected abstract void addField(String label, Widget widget);
 
     void add(Widget widget) {

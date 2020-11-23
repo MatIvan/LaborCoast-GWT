@@ -59,13 +59,13 @@ public class NoteTypeWidget extends HorizontalView<Integer> {
         }
         this.clear();
         for (NoteTypeBean bean : list) {
-            addField(null, createElement(bean));
+            addField(createElement(bean));
         }
     }
 
     private void showError(String message) {
         this.clear();
-        addField(null, new Label(message));
+        addField(new Label(message));
     }
 
     private Widget createElement(NoteTypeBean bean) {

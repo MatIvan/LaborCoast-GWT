@@ -32,7 +32,7 @@ public class NoteSingleFormImpl extends VerticalView<NoteSingleViewModel> implem
     public void setErrorMessage(String message) {
         this.clear();
         addField("Error:", new Label(message));
-        addField(null, closeBtn);
+        addField(closeBtn);
     }
 
     @Override
@@ -59,6 +59,6 @@ public class NoteSingleFormImpl extends VerticalView<NoteSingleViewModel> implem
         HorizontalPanel buttonsPanel = new HorizontalPanel();
         buttonsPanel.add(closeBtn);
         buttonsPanel.add(saveBtn);
-        addField(null, buttonsPanel);
+        addField(buttonsPanel);
     }
 }

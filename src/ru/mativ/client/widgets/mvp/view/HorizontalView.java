@@ -13,11 +13,12 @@ public abstract class HorizontalView<T> extends AbstractView<T> {
     }
 
     @Override
+    protected void addField(Widget widget) {
+        add(widget);
+    }
+
+    @Override
     public void addField(String label, Widget widget) {
-        if (label == null) {
-            add(widget);
-        } else {
-            add(new VLabeledPanel(label, widget));
-        }
+        add(new VLabeledPanel(label, widget));
     }
 }

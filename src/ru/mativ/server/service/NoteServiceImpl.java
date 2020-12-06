@@ -74,10 +74,10 @@ public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
     @Override
     public List<NoteCalendarDay> getCalendarDaysByMonth(Date date) throws LoginFialException, NotFoundException {
         List<NoteBean> notesByMonth = getByMonth(date);
-        return makeNoteCalendarDayList(notesByMonth);
+        return makeNoteCalendarDayList(date, notesByMonth);
     }
 
-    private List<NoteCalendarDay> makeNoteCalendarDayList(List<NoteBean> notesByMonth) {
+    private List<NoteCalendarDay> makeNoteCalendarDayList(Date date, List<NoteBean> notesByMonth) {
         //Key Integer - DayOfMonth
         Map<Integer, NoteCalendarDay> monthMap = new HashMap<>();
 

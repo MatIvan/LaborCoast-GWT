@@ -4,6 +4,7 @@ import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import ru.mativ.client.widgets.mvp.view.FlowView;
@@ -12,17 +13,21 @@ import ru.mativ.shared.bean.NoteCalendarDay;
 
 public class NoteDayCalendarWidget extends FlowView<NoteCalendarDay> {
     private static final String STYLE = "NoteDayCalendarWidget";
+    private static final String STYLE_WATER_LABEL = STYLE + "-waterLabel";
+
     private static final int MAX_TEXT_LENGTH = 8;
     private static final DateTimeFormat DATE_FORMAT = DateTimeFormat.getFormat("dd/mm/yyyy");
 
     private NoteCalendarDay noteCalendarDay;
+    private String waterLabelText;
 
-    public NoteDayCalendarWidget() {
-        this(null);
+    public NoteDayCalendarWidget(String waterLabelText) {
+        this(waterLabelText, null);
     }
 
-    public NoteDayCalendarWidget(NoteCalendarDay value) {
+    public NoteDayCalendarWidget(String waterLabelText, NoteCalendarDay value) {
         super();
+        this.waterLabelText = waterLabelText;
         setStyleName(STYLE);
         setValue(value);
     }
@@ -46,6 +51,9 @@ public class NoteDayCalendarWidget extends FlowView<NoteCalendarDay> {
 
     @Override
     protected void build() {
+        clear();
+        addField(makeWaterLabel());
+
         if (noteCalendarDay == null) {
             return;
         }
@@ -54,6 +62,14 @@ public class NoteDayCalendarWidget extends FlowView<NoteCalendarDay> {
         for (NoteBean noteBean : noteCalendarDay.getNoteList()) {
             addField(makeRowWidget(noteBean));
         }
+    }
+
+    private Widget makeWaterLabel() {
+        Label waterLabel = new Label(waterLabelText);
+        SimplePanel panel = new SimplePanel();
+        panel.addStyleName(STYLE_WATER_LABEL);
+        panel.add(waterLabel);
+        return panel;
     }
 
     private Widget makeCaptionWidget() {

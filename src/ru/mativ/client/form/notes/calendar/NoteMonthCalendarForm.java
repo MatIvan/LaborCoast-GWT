@@ -11,18 +11,17 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.LaborCoast;
-import ru.mativ.client.form.notes.widgets.calendar.CalendarWidget;
 import ru.mativ.client.service.proxy.NoteServiceProxy;
 import ru.mativ.shared.bean.NoteCalendarDay;
 
-public class NoteMonthCalendar extends Composite {
-    private static final Logger Log = Logger.getLogger(NoteMonthCalendar.class.getName());
+public class NoteMonthCalendarForm extends Composite {
+    private static final Logger Log = Logger.getLogger(NoteMonthCalendarForm.class.getName());
     private static final NoteServiceProxy noteService = LaborCoast.getNoteServiceProxy();
 
     private VerticalPanel mainPanel;
     private CalendarWidget calendarWidget;
 
-    public NoteMonthCalendar() {
+    public NoteMonthCalendarForm() {
         init();
         build();
         bind();

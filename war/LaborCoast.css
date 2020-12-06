@@ -33,8 +33,28 @@
     flex-direction: column;
 }
 
+.NoteDayCalendarWidget-waterLabel {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center;
+}
+
+.NoteDayCalendarWidget-waterLabel div {
+    font-size: 30px;
+    color: lightgrey;
+    font-weight: bold;
+}
+
 .NoteDayCalendarWidget div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.CalendarHeaderField {
+    width: 100px;
+    text-align: center;
 }

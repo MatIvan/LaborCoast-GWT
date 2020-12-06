@@ -1,6 +1,5 @@
 package ru.mativ.client.form.notes.calendar;
 
-import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -16,7 +15,6 @@ public class CalendarWidget extends Composite {
 
     private VerticalPanel mainPanel;
     private Grid grid;
-    private Date currentMonth;
 
     public CalendarWidget() {
         init();
@@ -57,7 +55,7 @@ public class CalendarWidget extends Composite {
         grid.clear();
         for (int i = 0; i < grid.getRowCount(); i++) {
             for (int j = 0; j < grid.getColumnCount(); j++) {
-                Widget dayWidgetEmpty = new NoteDayCalendarWidget(null);
+                Widget dayWidgetEmpty = new NoteDayCalendarWidget(null, null);
                 grid.setWidget(i, j, dayWidgetEmpty);
             }
         }

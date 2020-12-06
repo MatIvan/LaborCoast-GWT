@@ -54,7 +54,14 @@
     justify-content: space-between;
 }
 
+.NoteDayCalendarWidget-caption {
+    background-color: lightgrey;
+    font-weight: bold;
+    justify-content: flex-end !important;
+}
+
 .CalendarHeaderField {
     width: 100px;
     text-align: center;
+    margin: 3px;
 }

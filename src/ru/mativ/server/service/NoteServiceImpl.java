@@ -79,13 +79,13 @@ public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
 
     private List<NoteCalendarDay> makeNoteCalendarDayList(Date date, List<NoteBean> notesByMonth) {
         //Key Integer - DayOfMonth
-        Map<Integer, NoteCalendarDay> monthMap = new HashMap<>();
+        Map<Integer, NoteCalendarDay> monthMap = makeMonthMap(date);
 
         for (NoteBean noteBean : notesByMonth) {
             Integer day = StringDateUtil.getDayOfMonth(noteBean.getDate());
             NoteCalendarDay noteCalendarDay = monthMap.get(day);
             if (noteCalendarDay == null) {
-                noteCalendarDay = makeFromNoteBean(noteBean);
+                noteCalendarDay = makeNoteCalendarDay(noteBean.getDate());
                 monthMap.put(day, noteCalendarDay);
             }
             noteCalendarDay.getNoteList().add(noteBean);
@@ -94,8 +94,23 @@ public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
         return new ArrayList<>(monthMap.values());
     }
 
-    private NoteCalendarDay makeFromNoteBean(NoteBean noteBean) {
-        Date date = noteBean.getDate();
+    private Map<Integer, NoteCalendarDay> makeMonthMap(Date date) {
+        List<Integer> allMonthDays = StringDateUtil.getAllMonthDays(date);
+        Map<Integer, NoteCalendarDay> monthMap = new HashMap<>();
+        for (Integer day : allMonthDays) {
+            NoteCalendarDay noteCalendarDay = makeNoteCalendarDay(day, date);
+            monthMap.put(day, noteCalendarDay);
+        }
+        return monthMap;
+    }
+
+    private NoteCalendarDay makeNoteCalendarDay(int day, Date anyMonthDate) {
+        Calendar calendar = StringDateUtil.getCalendar(anyMonthDate);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        return makeNoteCalendarDay(calendar.getTime());
+    }
+
+    private NoteCalendarDay makeNoteCalendarDay(Date date) {
         NoteCalendarDay result = new NoteCalendarDay();
 
         Calendar calendar = StringDateUtil.getCalendar(date);

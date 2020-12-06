@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.LaborCoast;
@@ -34,7 +33,6 @@ public class NoteMonthCalendarForm extends Composite {
     }
 
     private void build() {
-        mainPanel.add(new Label("NoteMonthCalendar:"));
         mainPanel.add(calendarWidget);
     }
 

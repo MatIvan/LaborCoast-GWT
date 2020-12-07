@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.LaborCoast;
 import ru.mativ.client.service.proxy.NoteServiceProxy;
+import ru.mativ.client.widgets.AdvancedMonthPicker;
 import ru.mativ.shared.bean.NoteCalendarDay;
 
 public class NoteMonthCalendarForm extends Composite {
@@ -19,6 +22,7 @@ public class NoteMonthCalendarForm extends Composite {
 
     private VerticalPanel mainPanel;
     private CalendarWidget calendarWidget;
+    private AdvancedMonthPicker advancedMonthPicker;
 
     public NoteMonthCalendarForm() {
         init();
@@ -30,9 +34,17 @@ public class NoteMonthCalendarForm extends Composite {
     private void init() {
         mainPanel = new VerticalPanel();
         calendarWidget = new CalendarWidget();
+        advancedMonthPicker = new AdvancedMonthPicker();
+        advancedMonthPicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Date> event) {
+                loadMonth(event.getValue());
+            }
+        });
     }
 
     private void build() {
+        mainPanel.add(advancedMonthPicker);
         mainPanel.add(calendarWidget);
     }
 
@@ -41,6 +53,7 @@ public class NoteMonthCalendarForm extends Composite {
     }
 
     public void loadMonth(Date date) {
+        advancedMonthPicker.setValue(date);
         noteService.getCalendarDaysByMonth(date, new AsyncCallback<List<NoteCalendarDay>>() {
 
             @Override

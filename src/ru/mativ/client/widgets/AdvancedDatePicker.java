@@ -11,9 +11,10 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.gwt.user.datepicker.client.DateBox;
+import com.google.gwt.user.datepicker.client.DateBox.Format;
 
 public class AdvancedDatePicker extends HasValueComposite<Date> {
-    private static final DateTimeFormat DATE_FORMAT = DateTimeFormat.getFormat("dd MMMM yyyy");
+    private static final String FORMAT_FULL = "dd MMMM yyyy";
 
     private DateBox dateBox;
     private Button prevDayButton;
@@ -57,7 +58,7 @@ public class AdvancedDatePicker extends HasValueComposite<Date> {
         });
     }
 
-    private void addToValue(int number) {
+    protected void addToValue(int number) {
         Date date = dateBox.getValue();
         CalendarUtil.addDaysToDate(date, number);
         setValue(date, true);
@@ -66,7 +67,7 @@ public class AdvancedDatePicker extends HasValueComposite<Date> {
     private void initDateBox() {
         dateBox = new DateBox();
         dateBox.getDatePicker().setYearArrowsVisible(true);
-        dateBox.setFormat(new DateBox.DefaultFormat(DATE_FORMAT));
+        dateBox.setFormat(getFormat());
         dateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
             @Override
             public void onValueChange(ValueChangeEvent<Date> event) {
@@ -83,5 +84,10 @@ public class AdvancedDatePicker extends HasValueComposite<Date> {
     @Override
     public void setValue(Date value, boolean fireEvents) {
         dateBox.setValue(value, fireEvents);
+    }
+
+    protected Format getFormat() {
+        DateTimeFormat dateFormat = DateTimeFormat.getFormat(FORMAT_FULL);
+        return new DateBox.DefaultFormat(dateFormat);
     }
 }

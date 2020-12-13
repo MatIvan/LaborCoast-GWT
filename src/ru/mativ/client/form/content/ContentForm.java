@@ -23,6 +23,7 @@ import ru.mativ.client.form.notes.day.impl.NoteDayFormPresenterImpl;
 import ru.mativ.client.form.registration.RegistrationForm;
 import ru.mativ.client.form.registration.impl.RegistrationFormImpl;
 import ru.mativ.client.form.registration.impl.RegistrationFormPresenterImpl;
+import ru.mativ.client.form.workspace.Workspace;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
 
 public class ContentForm extends Composite {
@@ -79,6 +80,9 @@ public class ContentForm extends Composite {
             case NOTE_MONTH:
                 showNoteMonthForm();
                 break;
+            case WORKSPACE:
+                showWorkspaceForm();
+                break;
             case NULL:
                 break;
             case REGISTRATION:
@@ -117,5 +121,11 @@ public class ContentForm extends Composite {
         NoteMonthCalendarForm noteMonthCalendar = new NoteMonthCalendarForm();
         panel.add(noteMonthCalendar);
         noteMonthCalendar.loadMonth(new Date());
+    }
+
+    private void showWorkspaceForm() {
+        Workspace workspace = new Workspace();
+        panel.add(workspace);
+        workspace.load(new Date());
     }
 }

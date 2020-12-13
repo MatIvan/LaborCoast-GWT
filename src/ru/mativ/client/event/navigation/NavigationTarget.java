@@ -7,7 +7,8 @@ public enum NavigationTarget {
     REGISTRATION("Registration", true),
     LOGOFF("Exit", false),
     NOTE_DAY("Day notes", false),
-    NOTE_MONTH("Month", false);
+    NOTE_MONTH("Month", false),
+    WORKSPACE("Workspace", false);
 
     private String name;
     private boolean isAllowToUnonim;

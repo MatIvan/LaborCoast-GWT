@@ -16,7 +16,7 @@ public class NoteDayCalendarWidget extends FlowView<NoteCalendarDay> {
 
     private static final int MAX_TEXT_LENGTH = 8;
 
-    private NoteCalendarDay noteCalendarDay;
+    protected NoteCalendarDay noteCalendarDay;
     private String waterLabelText;
 
     public NoteDayCalendarWidget(String waterLabelText, NoteCalendarDay value) {

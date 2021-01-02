@@ -14,13 +14,16 @@ public class CalendarWidget extends Composite {
     private static final int GRID_COLUMNS_MAX = 7;
 
     private VerticalPanel mainPanel;
-    private Grid grid;
+    protected Grid grid;
 
     public CalendarWidget() {
         init();
         build();
-        bind();
         initWidget(mainPanel);
+    }
+
+    protected void afterDataUpdated() {
+        //do nothing
     }
 
     private void init() {
@@ -35,10 +38,6 @@ public class CalendarWidget extends Composite {
         mainPanel.add(grid);
     }
 
-    private void bind() {
-
-    }
-
     public void setData(List<NoteCalendarDay> noteCalendarDayList) {
         clear();
         for (NoteCalendarDay noteCalendarDay : noteCalendarDayList) {
@@ -46,18 +45,23 @@ public class CalendarWidget extends Composite {
             int col = noteCalendarDay.getDayOfWeek() - 1;
             String waterText = String.valueOf(noteCalendarDay.getDayOfMonth());
 
-            Widget dayWidget = new NoteDayCalendarWidget(waterText, noteCalendarDay);
+            Widget dayWidget = makeNoteDayCalendarWidget(waterText, noteCalendarDay);
             grid.setWidget(row, col, dayWidget);
         }
+        afterDataUpdated();
     }
 
     private void clear() {
         grid.clear();
         for (int i = 0; i < grid.getRowCount(); i++) {
             for (int j = 0; j < grid.getColumnCount(); j++) {
-                Widget dayWidgetEmpty = new NoteDayCalendarWidget(null, null);
+                Widget dayWidgetEmpty = makeNoteDayCalendarWidget(null, null);
                 grid.setWidget(i, j, dayWidgetEmpty);
             }
         }
+    }
+
+    protected NoteDayCalendarWidget makeNoteDayCalendarWidget(String waterText, NoteCalendarDay noteCalendarDay) {
+        return new NoteDayCalendarWidget(waterText, noteCalendarDay);
     }
 }

@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ru.mativ.client.LaborCoast;
+import ru.mativ.client.form.notes.calendar.selectable.CalendarWidgetSelectable;
 import ru.mativ.client.service.proxy.NoteServiceProxy;
 import ru.mativ.client.widgets.AdvancedMonthPicker;
 import ru.mativ.shared.bean.NoteCalendarDay;
@@ -21,7 +22,7 @@ public class NoteMonthCalendarForm extends Composite {
     private static final NoteServiceProxy noteService = LaborCoast.getNoteServiceProxy();
 
     private VerticalPanel mainPanel;
-    private CalendarWidget calendarWidget;
+    private CalendarWidgetSelectable calendarWidget;
     private AdvancedMonthPicker advancedMonthPicker;
 
     public NoteMonthCalendarForm() {
@@ -32,7 +33,7 @@ public class NoteMonthCalendarForm extends Composite {
 
     private void init() {
         mainPanel = new VerticalPanel();
-        calendarWidget = new CalendarWidget();
+        calendarWidget = new CalendarWidgetSelectable();
         advancedMonthPicker = new AdvancedMonthPicker();
         advancedMonthPicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
             @Override
@@ -61,5 +62,9 @@ public class NoteMonthCalendarForm extends Composite {
                 Log.log(Level.SEVERE, "Error loading NoteMonthCalendar.", caught);
             }
         });
+    }
+
+    public void select(Date date) {
+        calendarWidget.select(date);
     }
 }

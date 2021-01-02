@@ -9,6 +9,7 @@ public class NoteDayCalendarWidgetSelectable extends NoteDayCalendarWidget {
 
     public NoteDayCalendarWidgetSelectable(String waterLabelText, NoteCalendarDay value) {
         super(waterLabelText, value);
+        isSelected = false;
     }
 
     public boolean isSelected() {
@@ -25,5 +26,10 @@ public class NoteDayCalendarWidgetSelectable extends NoteDayCalendarWidget {
         if (isSelected) {
             this.addStyleName(STYLE);
         }
+    }
+
+    @Override
+    public NoteCalendarDay getValue() {
+        return noteCalendarDay;
     }
 }

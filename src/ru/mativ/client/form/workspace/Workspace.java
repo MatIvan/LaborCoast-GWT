@@ -61,7 +61,9 @@ public class Workspace extends Composite {
         noteDayForm.addValueChangeHandler(new ValueChangeHandler<NoteDayFormModel>() {
             @Override
             public void onValueChange(ValueChangeEvent<NoteDayFormModel> event) {
-                noteMonthCalendarForm.loadMonth(event.getValue().getDate());
+                Date date = event.getValue().getDate();
+                noteMonthCalendarForm.loadMonth(date);
+                noteMonthCalendarForm.select(date);
             }
         });
         noteDayFormPresenter = new NoteDayFormPresenterImpl(noteDayForm);
@@ -78,7 +80,8 @@ public class Workspace extends Composite {
     }
 
     public void load(Date date) {
-        noteMonthCalendarForm.loadMonth(new Date());
-        noteDayFormPresenter.update(new Date());
+        noteMonthCalendarForm.loadMonth(date);
+        noteMonthCalendarForm.select(date);
+        noteDayFormPresenter.update(date);
     }
 }

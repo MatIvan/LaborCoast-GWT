@@ -47,6 +47,10 @@
     font-size: 30px;
     color: lightgrey;
     font-weight: bold;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 .NoteDayCalendarWidget div {
@@ -61,7 +65,11 @@
     justify-content: flex-end !important;
 }
 
-.NoteDayCalendarWidgetSelectable {
+.NoteDayCalendarWidgetSelectable:hover {
+    background-color: aliceblue;
+}
+
+.NoteDayCalendarWidgetSelectable-selected {
     background-color: aliceblue;
 }
 

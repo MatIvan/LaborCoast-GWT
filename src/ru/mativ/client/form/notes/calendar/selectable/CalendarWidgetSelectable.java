@@ -2,13 +2,18 @@ package ru.mativ.client.form.notes.calendar.selectable;
 
 import java.util.Date;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
 
 import ru.mativ.client.form.notes.calendar.CalendarWidget;
 import ru.mativ.client.form.notes.calendar.NoteDayCalendarWidget;
 import ru.mativ.shared.bean.NoteCalendarDay;
 
-public class CalendarWidgetSelectable extends CalendarWidget {
+public class CalendarWidgetSelectable extends CalendarWidget implements HasSelectionChangedHandlers {
 
     private Date selectedDate;
     private NoteDayCalendarWidgetSelectable selectedWidget;
@@ -19,7 +24,19 @@ public class CalendarWidgetSelectable extends CalendarWidget {
 
     @Override
     protected NoteDayCalendarWidget makeNoteDayCalendarWidget(String waterText, NoteCalendarDay noteCalendarDay) {
-        return new NoteDayCalendarWidgetSelectable(waterText, noteCalendarDay);
+        NoteDayCalendarWidgetSelectable res = new NoteDayCalendarWidgetSelectable(waterText, noteCalendarDay);
+
+        if (noteCalendarDay != null) {
+            final Date date = noteCalendarDay.getDate();
+            res.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent event) {
+                    select(date);
+                    fireSelectionChanged();
+                }
+            });
+        }
+        return res;
     }
 
     @Override
@@ -56,4 +73,16 @@ public class CalendarWidgetSelectable extends CalendarWidget {
         selectedDate = null;
     }
 
+    @Override
+    public HandlerRegistration addSelectionChangeHandler(SelectionChangeEvent.Handler handler) {
+        return this.addHandler(handler, SelectionChangeEvent.getType());
+    }
+
+    private void fireSelectionChanged() {
+        SelectionChangeEvent.fire(this);
+    }
+
+    public Date getSelectedDate() {
+        return selectedDate;
+    }
 }

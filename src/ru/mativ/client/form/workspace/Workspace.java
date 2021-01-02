@@ -6,6 +6,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
 
 import ru.mativ.client.form.notes.calendar.NoteMonthCalendarForm;
 import ru.mativ.client.form.notes.day.NoteDayForm;
@@ -55,6 +56,12 @@ public class Workspace extends Composite {
     private void initForms() {
         //month
         noteMonthCalendarForm = new NoteMonthCalendarForm();
+        noteMonthCalendarForm.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+            @Override
+            public void onSelectionChange(SelectionChangeEvent event) {
+                noteDayFormPresenter.update(noteMonthCalendarForm.getSelectedDate());
+            }
+        });
 
         //day
         noteDayForm = new NoteDayFormImpl();

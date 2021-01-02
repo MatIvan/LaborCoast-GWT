@@ -7,9 +7,12 @@ import java.util.logging.Logger;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
 
 import ru.mativ.client.LaborCoast;
 import ru.mativ.client.form.notes.calendar.selectable.CalendarWidgetSelectable;
@@ -17,7 +20,7 @@ import ru.mativ.client.service.proxy.NoteServiceProxy;
 import ru.mativ.client.widgets.AdvancedMonthPicker;
 import ru.mativ.shared.bean.NoteCalendarDay;
 
-public class NoteMonthCalendarForm extends Composite {
+public class NoteMonthCalendarForm extends Composite implements HasSelectionChangedHandlers {
     private static final Logger Log = Logger.getLogger(NoteMonthCalendarForm.class.getName());
     private static final NoteServiceProxy noteService = LaborCoast.getNoteServiceProxy();
 
@@ -66,5 +69,14 @@ public class NoteMonthCalendarForm extends Composite {
 
     public void select(Date date) {
         calendarWidget.select(date);
+    }
+
+    @Override
+    public HandlerRegistration addSelectionChangeHandler(SelectionChangeEvent.Handler handler) {
+        return calendarWidget.addSelectionChangeHandler(handler);
+    }
+
+    public Date getSelectedDate() {
+        return calendarWidget.getSelectedDate();
     }
 }

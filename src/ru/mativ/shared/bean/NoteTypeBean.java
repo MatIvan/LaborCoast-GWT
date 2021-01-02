@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class NoteTypeBean implements Serializable {
     private static final long serialVersionUID = 5797290186704078500L;
+    public static final Integer DEFAULT_TYPE_ID = 1;
 
     private Integer id;
     private String name;

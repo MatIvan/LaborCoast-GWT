@@ -17,6 +17,7 @@ import ru.mativ.client.form.notes.single.NoteSingleFormPresenter;
 import ru.mativ.client.service.proxy.NoteServiceProxy;
 import ru.mativ.client.widgets.mvp.presenter.AbstractPresenter;
 import ru.mativ.shared.bean.NoteBean;
+import ru.mativ.shared.bean.NoteTypeBean;
 
 public class NoteSingleFormPresenterImpl extends AbstractPresenter<NoteSingleForm> implements NoteSingleFormPresenter {
     private static final Logger Log = Logger.getLogger(NoteSingleFormPresenterImpl.class.getName());
@@ -56,6 +57,7 @@ public class NoteSingleFormPresenterImpl extends AbstractPresenter<NoteSingleFor
         NoteBean newBean = new NoteBean();
         newBean.setId(-1);
         newBean.setDate(date);
+        newBean.setTypeId(NoteTypeBean.DEFAULT_TYPE_ID);
         setData(newBean);
     }
 

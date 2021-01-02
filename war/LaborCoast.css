@@ -61,6 +61,10 @@
     justify-content: flex-end !important;
 }
 
+.NoteDayCalendarWidgetSelectable {
+    border: 2px solid black;
+}
+
 .CalendarHeaderField {
     width: 100px;
     text-align: center;

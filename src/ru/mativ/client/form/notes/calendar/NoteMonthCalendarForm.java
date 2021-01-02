@@ -27,7 +27,6 @@ public class NoteMonthCalendarForm extends Composite {
     public NoteMonthCalendarForm() {
         init();
         build();
-        bind();
         initWidget(mainPanel);
     }
 
@@ -46,10 +45,6 @@ public class NoteMonthCalendarForm extends Composite {
     private void build() {
         mainPanel.add(advancedMonthPicker);
         mainPanel.add(calendarWidget);
-    }
-
-    private void bind() {
-
     }
 
     public void loadMonth(Date date) {

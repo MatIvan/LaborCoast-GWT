@@ -2,6 +2,8 @@ package ru.mativ.client.form.workspace;
 
 import java.util.Date;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -9,6 +11,7 @@ import ru.mativ.client.form.notes.calendar.NoteMonthCalendarForm;
 import ru.mativ.client.form.notes.day.NoteDayForm;
 import ru.mativ.client.form.notes.day.NoteDayFormPresenter;
 import ru.mativ.client.form.notes.day.impl.NoteDayFormImpl;
+import ru.mativ.client.form.notes.day.impl.NoteDayFormModel;
 import ru.mativ.client.form.notes.day.impl.NoteDayFormPresenterImpl;
 
 public class Workspace extends Composite {
@@ -55,6 +58,12 @@ public class Workspace extends Composite {
 
         //day
         noteDayForm = new NoteDayFormImpl();
+        noteDayForm.addValueChangeHandler(new ValueChangeHandler<NoteDayFormModel>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<NoteDayFormModel> event) {
+                noteMonthCalendarForm.loadMonth(event.getValue().getDate());
+            }
+        });
         noteDayFormPresenter = new NoteDayFormPresenterImpl(noteDayForm);
     }
 

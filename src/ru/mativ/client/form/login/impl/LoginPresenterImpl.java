@@ -63,7 +63,7 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginForm> implements 
                 loginService.setUserSession(result);
                 String resultMessageText = (result == null ? "Failure: Empty session." : "Success: " + loginService.getUser());
                 form.setMessage("Logging is " + resultMessageText);
-                globalBus.fireEvent(new NavigationEvent(NavigationTarget.HOME));
+                globalBus.fireEvent(new NavigationEvent(NavigationTarget.WORKSPACE));
             }
         };
     }

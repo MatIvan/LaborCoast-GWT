@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Label;
 import ru.mativ.client.form.report.ReportModel;
 import ru.mativ.client.form.report.ReportView;
 import ru.mativ.client.widgets.AdvancedMonthPicker;
+import ru.mativ.client.widgets.HLabeledPanel;
 import ru.mativ.client.widgets.mvp.view.VerticalView;
 
 public class ReportViewImpl extends VerticalView<ReportModel> implements ReportView {
@@ -17,6 +18,10 @@ public class ReportViewImpl extends VerticalView<ReportModel> implements ReportV
 
     private AdvancedMonthPicker advancedMonthPicker;
     private TicketsTable ticketsTable;
+
+    private Label lMiting;
+    private Label lVacation;
+    private Label lSumm;
 
     public ReportViewImpl() {
         super();
@@ -36,6 +41,10 @@ public class ReportViewImpl extends VerticalView<ReportModel> implements ReportV
         }
         advancedMonthPicker.setValue(value.getDate());
         ticketsTable.fill(value.getTickets());
+
+        lMiting.setText(String.valueOf(value.getMitingHourse()));
+        lVacation.setText(String.valueOf(value.getVacationHourse()));
+        lSumm.setText(String.valueOf(value.getSummHourse()));
     }
 
     @Override
@@ -51,12 +60,20 @@ public class ReportViewImpl extends VerticalView<ReportModel> implements ReportV
         });
 
         ticketsTable = new TicketsTable();
+
+        lMiting = new Label("0");
+        lVacation = new Label("0");
+        lSumm = new Label("0");
     }
 
     @Override
     protected void build() {
         addField("Date:", advancedMonthPicker);
         addField("Tickets:", ticketsTable);
+
+        addField(new HLabeledPanel("Mitings: ", lMiting));
+        addField(new HLabeledPanel("Vacation: ", lVacation));
+        addField(new HLabeledPanel("All summ: ", lSumm));
 
         //HorizontalPanel buttonsPanel = new HorizontalPanel();
         //buttonsPanel.add(addNoteButton);

@@ -23,6 +23,10 @@ import ru.mativ.client.form.notes.day.impl.NoteDayFormPresenterImpl;
 import ru.mativ.client.form.registration.RegistrationForm;
 import ru.mativ.client.form.registration.impl.RegistrationFormImpl;
 import ru.mativ.client.form.registration.impl.RegistrationFormPresenterImpl;
+import ru.mativ.client.form.report.ReportPresenter;
+import ru.mativ.client.form.report.ReportView;
+import ru.mativ.client.form.report.impl.ReportPresenterImpl;
+import ru.mativ.client.form.report.impl.ReportViewImpl;
 import ru.mativ.client.form.workspace.Workspace;
 import ru.mativ.client.service.proxy.LoginServiceProxy;
 
@@ -88,6 +92,9 @@ public class ContentForm extends Composite {
             case REGISTRATION:
                 showRegistrationForm();
                 break;
+            case REPORT:
+                showReportForm();
+                break;
             default:
                 break;
         }
@@ -127,5 +134,12 @@ public class ContentForm extends Composite {
         Workspace workspace = new Workspace();
         panel.add(workspace);
         workspace.load(new Date());
+    }
+
+    private void showReportForm() {
+        ReportView view = new ReportViewImpl();
+        ReportPresenter presenter = new ReportPresenterImpl(view);
+        presenter.go(panel);
+        presenter.load(new Date());
     }
 }

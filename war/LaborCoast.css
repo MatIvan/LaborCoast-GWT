@@ -101,3 +101,31 @@
 .workspace-bottom {
     
 }
+
+.TicketsTable {
+    border: 1px solid black;
+}
+
+.TicketsTable-head-num {
+    font-weight: bold;
+    width: 20px;
+}
+
+.TicketsTable-head-ticket {
+    font-weight: bold;
+    width: 400px;
+}
+
+.TicketsTable-head-comment {
+    font-weight: bold;
+    width: 400px;
+}
+
+.TicketsTable-head-hours {
+    font-weight: bold;
+    width: 40px;
+}
+
+.TicketsTable-cell-hours {
+    text-align: center;
+}

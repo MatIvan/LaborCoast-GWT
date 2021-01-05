@@ -30,6 +30,7 @@ public class HeaderForm extends Composite {
     private Button btnNoteDay;
     private Button btnNoteMonth;
     private Button btnWorkspace;
+    private Button btnReport;
 
     public HeaderForm() {
         initGui();
@@ -51,6 +52,7 @@ public class HeaderForm extends Composite {
         btnNoteDay = NavigateButtonsFabrica.createButton(NavigationTarget.NOTE_DAY);
         btnNoteMonth = NavigateButtonsFabrica.createButton(NavigationTarget.NOTE_MONTH);
         btnWorkspace = NavigateButtonsFabrica.createButton(NavigationTarget.WORKSPACE);
+        btnReport = NavigateButtonsFabrica.createButton(NavigationTarget.REPORT);
 
         mainPanel = new VerticalPanel();
         mainPanel.setSpacing(2);
@@ -95,5 +97,6 @@ public class HeaderForm extends Composite {
         secondPanel.add(btnNoteDay);
         secondPanel.add(btnNoteMonth);
         secondPanel.add(btnWorkspace);
+        secondPanel.add(btnReport);
     }
 }

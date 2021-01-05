@@ -99,8 +99,8 @@
             comment,
             sum(hours) as hours_sum
         FROM note
-        WHERE user_id = 1
-        AND day BETWEEN '01.01.2021' AND '31.01.2021'
+        WHERE user_id = #{userId}
+        AND day BETWEEN #{dateFrom} AND #{dateTo}
         GROUP BY type_id, note, comment;
     </select>
 </mapper>

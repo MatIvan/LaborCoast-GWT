@@ -13,6 +13,7 @@ import ru.mativ.client.service.NoteServiceAsync;
 import ru.mativ.client.service.RequestService;
 import ru.mativ.shared.bean.NoteBean;
 import ru.mativ.shared.bean.NoteCalendarDay;
+import ru.mativ.shared.bean.ReportRowBean;
 
 public class NoteServiceProxy implements NoteServiceAsync {
     private static final RequestService requestService = LaborCoast.getRequestService();
@@ -45,6 +46,12 @@ public class NoteServiceProxy implements NoteServiceAsync {
     @Override
     public RequestBuilder getCalendarDaysByMonth(Date date, AsyncCallback<List<NoteCalendarDay>> callback) {
         requestService.send(noteService.getCalendarDaysByMonth(date, callback));
+        return null;
+    }
+
+    @Override
+    public RequestBuilder getReportRowByMonth(Date date, AsyncCallback<List<ReportRowBean>> callback) {
+        requestService.send(noteService.getReportRowByMonth(date, callback));
         return null;
     }
 }

@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import ru.mativ.shared.bean.NoteBean;
 import ru.mativ.shared.bean.NoteCalendarDay;
+import ru.mativ.shared.bean.ReportRowBean;
 
 public interface NoteServiceAsync {
 
@@ -20,4 +21,6 @@ public interface NoteServiceAsync {
     RequestBuilder getByMonth(Date date, AsyncCallback<List<NoteBean>> callback);
 
     RequestBuilder getCalendarDaysByMonth(Date date, AsyncCallback<List<NoteCalendarDay>> callback);
+
+    RequestBuilder getReportRowByMonth(Date date, AsyncCallback<List<ReportRowBean>> callback);
 }

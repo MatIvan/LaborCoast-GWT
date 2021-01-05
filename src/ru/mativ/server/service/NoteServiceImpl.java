@@ -10,9 +10,11 @@ import java.util.Map;
 import ru.mativ.client.service.NoteService;
 import ru.mativ.server.mybatis.dao.NoteDao;
 import ru.mativ.server.mybatis.dao.NoteDaoConvertor;
+import ru.mativ.server.mybatis.dao.ReportRowDao;
 import ru.mativ.server.repository.NoteRepository;
 import ru.mativ.shared.bean.NoteBean;
 import ru.mativ.shared.bean.NoteCalendarDay;
+import ru.mativ.shared.bean.ReportRowBean;
 import ru.mativ.shared.exception.DataSaveException;
 import ru.mativ.shared.exception.LoginFialException;
 import ru.mativ.shared.exception.NotFoundException;
@@ -131,5 +133,18 @@ public class NoteServiceImpl extends BaseServiceImpl implements NoteService {
         result.setNoteList(new ArrayList<NoteBean>());
         result.setHoursSumm(0);
         return result;
+    }
+
+    @Override
+    public List<ReportRowBean> getReportRowByMonth(Date date) throws LoginFialException, NotFoundException {
+        int userId = getCurrentUser().getId();
+        String dateFrom = StringDateUtil.getFirstDayOfMonth(date);
+        String sateTo = StringDateUtil.getLastDayOfMonth(date);
+
+        List<ReportRowDao> reportDaoList = noteRepository.getSummByUserIdAndPeriod(userId, dateFrom, sateTo);
+        if (reportDaoList == null) {
+            throw new NotFoundException("Notes not found.");
+        }
+        return NoteDaoConvertor.makeReportRowBeanList(reportDaoList);
     }
 }

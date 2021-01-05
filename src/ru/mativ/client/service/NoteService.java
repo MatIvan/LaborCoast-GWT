@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import ru.mativ.shared.bean.NoteBean;
 import ru.mativ.shared.bean.NoteCalendarDay;
+import ru.mativ.shared.bean.ReportRowBean;
 import ru.mativ.shared.exception.DataSaveException;
 import ru.mativ.shared.exception.LoginFialException;
 import ru.mativ.shared.exception.NotFoundException;
@@ -24,4 +25,6 @@ public interface NoteService extends RemoteService {
     List<NoteBean> getByMonth(Date date) throws LoginFialException, NotFoundException;
 
     List<NoteCalendarDay> getCalendarDaysByMonth(Date date) throws LoginFialException, NotFoundException;
+
+    List<ReportRowBean> getReportRowByMonth(Date date) throws LoginFialException, NotFoundException;
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import ru.mativ.server.mybatis.dao.NoteDao;
+import ru.mativ.server.mybatis.dao.ReportRowDao;
 import ru.mativ.shared.exception.DataSaveException;
 
 public interface NoteMapper {
@@ -18,4 +19,6 @@ public interface NoteMapper {
     int update(NoteDao noteDao) throws DataSaveException;
 
     List<NoteDao> getByUserIdAndPeriod(@Param("userId") int userId, @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo);
+
+    List<ReportRowDao> getSummByUserIdAndPeriod(@Param("userId") int userId, @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo);
 }

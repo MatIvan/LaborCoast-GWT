@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import ru.mativ.server.mybatis.MyBatisService;
 import ru.mativ.server.mybatis.dao.NoteDao;
+import ru.mativ.server.mybatis.dao.ReportRowDao;
 import ru.mativ.server.mybatis.mappers.NoteMapper;
 import ru.mativ.shared.exception.DataSaveException;
 
@@ -100,5 +101,10 @@ public class NoteRepository implements NoteMapper {
     @Override
     public List<NoteDao> getByUserIdAndPeriod(int userId, String dateFrom, String dateTo) {
         return mapper().getByUserIdAndPeriod(userId, dateFrom, dateTo);
+    }
+
+    @Override
+    public List<ReportRowDao> getSummByUserIdAndPeriod(int userId, String dateFrom, String dateTo) {
+        return mapper().getSummByUserIdAndPeriod(userId, dateFrom, dateTo);
     }
 }

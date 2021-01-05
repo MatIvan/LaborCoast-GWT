@@ -15,6 +15,13 @@
         <result property="hours"    column="hours" />
     </resultMap>
 
+    <resultMap id="ReportRowDaoResult" type="ru.mativ.server.mybatis.dao.ReportRowDao">
+        <result property="typeId"   column="type_id" />
+        <result property="note"     column="note" />
+        <result property="comment"  column="comment" />
+        <result property="hours_sum"    column="hours_sum" />
+    </resultMap>
+
     <select id="getByUserIdAndDate" resultMap="NoteDaoResult">
         SELECT  id,
                 user_id,
@@ -83,5 +90,17 @@
         FROM note
         WHERE user_id = #{userId}
         AND day BETWEEN #{dateFrom} AND #{dateTo};
+    </select>
+
+    <select id="getSummByUserIdAndPeriod" resultMap="ReportRowDaoResult">
+        SELECT
+            type_id,
+            note,
+            comment,
+            sum(hours) as hours_sum
+        FROM note
+        WHERE user_id = 1
+        AND day BETWEEN '01.01.2021' AND '31.01.2021'
+        GROUP BY type_id, note, comment;
     </select>
 </mapper>
